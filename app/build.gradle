@@ -1,0 +1,115 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+def bakPath = file("${buildDir}/bakApk/")
+def releaseTime() {
+    return new Date().format("MMdd-HH-mm-ss")
+}
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.jscoolstar.accountremeber"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+
+        productFlavors {
+            buildConfigField "boolean", "TESTDATA", "false"
+            js_debug {
+                buildConfigField "boolean", "TESTDATA", "true"
+            }
+            js_release {}
+        }
+
+        signingConfigs {
+            debug {
+                storeFile file("E:\\AccountRemeber\\jscoolstar.jks")
+                storePassword "850730shen"
+                keyAlias "key0"
+                keyPassword "850730shen"
+            }
+            release {
+                storeFile file("E:\\AccountRemeber\\jscoolstar.jks")
+                storePassword "850730shen"
+                keyAlias "key0"
+                keyPassword "850730shen"
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    List<String> flavors = new ArrayList<>();
+    project.android.productFlavors.each { flavor ->
+        flavors.add(flavor.name)
+    }
+    boolean hasFlavors = flavors.size() > 0
+    applicationVariants.all { variant ->
+
+//        variant.outputs.each { output ->
+//            output.versionCodeOverride =
+//                    project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) * 1000 + android.defaultConfig.versionCode
+//        }
+        def taskName = variant.name
+        tasks.all {
+            if ("assemble${taskName.capitalize()}".equalsIgnoreCase(it.name)) {
+
+                it.doLast {
+                    copy {
+//                        def reversionStr = getSvnRevision()
+                        def fileNamePrefix = "${project.name}-${variant.productFlavors[0].name}-${variant.buildType.name}-${variant.ndkCompile.name}"
+                        def newFileNamePrefixAPK = "AccountRemeber-" + defaultConfig.versionName + '-b' + versionCode
+
+                        def destPath = hasFlavors ? file("${bakPath}/${"AccountRemeber-"}-${releaseTime()}/${variant.flavorName}") : bakPath
+                        from variant.outputs.outputFile
+                        into destPath
+                        rename { String fileName ->
+//                            fileName.replace("${fileNamePrefix}.apk", "${newFileNamePrefix}.apk")
+                            fileName.replace("${project.name}", "${newFileNamePrefixAPK}")
+                        }
+
+
+                        def newFileNamePrefix = "AccountRemeber-" + variant.baseName + "-" + defaultConfig.versionName + '-b' + versionCode
+
+                        from "${buildDir}/outputs/mapping/${variant.dirName}/mapping.txt"
+                        into destPath
+                        rename { String fileName ->
+                            fileName.replace("mapping.txt", "${newFileNamePrefix}-mapping.txt")
+                        }
+
+                        from "${buildDir}/intermediates/symbols/${variant.dirName}/R.txt"
+                        into destPath
+                        rename { String fileName ->
+                            fileName.replace("R.txt", "${newFileNamePrefix}-R.txt")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile project(':jscoolstarlibrary')
+}

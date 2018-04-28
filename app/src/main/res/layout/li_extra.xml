@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@android:drawable/ic_delete"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tv_extra_title"
+            style="@style/editact_lefttv"
+            tools:text="额外属性:" />
+
+        <TextView
+            android:id="@+id/tv_extra_value"
+            style="@style/editact_rightet"
+            tools:text="额外属性value" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

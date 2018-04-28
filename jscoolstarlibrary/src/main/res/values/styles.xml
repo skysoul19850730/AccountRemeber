@@ -1,0 +1,16 @@
+<resources>
+
+    <style name="JSMaterialDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="colorAccent">@color/js_dialogBtnTextColor</item>
+        <item name="android:textColorPrimary">@color/js_dialogMessageTextColor</item>
+        <item name="titleTextColor">@color/js_dialogTitleTextColor</item>
+        <!--<item name="android:textColor">#333333</item>-->
+        <!--&lt;!&ndash; title 颜色 &ndash;&gt;-->
+        <!--<item name="android:textSize">40sp</item>-->
+        <!-- 背景 颜色 -->
+        <!--<item name="android:colorControlHighlight">@color/ripple_material_light</item>-->
+        <!--<item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>-->
+    </style>
+
+</resources>

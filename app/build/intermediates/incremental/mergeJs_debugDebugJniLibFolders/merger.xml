@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\AccountRemeber\app\src\main\jniLibs"/></dataSet><dataSet config="js_debug"><source path="E:\AccountRemeber\app\src\js_debug\jniLibs"/></dataSet><dataSet config="debug"><source path="E:\AccountRemeber\app\src\debug\jniLibs"/></dataSet><dataSet config="js_debugDebug"><source path="E:\AccountRemeber\app\src\js_debugDebug\jniLibs"/></dataSet></merger>
