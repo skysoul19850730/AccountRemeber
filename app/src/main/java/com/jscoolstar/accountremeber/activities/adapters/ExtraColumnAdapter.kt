@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull
 /**
  * Created by Administrator on 2018/4/17.
  */
-class ExtraColumnAdapter(val mContext:Context,var mList:ArrayList<ExtraColumn>,var columnClickListerner: ExtraColumnClickListerner):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn>, var columnClickListerner: ExtraColumnClickListerner) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         var mHolder = holder as MHoler
         var extraColumn = mList[position]
@@ -24,12 +24,12 @@ class ExtraColumnAdapter(val mContext:Context,var mList:ArrayList<ExtraColumn>,v
         mHolder.tv_extra_title.setOnClickListener({
             columnClickListerner.onItemClick(extraColumn)
         })
-        mHolder.tv_extra_value.setOnClickListener({columnClickListerner.onItemClick(extraColumn)})
-        mHolder.btn_delete.setOnClickListener({columnClickListerner.onItemDeleteClick(extraColumn)})
+        mHolder.tv_extra_value.setOnClickListener({ columnClickListerner.onItemClick(extraColumn) })
+        mHolder.btn_delete.setOnClickListener({ columnClickListerner.onItemDeleteClick(extraColumn) })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        var view = LayoutInflater.from(mContext).inflate(R.layout.li_extra,parent,false)
+        var view = LayoutInflater.from(mContext).inflate(R.layout.li_extra, parent, false)
         return MHoler(view)
     }
 
@@ -37,19 +37,20 @@ class ExtraColumnAdapter(val mContext:Context,var mList:ArrayList<ExtraColumn>,v
         return mList.size
     }
 
-    interface ExtraColumnClickListerner{
+    interface ExtraColumnClickListerner {
         fun onItemClick(extraColumn: ExtraColumn)
         fun onItemDeleteClick(extraColumn: ExtraColumn)
     }
 
-    class MHoler(val view:View):RecyclerView.ViewHolder(view){
-        var btn_delete:ImageView
-        var tv_extra_title:TextView
-        var tv_extra_value:TextView
+    class MHoler(val view: View) : RecyclerView.ViewHolder(view) {
+        var btn_delete: ImageView
+        var tv_extra_title: TextView
+        var tv_extra_value: TextView
+
         init {
-            btn_delete = view.findViewById(R.id.btn_delete) as ImageView
-            tv_extra_title = view.findViewById(R.id.tv_extra_title) as TextView
-            tv_extra_value = view.findViewById(R.id.tv_extra_value) as TextView
+            btn_delete = view.findViewById<ImageView>(R.id.btn_delete)
+            tv_extra_title = view.findViewById<TextView>(R.id.tv_extra_title)
+            tv_extra_value = view.findViewById<TextView>(R.id.tv_extra_value)
         }
     }
 }

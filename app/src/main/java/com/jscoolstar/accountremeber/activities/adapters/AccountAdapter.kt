@@ -90,8 +90,8 @@ class AccountAdapter(val mContext: Context, var mList: List<Account>) : Recycler
         var cb_select: CheckBox
 
         init {
-            tv_title = view.findViewById(R.id.tv_title) as TextView
-            cb_select = view.findViewById(R.id.cb_select) as CheckBox
+            tv_title = view.findViewById<TextView>(R.id.tv_title)
+            cb_select = view.findViewById<CheckBox>(R.id.cb_select)
         }
     }
 }
