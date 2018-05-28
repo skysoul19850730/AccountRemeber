@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull
  * Created by Administrator on 2018/4/17.
  */
 class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn>, var columnClickListerner: ExtraColumnClickListerner) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var mHolder = holder as MHoler
         var extraColumn = mList[position]
         mHolder.tv_extra_title.text = extraColumn.key
@@ -28,7 +28,7 @@ class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn
         mHolder.btn_delete.setOnClickListener({ columnClickListerner.onItemDeleteClick(extraColumn) })
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var view = LayoutInflater.from(mContext).inflate(R.layout.li_extra, parent, false)
         return MHoler(view)
     }

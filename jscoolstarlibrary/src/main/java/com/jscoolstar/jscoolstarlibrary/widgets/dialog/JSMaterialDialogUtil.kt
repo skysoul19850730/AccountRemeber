@@ -53,12 +53,10 @@ class JSMaterialDialogUtil {
         return true
     }
 
-    fun showDialog(title:String, message: String, cancelText: String, confirmText: String, dialogClickListerner: JSMaterialDialogClickListerner?): AlertDialog? {
+    fun showDialog(title: String, message: String, cancelText: String, confirmText: String, dialogClickListerner: JSMaterialDialogClickListerner?): AlertDialog? {
         if (!preCheck()) return null
         var builder = BuildDialog()
-        if(title!=null){
-            builder.setTitle(title)
-        }
+        builder.setTitle(title)
         return builder.setMessage(message)
                 .setNegativeButton(cancelText, DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onCancelClick(dialog, which) }).setPositiveButton(confirmText, DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onConfirmClick(dialog, which) })
                 .show()

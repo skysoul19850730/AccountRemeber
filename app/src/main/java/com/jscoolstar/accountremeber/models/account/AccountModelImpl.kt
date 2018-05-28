@@ -19,7 +19,7 @@ class AccountModelImpl : AccountModel {
         var cursor: Cursor? = null
         try {
             var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            cursor = dbHelper.readableDatabase.query(SQL.T_ACCOUNT, null, null, null, null, null, null)
+            cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, null, null, null, null, null)
             if (cursor != null) {
                 var column: ExtraColumn
                 while (cursor.moveToNext()) {
@@ -43,9 +43,9 @@ class AccountModelImpl : AccountModel {
             var contentValues = getCountentValues(account)
 
             if (account.id > 0) {
-                dbHelper.writableDatabase.update(SQL.T_ACCOUNT, contentValues, "id=?", arrayOf(account.id.toString()))
+                dbHelper.writableDatabase.update(SQL.ACCOUNT.TABLENAME, contentValues, "id=?", arrayOf(account.id.toString()))
             } else {
-                var id = dbHelper.writableDatabase.insert(SQL.T_ACCOUNT, null, contentValues)
+                var id = dbHelper.writableDatabase.insert(SQL.ACCOUNT.TABLENAME, null, contentValues)
                 if (id < 0) {
                     throw Exception()
                 }
@@ -69,7 +69,7 @@ class AccountModelImpl : AccountModel {
         try {
             dbHelper.writableDatabase.beginTransaction()
             extraColumnModel.deleteColumns4AccoutnId(account.id)//先删除账户的额外属性，然后再删除账户
-            dbHelper.writableDatabase.delete(SQL.T_ACCOUNT, "id=?", arrayOf(account.id.toString()))
+            dbHelper.writableDatabase.delete(SQL.ACCOUNT.TABLENAME, "id=?", arrayOf(account.id.toString()))
             dbHelper.writableDatabase.setTransactionSuccessful()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -86,7 +86,7 @@ class AccountModelImpl : AccountModel {
         var cursor: Cursor? = null
         try {
             var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            cursor = dbHelper.readableDatabase.query(SQL.T_ACCOUNT, null, SQL.TA_PLATFORM + " like ?", arrayOf("% ${key} %"), null, null, null)
+            cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, SQL.ACCOUNT.DB1.C_PLATFORM + " like ?", arrayOf("% ${key} %"), null, null, null)
             if (cursor != null) {
                 var column: ExtraColumn
                 while (cursor.moveToNext()) {
@@ -105,24 +105,24 @@ class AccountModelImpl : AccountModel {
 
     private fun getCountentValues(account: Account): ContentValues {
         var contentValues = ContentValues()
-        contentValues.put(SQL.TA_PLATFORM,account.platform)
-        contentValues.put(SQL.TA_password,account.password)
-        contentValues.put(SQL.TA_tip,account.tip)
-        contentValues.put(SQL.TA_bindphone,account.bindphone)
-        contentValues.put(SQL.TA_bindmail,account.bindmail)
-        contentValues.put(SQL.TA_create_time,account.create_time)
+        contentValues.put(SQL.ACCOUNT.DB1.C_PLATFORM, account.platform)
+        contentValues.put(SQL.ACCOUNT.DB1.C_password, account.password)
+        contentValues.put(SQL.ACCOUNT.DB1.C_tip, account.tip)
+        contentValues.put(SQL.ACCOUNT.DB1.C_bindphone, account.bindphone)
+        contentValues.put(SQL.ACCOUNT.DB1.C_bindmail, account.bindmail)
+        contentValues.put(SQL.ACCOUNT.DB1.C_create_time, account.create_time)
         return contentValues
     }
 
     private fun cursorToAccount(cursor: Cursor): Account {
         var account: Account = Account()
         account.id = cursor.getInt(cursor.getColumnIndex("id"))
-        account.bindmail = cursor.getString(cursor.getColumnIndex(SQL.TA_bindmail))
-        account.bindphone = cursor.getString(cursor.getColumnIndex(SQL.TA_bindphone))
-        account.platform = cursor.getString(cursor.getColumnIndex(SQL.TA_PLATFORM))
-        account.password = cursor.getString(cursor.getColumnIndex(SQL.TA_password))
-        account.tip = cursor.getString(cursor.getColumnIndex(SQL.TA_tip))
-        account.create_time = cursor.getString(cursor.getColumnIndex(SQL.TA_create_time))
+        account.bindmail = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_bindmail))
+        account.bindphone = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_bindphone))
+        account.platform = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_PLATFORM))
+        account.password = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_password))
+        account.tip = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_tip))
+        account.create_time = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_create_time))
         account.extraColumnList = ExtraColumnModelImpl().getColumnsWithAccountID(account.id)
         return account
     }

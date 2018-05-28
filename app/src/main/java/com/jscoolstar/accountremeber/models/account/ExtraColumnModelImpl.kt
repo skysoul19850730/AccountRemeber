@@ -18,7 +18,7 @@ class ExtraColumnModelImpl : ExtraColumnModel {
 
 
             var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            cursor = dbHelper.readableDatabase.query(SQL.T_EXTRA_COLUMN, null, "aid=?", arrayOf("" + accountId), null, null, null)
+            cursor = dbHelper.readableDatabase.query(SQL.EXTRA.TABLENAME, null, "aid=?", arrayOf("" + accountId), null, null, null)
 
             if (cursor != null) {
                 var column: ExtraColumn
@@ -26,8 +26,8 @@ class ExtraColumnModelImpl : ExtraColumnModel {
                     column = ExtraColumn()
                     column.id = cursor.getInt(cursor.getColumnIndex("id"))
                     column.aId = accountId
-                    column.key = cursor.getString(cursor.getColumnIndex(SQL.TE_key))
-                    column.value = cursor.getString(cursor.getColumnIndex(SQL.TE_value))
+                    column.key = cursor.getString(cursor.getColumnIndex(SQL.EXTRA.DB1.C_key))
+                    column.value = cursor.getString(cursor.getColumnIndex(SQL.EXTRA.DB1.C_value))
                     columns.add(column)
                 }
                 cursor.close()
@@ -44,7 +44,7 @@ class ExtraColumnModelImpl : ExtraColumnModel {
         try {
 
             var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            dbHelper.writableDatabase.delete(SQL.T_EXTRA_COLUMN, "id=?", arrayOf("" + columnId))
+            dbHelper.writableDatabase.delete(SQL.EXTRA.TABLENAME, "id=?", arrayOf("" + columnId))
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -56,7 +56,7 @@ class ExtraColumnModelImpl : ExtraColumnModel {
     override fun deleteColumns4AccoutnId(accountId: Int): Boolean {
         try {
             var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            dbHelper.writableDatabase.delete(SQL.T_EXTRA_COLUMN, SQL.TE_aid + "=?", arrayOf("" + accountId))
+            dbHelper.writableDatabase.delete(SQL.EXTRA.TABLENAME, SQL.EXTRA.DB1.C_aid + "=?", arrayOf("" + accountId))
         } catch (e: Exception) {
             e.printStackTrace()
             return false
@@ -75,7 +75,7 @@ class ExtraColumnModelImpl : ExtraColumnModel {
                 //代表是修改
                 editColumn(column)
             } else
-                dbHelper.writableDatabase.insert(SQL.T_EXTRA_COLUMN, null, contentValues)
+                dbHelper.writableDatabase.insert(SQL.EXTRA.TABLENAME, null, contentValues)
         } catch (e: Exception) {
             e.printStackTrace()
             throw e
@@ -108,7 +108,7 @@ class ExtraColumnModelImpl : ExtraColumnModel {
         try {
             var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
             var contentValues = getContentValueWithColumn(column)
-            dbHelper.writableDatabase.update(SQL.T_EXTRA_COLUMN, contentValues, "id=?", arrayOf(column.id.toString()))
+            dbHelper.writableDatabase.update(SQL.EXTRA.TABLENAME, contentValues, "id=?", arrayOf(column.id.toString()))
         } catch (e: Exception) {
             e.printStackTrace()
             return false
@@ -118,9 +118,9 @@ class ExtraColumnModelImpl : ExtraColumnModel {
 
     private fun getContentValueWithColumn(column: ExtraColumn): ContentValues {
         var contentValues = ContentValues()
-        contentValues.put(SQL.TE_key, column.key)
-        contentValues.put(SQL.TE_value, column.value)
-        contentValues.put(SQL.TE_aid, column.aId)
+        contentValues.put(SQL.EXTRA.DB1.C_key, column.key)
+        contentValues.put(SQL.EXTRA.DB1.C_value, column.value)
+        contentValues.put(SQL.EXTRA.DB1.C_aid, column.aId)
         if (column.id > 0) {
             contentValues.put("id", column.id)
         }

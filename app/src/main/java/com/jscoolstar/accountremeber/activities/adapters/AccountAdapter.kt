@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.li_accout.*
  * Created by Administrator on 2018/4/16.
  */
 class AccountAdapter(val mContext: Context, var mList: List<Account>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     interface AccountListClickListerner {
         fun onItemClick(account: Account)
         fun onItemLongClick(account: Account)
@@ -38,7 +39,7 @@ class AccountAdapter(val mContext: Context, var mList: List<Account>) : Recycler
     }
 
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var mHolder: MViewHolder = holder as MViewHolder
         var account = mList[position]
         mHolder.tv_title.setText(account.platform)
@@ -79,7 +80,7 @@ class AccountAdapter(val mContext: Context, var mList: List<Account>) : Recycler
         return mList.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var view = LayoutInflater.from(mContext).inflate(R.layout.li_accout, parent, false)
         return MViewHolder(view)
     }
