@@ -47,6 +47,20 @@
 
                 <TextView
                     style="@style/editact_lefttv"
+                    android:text="账号:"/>
+                <EditText
+                    android:id="@+id/et_account"
+                    style="@style/editact_rightet"
+                    android:hint="输入平台账号"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/editact_lefttv"
                     android:text="密码:"/>
                 <EditText
                     android:id="@+id/et_password"
@@ -96,6 +110,27 @@
                     android:hint="输入平台账号绑定的手机号码"/>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/editact_lefttv"
+                    android:text="所属分类:"/>
+                <Spinner
+                    android:id="@+id/spinner_cate"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"></Spinner>
+                <Button
+                    android:id="@+id/btn_addCate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="增加"/>
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -125,6 +160,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
+        android:visibility="gone"
         android:background="#ffffff">
 
         <EditText
@@ -139,6 +175,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/et_permission"
             android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
             android:text="确认"/>
     </RelativeLayout>
 

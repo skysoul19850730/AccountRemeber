@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 /**
  * Created by Administrator on 2018/3/30.
@@ -45,6 +46,7 @@ class DBHelper : SQLiteOpenHelper {
     }
 
     private fun upgradeToVersion2(db: SQLiteDatabase?) {
+        Log.d("sqc","upgradeToVersion2")
         //升级数据库时参考此模式
         // new table named "cate"
         db?.execSQL(SQL.CATE.DB2.SQL_CREATE_TABLE)

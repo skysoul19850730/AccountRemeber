@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Mai
 
     fun doItemClick(account: Account){
         var msg = account.tip ?: "没有设置密码提示"
-        JSMaterialDialogUtil.INSTANCE.build(this).showDialog("密码提示",msg,"取消","进入详情",object :JSMaterialDialogClickListerner{
+        JSMaterialDialogUtil.INSTANCE.build(this).showDialog("密码提示",null,msg,"取消","进入详情",object :JSMaterialDialogClickListerner{
             override fun onCancelClick(dialogInterface: DialogInterface, which: Int) {
             }
 

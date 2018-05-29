@@ -14,7 +14,9 @@ class Account() : Parcelable {
     var bindphone:String?=null
     var bindmail:String?=null
     var create_time:String?=null
+    var accountName:String?=null
 
+    var cate:Cate?=null
     var extraColumnList:ArrayList<ExtraColumn>?=null
 
     constructor(parcel: Parcel) : this() {
@@ -25,6 +27,9 @@ class Account() : Parcelable {
         bindphone = parcel.readString()
         bindmail = parcel.readString()
         create_time = parcel.readString()
+        accountName = parcel.readString()
+
+        cate = parcel.readParcelable(Cate::class.java.classLoader) as Cate
         extraColumnList = parcel.readArrayList(ExtraColumn::class.java.classLoader) as ArrayList<ExtraColumn>?
     }
 
@@ -36,6 +41,9 @@ class Account() : Parcelable {
         parcel.writeString(bindphone)
         parcel.writeString(bindmail)
         parcel.writeString(create_time)
+        parcel.writeString(accountName)
+
+        parcel.writeParcelable(cate,flags)
         parcel.writeList(extraColumnList)
     }
 

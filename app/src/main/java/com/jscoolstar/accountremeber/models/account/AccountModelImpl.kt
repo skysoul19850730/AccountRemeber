@@ -30,6 +30,7 @@ class AccountModelImpl : AccountModel {
 
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
             cursor?.close()
         }
 
@@ -111,6 +112,8 @@ class AccountModelImpl : AccountModel {
         contentValues.put(SQL.ACCOUNT.DB1.C_bindphone, account.bindphone)
         contentValues.put(SQL.ACCOUNT.DB1.C_bindmail, account.bindmail)
         contentValues.put(SQL.ACCOUNT.DB1.C_create_time, account.create_time)
+        contentValues.put(SQL.ACCOUNT.DB2.C_ACCOUNT,account.accountName)
+        contentValues.put(SQL.ACCOUNT.DB2.C_CATEID,account.cate?.id)
         return contentValues
     }
 
@@ -122,8 +125,11 @@ class AccountModelImpl : AccountModel {
         account.platform = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_PLATFORM))
         account.password = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_password))
         account.tip = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_tip))
+        account.accountName = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB2.C_ACCOUNT))
         account.create_time = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_create_time))
         account.extraColumnList = ExtraColumnModelImpl().getColumnsWithAccountID(account.id)
+        var cateID = cursor.getInt(cursor.getColumnIndex(SQL.ACCOUNT.DB2.C_CATEID))
+        account.cate = CateModelImpl().getCateByID(cateID)
         return account
     }
 }

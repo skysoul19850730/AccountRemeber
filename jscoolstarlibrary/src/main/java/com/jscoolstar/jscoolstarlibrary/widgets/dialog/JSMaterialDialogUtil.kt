@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
+import android.view.View
 import com.jscoolstar.jscoolstarlibrary.R
 
 /**
@@ -53,10 +54,13 @@ class JSMaterialDialogUtil {
         return true
     }
 
-    fun showDialog(title: String, message: String, cancelText: String, confirmText: String, dialogClickListerner: JSMaterialDialogClickListerner?): AlertDialog? {
+    fun showDialog(title: String,v:View?, message: String, cancelText: String, confirmText: String, dialogClickListerner: JSMaterialDialogClickListerner?): AlertDialog? {
         if (!preCheck()) return null
         var builder = BuildDialog()
         builder.setTitle(title)
+        if(v!=null){
+            builder.setView(v)
+        }
         return builder.setMessage(message)
                 .setNegativeButton(cancelText, DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onCancelClick(dialog, which) }).setPositiveButton(confirmText, DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onConfirmClick(dialog, which) })
                 .show()
