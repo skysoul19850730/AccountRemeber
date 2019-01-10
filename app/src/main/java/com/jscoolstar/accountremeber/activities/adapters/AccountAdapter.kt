@@ -9,22 +9,21 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.TextView
 import com.jscoolstar.accountremeber.R
-import com.jscoolstar.accountremeber.db.entity.Account
-import kotlinx.android.synthetic.main.li_accout.*
+import com.jscoolstar.accountremeber.db.entity.DMAccount
 
 /**
  * Created by Administrator on 2018/4/16.
  */
-class AccountAdapter(val mContext: Context, var mList: List<Account>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AccountAdapter(val mContext: Context, var mList: List<DMAccount>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface AccountListClickListerner {
-        fun onItemClick(account: Account)
-        fun onItemLongClick(account: Account)
+        fun onItemClick(account: DMAccount)
+        fun onItemLongClick(account: DMAccount)
     }
 
     lateinit var listerner: AccountListClickListerner
 
-    var selectAccounts: ArrayList<Account> = ArrayList()
+    var selectAccounts: ArrayList<DMAccount> = ArrayList()
 
     var mInEdit = false
         set(value) {
@@ -33,7 +32,7 @@ class AccountAdapter(val mContext: Context, var mList: List<Account>) : Recycler
             notifyDataSetChanged()
         }
 
-    fun setList(list: List<Account>) {
+    fun setList(list: List<DMAccount>) {
         mList = list
         notifyDataSetChanged()
     }

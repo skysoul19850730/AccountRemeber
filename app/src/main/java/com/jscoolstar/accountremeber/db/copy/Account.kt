@@ -16,8 +16,8 @@ class Account() : Parcelable {
     var create_time:String?=null
     var accountName:String?=null
 
-    var cate:Cate?=null
-    var extraColumnList:ArrayList<ExtraColumn>?=null
+    var cate:DMCate?=null
+    var extraColumnList:ArrayList<DMExtraColumn>?=null
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
@@ -29,8 +29,8 @@ class Account() : Parcelable {
         create_time = parcel.readString()
         accountName = parcel.readString()
 
-        cate = parcel.readParcelable(Cate::class.java.classLoader) as Cate
-        extraColumnList = parcel.readArrayList(ExtraColumn::class.java.classLoader) as ArrayList<ExtraColumn>?
+        cate = parcel.readParcelable(DMCate::class.java.classLoader) as DMCate
+        extraColumnList = parcel.readArrayList(DMExtraColumn::class.java.classLoader) as ArrayList<DMExtraColumn>?
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -51,12 +51,12 @@ class Account() : Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Account> {
-        override fun createFromParcel(parcel: Parcel): Account {
-            return Account(parcel)
+    companion object CREATOR : Parcelable.Creator<DMAccount> {
+        override fun createFromParcel(parcel: Parcel): DMAccount {
+            return DMAccount(parcel)
         }
 
-        override fun newArray(size: Int): Array<Account?> {
+        override fun newArray(size: Int): Array<DMAccount?> {
             return arrayOfNulls(size)
         }
     }

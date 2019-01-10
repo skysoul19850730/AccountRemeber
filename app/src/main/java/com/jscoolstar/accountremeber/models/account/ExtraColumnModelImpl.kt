@@ -5,32 +5,47 @@ import android.database.Cursor
 import com.jscoolstar.accountremeber.apps.MApplication
 import com.jscoolstar.accountremeber.db.DBHelper
 import com.jscoolstar.accountremeber.db.SQL
-import com.jscoolstar.accountremeber.db.entity.ExtraColumn
+import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
+import com.jscoolstar.accountremeber.utils.get
 
 /**
  * Created by Administrator on 2018/4/2.
  */
 class ExtraColumnModelImpl : ExtraColumnModel {
-    override fun getColumnsWithAccountID(accountId: Int): ArrayList<ExtraColumn> {
-        var columns = ArrayList<ExtraColumn>()
+    var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
+    val TName = SQL.EXTRA.TABLENAME
+    var db1 = SQL.EXTRA.DB1;
+
+    private fun toExtraColumn(cursor: Cursor): DMExtraColumn {
+        var column = DMExtraColumn()
+        column.id = cursor.get("id")
+        column.aId = cursor.get(db1.C_aid)
+        column.key = cursor.get(db1.C_key)
+        column.value = cursor.get(db1.C_value)
+        return column
+    }
+    private fun getContentValues(column: DMExtraColumn): ContentValues {
+        var contentValues = ContentValues()
+        contentValues.put(db1.C_key, column.key)
+        contentValues.put(db1.C_value, column.value)
+        contentValues.put(db1.C_aid, column.aId)
+        if (column.id > 0) {
+            contentValues.put("id", column.id)
+        }
+        return contentValues
+    }
+
+
+    override fun getColumnsWithAccountID(accountId: Int): ArrayList<DMExtraColumn> {
+        var columns = ArrayList<DMExtraColumn>()
         var cursor: Cursor? = null
         try {
-
-
-            var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            cursor = dbHelper.readableDatabase.query(SQL.EXTRA.TABLENAME, null, "aid=?", arrayOf("" + accountId), null, null, null)
-
+            cursor = dbHelper.readableDatabase.query(TName, null, "${db1.C_aid}=?", arrayOf("" + accountId), null, null, null)
             if (cursor != null) {
-                var column: ExtraColumn
                 while (cursor.moveToNext()) {
-                    column = ExtraColumn()
-                    column.id = cursor.getInt(cursor.getColumnIndex("id"))
-                    column.aId = accountId
-                    column.key = cursor.getString(cursor.getColumnIndex(SQL.EXTRA.DB1.C_key))
-                    column.value = cursor.getString(cursor.getColumnIndex(SQL.EXTRA.DB1.C_value))
+                    var column = toExtraColumn(cursor)
                     columns.add(column)
                 }
-                cursor.close()
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -42,9 +57,7 @@ class ExtraColumnModelImpl : ExtraColumnModel {
 
     override fun deleteColumnWithId(columnId: Int): Boolean {
         try {
-
-            var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            dbHelper.writableDatabase.delete(SQL.EXTRA.TABLENAME, "id=?", arrayOf("" + columnId))
+            dbHelper.writableDatabase.delete(TName, "id=?", arrayOf("" + columnId))
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -55,8 +68,7 @@ class ExtraColumnModelImpl : ExtraColumnModel {
 
     override fun deleteColumns4AccoutnId(accountId: Int): Boolean {
         try {
-            var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            dbHelper.writableDatabase.delete(SQL.EXTRA.TABLENAME, SQL.EXTRA.DB1.C_aid + "=?", arrayOf("" + accountId))
+            dbHelper.writableDatabase.delete(TName, SQL.EXTRA.DB1.C_aid + "=?", arrayOf("" + accountId))
         } catch (e: Exception) {
             e.printStackTrace()
             return false
@@ -65,17 +77,15 @@ class ExtraColumnModelImpl : ExtraColumnModel {
     }
 
     @Throws(Exception::class)
-    override fun addColumn4AccountId(accountId: Int, column: ExtraColumn): Boolean {
+    override fun addColumn4AccountId(accountId: Int, column: DMExtraColumn): Boolean {
         try {
-
             column.aId = accountId
-            var contentValues = getContentValueWithColumn(column)
-            var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
+            var contentValues = getContentValues(column)
             if (column.id > 0) {
                 //代表是修改
                 editColumn(column)
             } else
-                dbHelper.writableDatabase.insert(SQL.EXTRA.TABLENAME, null, contentValues)
+                dbHelper.writableDatabase.insert(TName, null, contentValues)
         } catch (e: Exception) {
             e.printStackTrace()
             throw e
@@ -85,7 +95,7 @@ class ExtraColumnModelImpl : ExtraColumnModel {
     }
 
 
-    override fun addColumns4AccountId(accountId: Int, columns: List<ExtraColumn>): Boolean {
+    override fun addColumns4AccountId(accountId: Int, columns: List<DMExtraColumn>): Boolean {
         var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
         try {
 
@@ -104,11 +114,10 @@ class ExtraColumnModelImpl : ExtraColumnModel {
         return true
     }
 
-    private fun editColumn(column: ExtraColumn): Boolean {
+    private fun editColumn(column: DMExtraColumn): Boolean {
         try {
-            var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            var contentValues = getContentValueWithColumn(column)
-            dbHelper.writableDatabase.update(SQL.EXTRA.TABLENAME, contentValues, "id=?", arrayOf(column.id.toString()))
+            var contentValues = getContentValues(column)
+            dbHelper.writableDatabase.update(TName, contentValues, "id=?", arrayOf(column.id.toString()))
         } catch (e: Exception) {
             e.printStackTrace()
             return false
@@ -116,14 +125,5 @@ class ExtraColumnModelImpl : ExtraColumnModel {
         return true
     }
 
-    private fun getContentValueWithColumn(column: ExtraColumn): ContentValues {
-        var contentValues = ContentValues()
-        contentValues.put(SQL.EXTRA.DB1.C_key, column.key)
-        contentValues.put(SQL.EXTRA.DB1.C_value, column.value)
-        contentValues.put(SQL.EXTRA.DB1.C_aid, column.aId)
-        if (column.id > 0) {
-            contentValues.put("id", column.id)
-        }
-        return contentValues
-    }
+
 }

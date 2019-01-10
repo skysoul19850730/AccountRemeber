@@ -5,25 +5,61 @@ import android.database.Cursor
 import com.jscoolstar.accountremeber.apps.MApplication
 import com.jscoolstar.accountremeber.db.DBHelper
 import com.jscoolstar.accountremeber.db.SQL
-import com.jscoolstar.accountremeber.db.entity.Account
-import com.jscoolstar.accountremeber.db.entity.ExtraColumn
+import com.jscoolstar.accountremeber.db.entity.DMAccount
+import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
+import com.jscoolstar.accountremeber.utils.get
 
 /**
  * Created by Administrator on 2018/4/11.
  */
 class AccountModelImpl : AccountModel {
+
+    var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
+    val TName = SQL.ACCOUNT.TABLENAME
+    var db1 = SQL.ACCOUNT.DB1;
+
+    private fun toAccount(cursor: Cursor): DMAccount {
+        var account = DMAccount()
+        account.id = cursor.get("id")
+        account.bindmail = cursor.get(db1.C_bindmail)
+        account.bindphone = cursor.get(db1.C_bindphone)
+        account.platform = cursor.get(db1.C_PLATFORM)
+        account.password = cursor.get(db1.C_password)
+        account.tip = cursor.get(db1.C_tip)
+        account.accountName = cursor.get(db1.C_ACCOUNT)
+        account.create_time = cursor.get(db1.C_create_time)
+        account.extraColumnList = ExtraColumnModelImpl().getColumnsWithAccountID(account.id)
+        var cateID: Int = cursor.get(db1.C_CATEID)
+        account.cate = CateModelImpl().getCateByID(cateID)
+        return account
+    }
+
+    private fun getCountentValues(account: DMAccount): ContentValues {
+
+        var contentValues = ContentValues()
+        contentValues.put(db1.C_PLATFORM, account.platform)
+        contentValues.put(db1.C_password, account.password)
+        contentValues.put(db1.C_tip, account.tip)
+        contentValues.put(db1.C_bindphone, account.bindphone)
+        contentValues.put(db1.C_bindmail, account.bindmail)
+        contentValues.put(db1.C_create_time, account.create_time)
+        contentValues.put(db1.C_ACCOUNT, account.accountName)
+        contentValues.put(db1.C_CATEID, account.cate?.id)
+        return contentValues
+    }
+
+
     val extraColumnModel = ExtraColumnModelImpl()
 
-    override fun getAccountListAll(): List<Account> {
-        var accounts = ArrayList<Account>()
+    override fun getAccountListAll(): List<DMAccount> {
+        var accounts = ArrayList<DMAccount>()
         var cursor: Cursor? = null
         try {
-            var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
             cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, null, null, null, null, null)
             if (cursor != null) {
-                var column: ExtraColumn
+                var column: DMExtraColumn
                 while (cursor.moveToNext()) {
-                    var account: Account = cursorToAccount(cursor)
+                    var account: DMAccount = cursorToAccount(cursor)
                     accounts.add(account)
                 }
             }
@@ -37,7 +73,7 @@ class AccountModelImpl : AccountModel {
         return accounts
     }
 
-    override fun addAccount(account: Account): Boolean {
+    override fun addAccount(account: DMAccount): Boolean {
         var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
         try {
             dbHelper.writableDatabase.beginTransaction()
@@ -65,7 +101,7 @@ class AccountModelImpl : AccountModel {
         return true
     }
 
-    override fun deleteAccount(account: Account): Boolean {
+    override fun deleteAccount(account: DMAccount): Boolean {
         var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
         try {
             dbHelper.writableDatabase.beginTransaction()
@@ -82,16 +118,16 @@ class AccountModelImpl : AccountModel {
     }
 
 
-    override fun getAccountListWithKeyWord(key: String): List<Account> {
-        var accounts = ArrayList<Account>()
+    override fun getAccountListWithKeyWord(key: String): List<DMAccount> {
+        var accounts = ArrayList<DMAccount>()
         var cursor: Cursor? = null
         try {
             var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
-            cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, SQL.ACCOUNT.DB1.C_PLATFORM + " like ?", arrayOf("% ${key} %"), null, null, null)
+            cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, db1.C_PLATFORM + " like ?", arrayOf("% ${key} %"), null, null, null)
             if (cursor != null) {
-                var column: ExtraColumn
+                var column: DMExtraColumn
                 while (cursor.moveToNext()) {
-                    var account: Account = cursorToAccount(cursor)
+                    var account: DMAccount = cursorToAccount(cursor)
                     accounts.add(account)
                 }
             }
@@ -104,32 +140,5 @@ class AccountModelImpl : AccountModel {
         return accounts
     }
 
-    private fun getCountentValues(account: Account): ContentValues {
-        var contentValues = ContentValues()
-        contentValues.put(SQL.ACCOUNT.DB1.C_PLATFORM, account.platform)
-        contentValues.put(SQL.ACCOUNT.DB1.C_password, account.password)
-        contentValues.put(SQL.ACCOUNT.DB1.C_tip, account.tip)
-        contentValues.put(SQL.ACCOUNT.DB1.C_bindphone, account.bindphone)
-        contentValues.put(SQL.ACCOUNT.DB1.C_bindmail, account.bindmail)
-        contentValues.put(SQL.ACCOUNT.DB1.C_create_time, account.create_time)
-        contentValues.put(SQL.ACCOUNT.DB2.C_ACCOUNT,account.accountName)
-        contentValues.put(SQL.ACCOUNT.DB2.C_CATEID,account.cate?.id)
-        return contentValues
-    }
 
-    private fun cursorToAccount(cursor: Cursor): Account {
-        var account: Account = Account()
-        account.id = cursor.getInt(cursor.getColumnIndex("id"))
-        account.bindmail = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_bindmail))
-        account.bindphone = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_bindphone))
-        account.platform = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_PLATFORM))
-        account.password = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_password))
-        account.tip = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_tip))
-        account.accountName = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB2.C_ACCOUNT))
-        account.create_time = cursor.getString(cursor.getColumnIndex(SQL.ACCOUNT.DB1.C_create_time))
-        account.extraColumnList = ExtraColumnModelImpl().getColumnsWithAccountID(account.id)
-        var cateID = cursor.getInt(cursor.getColumnIndex(SQL.ACCOUNT.DB2.C_CATEID))
-        account.cate = CateModelImpl().getCateByID(cateID)
-        return account
-    }
 }

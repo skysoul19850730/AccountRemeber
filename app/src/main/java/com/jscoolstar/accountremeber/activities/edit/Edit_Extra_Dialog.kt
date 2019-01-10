@@ -8,7 +8,7 @@ import android.view.Gravity
 import android.view.WindowManager
 import android.widget.Toast
 import com.jscoolstar.accountremeber.R
-import com.jscoolstar.accountremeber.db.entity.ExtraColumn
+import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
 import kotlinx.android.synthetic.main.dialog_extra.*
 
 /**
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.dialog_extra.*
 class Edit_Extra_Dialog(context: Context, var listerner: OnEditDialogClickListerner) : AlertDialog(context) {
 
     interface OnEditDialogClickListerner {
-        fun onClickOk(extra: ExtraColumn)
+        fun onClickOk(extra: DMExtraColumn)
         fun onClickCancel()
     }
 
@@ -44,25 +44,25 @@ class Edit_Extra_Dialog(context: Context, var listerner: OnEditDialogClickLister
         })
     }
 
-    private fun getExtraColumn(): ExtraColumn? {
+    private fun getExtraColumn(): DMExtraColumn? {
         if (TextUtils.isEmpty(et_title.text.toString()) || TextUtils.isEmpty(et_value.text.toString())) {
             return null
         }
         var extraColumn = mExtraColumn
         if(extraColumn==null){
-            extraColumn = ExtraColumn()
+            extraColumn = DMExtraColumn()
         }
         extraColumn.key = et_title.text.toString()
         extraColumn.value = et_value.text.toString()
         return extraColumn
     }
 
-    fun showWithExtraColumn(extra: ExtraColumn?) {
+    fun showWithExtraColumn(extra: DMExtraColumn?) {
         super.show()
         et_title.setText(extra?.key ?: "")
         et_value.setText(extra?.value ?: "")
         mExtraColumn = extra
     }
 
-    private var mExtraColumn: ExtraColumn? = null
+    private var mExtraColumn: DMExtraColumn? = null
 }

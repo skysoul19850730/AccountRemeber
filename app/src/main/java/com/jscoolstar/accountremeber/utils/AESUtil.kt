@@ -25,8 +25,6 @@ internal object AESUtil {
 
     fun generateKey(): String {
         try {
-
-
             var localSecureRandom = SecureRandom.getInstance("SHA1PRNG")
             var bytes_key = ByteArray(20)
             localSecureRandom.nextBytes(bytes_key)

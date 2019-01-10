@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.jscoolstar.accountremeber.R
-import com.jscoolstar.accountremeber.db.entity.ExtraColumn
-import kotlinx.android.synthetic.main.li_extra.view.*
-import org.jetbrains.annotations.NotNull
+import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
 
 /**
  * Created by Administrator on 2018/4/17.
  */
-class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn>, var columnClickListerner: ExtraColumnClickListerner) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<DMExtraColumn>, var columnClickListerner: ExtraColumnClickListerner) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var mHolder = holder as MHoler
         var extraColumn = mList[position]
@@ -38,8 +36,8 @@ class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn
     }
 
     interface ExtraColumnClickListerner {
-        fun onItemClick(extraColumn: ExtraColumn)
-        fun onItemDeleteClick(extraColumn: ExtraColumn)
+        fun onItemClick(extraColumn: DMExtraColumn)
+        fun onItemDeleteClick(extraColumn: DMExtraColumn)
     }
 
     class MHoler(val view: View) : RecyclerView.ViewHolder(view) {

@@ -1,6 +1,6 @@
 package com.jscoolstar.accountremeber.activities
 
-import com.jscoolstar.accountremeber.db.entity.Account
+import com.jscoolstar.accountremeber.db.entity.DMAccount
 import com.jscoolstar.accountremeber.models.account.AccountModel
 import com.jscoolstar.accountremeber.models.account.AccountModelImpl
 
@@ -17,16 +17,16 @@ class MainActPressent {
         accountModelImpl = AccountModelImpl()
     }
 
-    fun getList(): List<Account> {
+    fun getList(): List<DMAccount> {
         var list = accountModelImpl.getAccountListAll()
         return list
     }
 
-    fun addOneAccount(account: Account) {
+    fun addOneAccount(account: DMAccount) {
         accountModelImpl.addAccount(account)
     }
 
-    fun deleteAccounts(accounts: ArrayList<Account>) {
+    fun deleteAccounts(accounts: ArrayList<DMAccount>) {
         for (account in accounts)
             accountModelImpl.deleteAccount(account)
     }

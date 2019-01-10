@@ -21,12 +21,12 @@ class Cate() : Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Cate> {
-        override fun createFromParcel(parcel: Parcel): Cate {
-            return Cate(parcel)
+    companion object CREATOR : Parcelable.Creator<DMCate> {
+        override fun createFromParcel(parcel: Parcel): DMCate {
+            return DMCate(parcel)
         }
 
-        override fun newArray(size: Int): Array<Cate?> {
+        override fun newArray(size: Int): Array<DMCate?> {
             return arrayOfNulls(size)
         }
     }

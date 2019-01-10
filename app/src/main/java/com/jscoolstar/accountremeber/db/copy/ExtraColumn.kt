@@ -30,12 +30,12 @@ class ExtraColumn() : Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<ExtraColumn> {
-        override fun createFromParcel(parcel: Parcel): ExtraColumn {
-            return ExtraColumn(parcel)
+    companion object CREATOR : Parcelable.Creator<DMExtraColumn> {
+        override fun createFromParcel(parcel: Parcel): DMExtraColumn {
+            return DMExtraColumn(parcel)
         }
 
-        override fun newArray(size: Int): Array<ExtraColumn?> {
+        override fun newArray(size: Int): Array<DMExtraColumn?> {
             return arrayOfNulls(size)
         }
     }

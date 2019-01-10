@@ -5,80 +5,86 @@ import android.database.Cursor
 import com.jscoolstar.accountremeber.apps.MApplication
 import com.jscoolstar.accountremeber.db.DBHelper
 import com.jscoolstar.accountremeber.db.SQL
-import com.jscoolstar.accountremeber.db.entity.Cate
+import com.jscoolstar.accountremeber.db.entity.DMCate
+import com.jscoolstar.accountremeber.utils.get
 
-class CateModelImpl :CateModel {
-    override fun getCateByID(id: Int): Cate? {
-        var cate:Cate?=null
-        var cursor:Cursor?=null
+class CateModelImpl : CateModel {
+    var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
+    val TName = SQL.CATE.TABLENAME
+    var db1 = SQL.CATE.DB1;
+
+    private fun toCate(cursor: Cursor): DMCate {
+        var cate = DMCate()
+        cate.id = cursor.get("id")
+        cate.cateName = cursor.get(db1.C_cateName)
+        return cate
+    }
+    private fun getCountentValues(cate:DMCate):ContentValues{
+        var contentValues = ContentValues()
+        contentValues.put(db1.C_cateName, cate.cateName)
+        return contentValues
+    }
+
+    override fun getCateByID(id: Int): DMCate? {
+        var cate: DMCate? = null
+        var cursor: Cursor? = null
         try {
-            var dbHelper:DBHelper= DBHelper.getInstance(MApplication.getInstance().getContext())
-            cursor = dbHelper.readableDatabase.query(SQL.CATE.TABLENAME,null,"id = ?", arrayOf(id.toString()),null,null,null)
-            if(cursor!=null){
+            cursor = dbHelper.readableDatabase.query(TName, null, "id = ?", arrayOf(id.toString()), null, null, null)
+            if (cursor != null) {
 
-                while (cursor.moveToNext()){
-                    cate = Cate()
-                    cate.id = cursor.getInt(cursor.getColumnIndex("id"))
-                    cate.cateName = cursor.getString(cursor.getColumnIndex(SQL.CATE.DB2.C_cateName))
+                while (cursor.moveToNext()) {
+                    cate = toCate(cursor)
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
-        }finally {
+        } finally {
             cursor?.close()
         }
         return cate
     }
 
-    override fun getAllCates(): List<Cate> {
-        var cates = ArrayList<Cate>()
-        var cursor:Cursor?=null
+    override fun getAllCates(): List<DMCate> {
+        var cates = ArrayList<DMCate>()
+        var cursor: Cursor? = null
         try {
-            var dbHelper:DBHelper= DBHelper.getInstance(MApplication.getInstance().getContext())
-            cursor = dbHelper.readableDatabase.query(SQL.CATE.TABLENAME,null,null,null,null,null,null)
-            if(cursor!=null){
-
-                while (cursor.moveToNext()){
-                    var cate:Cate = Cate()
-                    cate.id = cursor.getInt(cursor.getColumnIndex("id"))
-                    cate.cateName = cursor.getString(cursor.getColumnIndex(SQL.CATE.DB2.C_cateName))
+            cursor = dbHelper.readableDatabase.query(TName, null, null, null, null, null, null)
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    var cate = toCate(cursor)
                     cates.add(cate)
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
-        }finally {
+        } finally {
             cursor?.close()
         }
         return cates
     }
 
-    override fun addOneCate(cate: Cate):Boolean {
+    override fun addOneCate(cate: DMCate): Boolean {
         var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
         try {
-
-            var cursor = dbHelper.writableDatabase.query(SQL.CATE.TABLENAME,null," ${SQL.CATE.DB2.C_cateName}=?", arrayOf(cate.cateName),null,null,null)
-            while (cursor.moveToNext()){
+            var cursor = dbHelper.writableDatabase.query(TName, null, " ${db1.C_cateName}=?", arrayOf(cate.cateName), null, null, null)
+            while (cursor.moveToNext()) {
                 cursor.close()
                 return false
             }
-
-
-            var contentValues = ContentValues()
-            contentValues.put(SQL.CATE.DB2.C_cateName,cate.cateName)
-            if(cate.id>0){
-                dbHelper.writableDatabase.update(SQL.CATE.TABLENAME,contentValues,"id=?", arrayOf(cate.id.toString()))
-            }else{
-                var id = dbHelper.writableDatabase.insert(SQL.CATE.TABLENAME,null,contentValues)
-                if(id<0){
+            var contentValues = getCountentValues(cate)
+            if (cate.id > 0) {
+                dbHelper.writableDatabase.update(TName, contentValues, "id=?", arrayOf(cate.id.toString()))
+            } else {
+                var id = dbHelper.writableDatabase.insert(TName, null, contentValues)
+                if (id < 0) {
                     throw Exception()
                 }
                 cate.id = id.toInt();
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             return false
-        }finally {
+        } finally {
 
         }
 

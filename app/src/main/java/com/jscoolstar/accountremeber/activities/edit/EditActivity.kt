@@ -11,14 +11,13 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Toast
-import android.widget.ViewAnimator
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.JSToolbar
 import com.jscoolstar.accountremeber.activities.adapters.CateAdapter
 import com.jscoolstar.accountremeber.activities.adapters.ExtraColumnAdapter
-import com.jscoolstar.accountremeber.db.entity.Account
-import com.jscoolstar.accountremeber.db.entity.Cate
-import com.jscoolstar.accountremeber.db.entity.ExtraColumn
+import com.jscoolstar.accountremeber.db.entity.DMAccount
+import com.jscoolstar.accountremeber.db.entity.DMCate
+import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
 import com.jscoolstar.accountremeber.models.account.CateModelImpl
 import com.jscoolstar.accountremeber.utils.AESUtil
 import com.jscoolstar.accountremeber.utils.Util
@@ -39,7 +38,7 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
         cate = cates.get(p2)
     }
 
-    override fun onClickOk(extra: ExtraColumn) {
+    override fun onClickOk(extra: DMExtraColumn) {
         extraDialog.dismiss()
         extralColumns.add(extra)
         mAdapter.notifyDataSetChanged()
@@ -49,24 +48,24 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
         extraDialog.dismiss()
     }
 
-    override fun onItemDeleteClick(extraColumn: ExtraColumn) {
+    override fun onItemDeleteClick(extraColumn: DMExtraColumn) {
         extralColumns.remove(extraColumn)
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun onItemClick(extraColumn: ExtraColumn) {
+    override fun onItemClick(extraColumn: DMExtraColumn) {
         extraDialog.showWithExtraColumn(extraColumn)
     }
 
-    var account: Account? = null
-    lateinit var extralColumns: ArrayList<ExtraColumn>
+    var account: DMAccount? = null
+    lateinit var extralColumns: ArrayList<DMExtraColumn>
     lateinit var mAdapter: ExtraColumnAdapter
     lateinit var extraDialog: Edit_Extra_Dialog
 
     val mAppPassword = "850730"
 
-    lateinit var cates: ArrayList<Cate>
-    var cate: Cate? = null
+    lateinit var cates: ArrayList<DMCate>
+    var cate: DMCate? = null
     lateinit var cateAdapter: CateAdapter
 
     lateinit var editText: EditText
@@ -126,7 +125,7 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
             et_phone.setText(account!!.bindphone)
             cate = account!!.cate
         } else {
-            account = Account()
+            account = DMAccount()
         }
 
         mAdapter = ExtraColumnAdapter(this, extralColumns, this)
@@ -137,23 +136,23 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
         extraDialog = Edit_Extra_Dialog(this, this)
 
 
-        cates = CateModelImpl().getAllCates() as ArrayList<Cate>
+        cates = CateModelImpl().getAllCates() as ArrayList<DMCate>
         cateAdapter = CateAdapter(this, cates)
         setSpinnerSelection()
         spinner_cate.onItemSelectedListener = this
 
 
-        btn_add.setOnClickListener({
+        btn_add.setOnClickListener{
             extraDialog.showWithExtraColumn(null)
-        })
+        }
 
-        btn_permission.setOnClickListener({
+        btn_permission.setOnClickListener{
             toJudgePermission()
-        })
+        }
 
         editText = EditText(this)
 
-        btn_addCate.setOnClickListener({
+        btn_addCate.setOnClickListener{
             JSMaterialDialogUtil.INSTANCE.build(this).showDialog("新增分类", editText, "输入分类名称", "取消"
                     , "确定", object : JSMaterialDialogClickListerner {
                 override fun onCancelClick(dialogInterface: DialogInterface, which: Int) {
@@ -161,23 +160,23 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
                 }
 
                 override fun onConfirmClick(dialogInterface: DialogInterface, which: Int) {
-                    if(addCateWithName(editText.text.toString())){
+                    if (addCateWithName(editText.text.toString())) {
                         dialogInterface.dismiss()
                         setSpinnerSelection()
-                    }else{
-                        Toast.makeText(this@EditActivity,"不能输入空",Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@EditActivity, "不能输入空", Toast.LENGTH_LONG).show()
                     }
                 }
 
             })
-        })
+        }
     }
 
     fun addCateWithName(name: String): Boolean {
-        if(name.length==0)return false
-        var cate:Cate = Cate()
+        if (name.length == 0) return false
+        var cate: DMCate = DMCate()
         cate.cateName = name
-        if(CateModelImpl().addOneCate(cate)){
+        if (CateModelImpl().addOneCate(cate)) {
             this.cate = cate
             cates.add(cate)
             cateAdapter.notifyDataSetChanged()
@@ -189,13 +188,12 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
     fun setSpinnerSelection() {
         var position = -1
         var defposition = 0
-        for (index in 0..cates.size) {
-            var tmp = cates.get(index)
-            if (tmp.id == cate?.id) {
-                position = index
+        for ((index, value) in cates.withIndex()) {
+            if (value.id == cate?.id) {
+                position = index;
                 break
             }
-            if (tmp.cateName.equals("default")) {
+            if (value.cateName.equals("default")) {
                 defposition = index
             }
         }

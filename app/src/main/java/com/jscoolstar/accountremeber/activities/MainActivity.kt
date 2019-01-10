@@ -11,13 +11,11 @@ import android.view.View
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.adapters.AccountAdapter
 import com.jscoolstar.accountremeber.activities.edit.EditActivity
-import com.jscoolstar.accountremeber.db.entity.Account
+import com.jscoolstar.accountremeber.db.entity.DMAccount
 import com.jscoolstar.accountremeber.utils.AESUtil
-import com.jscoolstar.accountremeber.utils.Util
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogClickListerner
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogUtil
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, MainActViewModel, HomeToolbar4Edit.HomeBar4EditClickListerner {
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Mai
 
     lateinit var mAdapter: AccountAdapter
 
-    var list: List<Account> = ArrayList<Account>()
+    var list: List<DMAccount> = ArrayList<DMAccount>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,11 +68,11 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Mai
         recyclerView.layoutManager = LinearLayoutManager(this)
         mAdapter = AccountAdapter(this, list)
         mAdapter.listerner = object : AccountAdapter.AccountListClickListerner {
-            override fun onItemLongClick(account: Account) {
+            override fun onItemLongClick(account: DMAccount) {
                 gotoEdit(account)
             }
 
-            override fun onItemClick(account: Account) {
+            override fun onItemClick(account: DMAccount) {
                 doItemClick(account)
             }
 
@@ -84,7 +82,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Mai
         initData()
     }
 
-    fun doItemClick(account: Account){
+    fun doItemClick(account: DMAccount){
         var msg = account.tip ?: "没有设置密码提示"
         JSMaterialDialogUtil.INSTANCE.build(this).showDialog("密码提示",null,msg,"取消","进入详情",object :JSMaterialDialogClickListerner{
             override fun onCancelClick(dialogInterface: DialogInterface, which: Int) {
@@ -95,7 +93,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Mai
             }
         })
     }
-    fun gotoEdit(account: Account){
+    fun gotoEdit(account: DMAccount){
         var mIntent = Intent(this@MainActivity, EditActivity::class.java)
         mIntent.putExtra("account", account)
         startActivityForResult(mIntent, 10)
@@ -129,7 +127,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Mai
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 10) {
             if (resultCode == Activity.RESULT_OK) {
-                var tempAccount = data?.getParcelableExtra<Account>("account")
+                var tempAccount = data?.getParcelableExtra<DMAccount>("account")
                 if (tempAccount != null) {
                     mPressent.addOneAccount(tempAccount!!)
                     initData()
