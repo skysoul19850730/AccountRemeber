@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.jscoolstar.accountremeber.db.entity.DMCate
-import com.jscoolstar.accountremeber.models.account.CateModelImpl
+import com.jscoolstar.accountremeber.dbcontroller.account.CateModelImpl
 
 /**
  * Created by Administrator on 2018/3/30.

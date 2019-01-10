@@ -1,4 +1,4 @@
-package com.jscoolstar.accountremeber.models.account
+package com.jscoolstar.accountremeber.db.models
 
 import android.content.ContentValues
 import android.database.Cursor
@@ -8,10 +8,7 @@ import com.jscoolstar.accountremeber.db.SQL
 import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
 import com.jscoolstar.accountremeber.utils.get
 
-/**
- * Created by Administrator on 2018/4/2.
- */
-class ExtraColumnModelImpl : ExtraColumnModel {
+class DMExtraCoumnModelImpl:DMExtraColumnModel {
     var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
     val TName = SQL.EXTRA.TABLENAME
     var db1 = SQL.EXTRA.DB1;
@@ -124,6 +121,4 @@ class ExtraColumnModelImpl : ExtraColumnModel {
         }
         return true
     }
-
-
 }

@@ -18,7 +18,7 @@ import com.jscoolstar.accountremeber.activities.adapters.ExtraColumnAdapter
 import com.jscoolstar.accountremeber.db.entity.DMAccount
 import com.jscoolstar.accountremeber.db.entity.DMCate
 import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
-import com.jscoolstar.accountremeber.models.account.CateModelImpl
+import com.jscoolstar.accountremeber.dbcontroller.account.CateModelImpl
 import com.jscoolstar.accountremeber.utils.AESUtil
 import com.jscoolstar.accountremeber.utils.Util
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogClickListerner

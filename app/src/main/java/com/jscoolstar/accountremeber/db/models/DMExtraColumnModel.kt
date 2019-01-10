@@ -1,11 +1,9 @@
-package com.jscoolstar.accountremeber.models.account
+package com.jscoolstar.accountremeber.db.models
 
 import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
 
-/**
- * Created by Administrator on 2018/4/2.
- */
-interface ExtraColumnModel {
+interface DMExtraColumnModel {
+
     /**
      * 根据账号id，获取所有该账号的额外属性
      */
@@ -30,5 +28,4 @@ interface ExtraColumnModel {
      * 为账号增加或修改一组属性
      */
     fun addColumns4AccountId(accountId: Int, columns: List<DMExtraColumn>): Boolean
-
 }

@@ -1,4 +1,4 @@
-package com.jscoolstar.accountremeber.models.account
+package com.jscoolstar.accountremeber.dbcontroller.account
 
 import com.jscoolstar.accountremeber.db.entity.DMCate
 

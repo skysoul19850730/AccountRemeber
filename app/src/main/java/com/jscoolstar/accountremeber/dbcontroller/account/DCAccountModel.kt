@@ -1,11 +1,11 @@
-package com.jscoolstar.accountremeber.models.account
+package com.jscoolstar.accountremeber.dbcontroller.account
 
 import com.jscoolstar.accountremeber.db.entity.DMAccount
 
 /**
  * Created by Administrator on 2018/4/2.
  */
-interface AccountModel {
+interface DCAccountModel {
     fun getAccountListAll(): List<DMAccount>
     fun addAccount(account: DMAccount): Boolean
     fun deleteAccount(account: DMAccount): Boolean

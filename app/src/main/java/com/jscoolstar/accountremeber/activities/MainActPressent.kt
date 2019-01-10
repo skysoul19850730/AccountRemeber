@@ -1,15 +1,15 @@
 package com.jscoolstar.accountremeber.activities
 
 import com.jscoolstar.accountremeber.db.entity.DMAccount
-import com.jscoolstar.accountremeber.models.account.AccountModel
-import com.jscoolstar.accountremeber.models.account.AccountModelImpl
+import com.jscoolstar.accountremeber.dbcontroller.account.DCAccountModel
+import com.jscoolstar.accountremeber.dbcontroller.account.AccountModelImpl
 
 /**
  * Created by Administrator on 2018/4/16.
  */
 class MainActPressent {
 
-    lateinit var accountModelImpl: AccountModel
+    lateinit var accountModelImpl: DCAccountModel
     lateinit var mainActModel: MainActViewModel
 
     constructor(mainActViewModel: MainActViewModel) {
