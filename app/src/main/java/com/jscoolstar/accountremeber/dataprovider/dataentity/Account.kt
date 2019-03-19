@@ -1,5 +1,4 @@
-package com.jscoolstar.accountremeber.db.entity
-
+package com.jscoolstar.accountremeber.dataprovider.dataentity
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -7,17 +6,18 @@ import android.os.Parcelable
  * Created by Administrator on 2018/4/2.
  */
 class Account() : Parcelable {
-    var id:Int =0
-    var platform:String?=null
-    var password:String?=null
-    var tip:String?=null
-    var bindphone:String?=null
-    var bindmail:String?=null
-    var create_time:String?=null
-    var accountName:String?=null
+    var id: Int = 0
+    var platform: String? = null
+    var password: String? = null
+    var tip: String? = null
+    var bindphone: String? = null
+    var bindmail: String? = null
+    var create_time: String? = null
+    var accountName: String? = null
+    var userId:Int =0
 
-    var cate:DMCate?=null
-    var extraColumnList:ArrayList<DMExtraColumn>?=null
+    var cate: Cate? = null
+    var extraColumnList: List<ExtraColumn>? = null
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
@@ -28,9 +28,9 @@ class Account() : Parcelable {
         bindmail = parcel.readString()
         create_time = parcel.readString()
         accountName = parcel.readString()
-
-        cate = parcel.readParcelable(DMCate::class.java.classLoader) as DMCate
-        extraColumnList = parcel.readArrayList(DMExtraColumn::class.java.classLoader) as ArrayList<DMExtraColumn>?
+        userId = parcel.readInt()
+        cate = parcel.readParcelable(Cate::class.java.classLoader)
+        extraColumnList = parcel.readArrayList(ExtraColumn::class.java.classLoader) as ArrayList<ExtraColumn>?
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -42,22 +42,24 @@ class Account() : Parcelable {
         parcel.writeString(bindmail)
         parcel.writeString(create_time)
         parcel.writeString(accountName)
-
-        parcel.writeParcelable(cate,flags)
+        parcel.writeInt(userId)
+        parcel.writeParcelable(cate, flags)
         parcel.writeList(extraColumnList)
     }
+
 
     override fun describeContents(): Int {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<DMAccount> {
-        override fun createFromParcel(parcel: Parcel): DMAccount {
-            return DMAccount(parcel)
+    companion object CREATOR : Parcelable.Creator<Account> {
+        override fun createFromParcel(parcel: Parcel): Account {
+            return Account(parcel)
         }
 
-        override fun newArray(size: Int): Array<DMAccount?> {
+        override fun newArray(size: Int): Array<Account?> {
             return arrayOfNulls(size)
         }
     }
+
 }

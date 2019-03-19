@@ -1,5 +1,4 @@
-package com.jscoolstar.accountremeber.db.entity
-
+package com.jscoolstar.accountremeber.dataprovider.dataentity
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -11,6 +10,7 @@ class ExtraColumn() : Parcelable {
     var aId: Int = 0
     var key: String? = null
     var value: String? = null
+
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
@@ -30,13 +30,15 @@ class ExtraColumn() : Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<DMExtraColumn> {
-        override fun createFromParcel(parcel: Parcel): DMExtraColumn {
-            return DMExtraColumn(parcel)
+    companion object CREATOR : Parcelable.Creator<ExtraColumn> {
+        override fun createFromParcel(parcel: Parcel): ExtraColumn {
+            return ExtraColumn(parcel)
         }
 
-        override fun newArray(size: Int): Array<DMExtraColumn?> {
+        override fun newArray(size: Int): Array<ExtraColumn?> {
             return arrayOfNulls(size)
         }
     }
+
+
 }

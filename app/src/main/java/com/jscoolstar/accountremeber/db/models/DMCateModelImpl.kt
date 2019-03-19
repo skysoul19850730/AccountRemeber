@@ -59,15 +59,33 @@ class DMCateModelImpl() : DMCateModel {
                 return false
             }
             var contentValues = getCountentValues(cate)
-            if (cate.id > 0) {
-                dbHelper.writableDatabase.update(TName, contentValues, "id=?", arrayOf(cate.id.toString()))
-            } else {
-                var id = dbHelper.writableDatabase.insert(TName, null, contentValues)
-                if (id < 0) {
-                    throw Exception()
-                }
-                cate.id = id.toInt();
+            var id = dbHelper.writableDatabase.insert(TName, null, contentValues)
+            if (id < 0) {
+                throw Exception()
             }
+            cate.id = id.toInt();
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        } finally {
+
+        }
+
+        return true
+    }
+
+    override fun updateCate(cate: DMCate): Boolean {
+        if (cate.userId == 0 || TextUtils.isEmpty(cate.cateName)) {
+            return false
+        }
+        try {
+            var cursor = dbHelper.writableDatabase.query(TName, null, " ${db1.C_cateName}=? AND ${db1.C_userId}=? AND id != ?", arrayOf(cate.cateName, cate.userId.toString(), cate.id.toString()), null, null, null)
+            while (cursor.moveToNext()) {
+                cursor.close()
+                return false
+            }
+            var contentValues = getCountentValues(cate)
+            dbHelper.writableDatabase.update(TName, contentValues, "id=?", arrayOf(cate.id.toString()))
         } catch (e: Exception) {
             e.printStackTrace()
             return false
