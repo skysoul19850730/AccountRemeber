@@ -1,9 +1,18 @@
 package com.jscoolstar.accountremeber.activities.home.views
 
+import com.jscoolstar.accountremeber.activities.BaseView
+import com.jscoolstar.accountremeber.activities.home.presenter.IMainPresenter
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 
-interface MainView {
-    fun showMainList()
-    fun showEditModel(showEdit:Boolean)
-    fun showItemTipDialog(account:Account)
+interface MainView :BaseView<IMainPresenter>{
+    /** if list is null ,then only notify adapter,else adapter.setlist  */
+    fun showMainList(list: List<Account>?)
+    fun showItemTipDialog(account: Account)
+    fun showEditState(showEdit: Boolean)
+
+
+    fun showUIAccountEdit(account:Account)
+    fun showUIAddNewAccount()
+    fun showUISearchUI()
+    fun showUISettingUI()
 }

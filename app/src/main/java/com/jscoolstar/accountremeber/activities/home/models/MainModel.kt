@@ -9,4 +9,6 @@ interface MainModel {
     fun deleteAccounts(accounts:List<Account>):Boolean
 
 
+    fun getCurrectUserId():Int
+
 }

@@ -3,6 +3,7 @@ package com.jscoolstar.accountremeber.activities.home.models
 import com.jscoolstar.accountremeber.dataprovider.AccountModel
 import com.jscoolstar.accountremeber.dataprovider.AccountModelImpl
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
+import com.jscoolstar.accountremeber.utils.SharedPreferencesManager
 
 class MainModelImpl :MainModel {
 
@@ -23,5 +24,9 @@ class MainModelImpl :MainModel {
             }
         }
         return allDeleted
+    }
+
+    override fun getCurrectUserId():Int {
+        return SharedPreferencesManager.getInstance().getInt(SharedPreferencesManager.userid)
     }
 }

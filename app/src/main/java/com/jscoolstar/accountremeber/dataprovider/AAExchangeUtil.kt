@@ -3,9 +3,11 @@ package com.jscoolstar.accountremeber.dataprovider
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
 import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
+import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 import com.jscoolstar.accountremeber.db.entity.DMAccount
 import com.jscoolstar.accountremeber.db.entity.DMCate
 import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
+import com.jscoolstar.accountremeber.db.entity.DMUser
 
 fun DMExtraColumn.toExtraColumn(): ExtraColumn {
     var ex = ExtraColumn()
@@ -68,4 +70,23 @@ fun Account.toDMAccount(): DMAccount {
     account.userId = userId
     account.cateId = if (cate != null) cate!!.id else 0
     return account
+}
+
+fun User.toDMUser(password: String?): DMUser {
+    var user = DMUser()
+    user.userId = userId
+    user.userName = userName
+    user.passwordTip = passwordTip
+    if (password != null) {
+        user.password = password
+    }
+    return user
+}
+
+fun DMUser.toUser(): User {
+    var user = User()
+    user.userId = userId
+    user.userName = userName
+    user.passwordTip = passwordTip
+    return user
 }
