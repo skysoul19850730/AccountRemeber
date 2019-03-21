@@ -8,22 +8,22 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.jscoolstar.accountremeber.R
-import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
+import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
 
 /**
  * Created by Administrator on 2018/4/17.
  */
-class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<DMExtraColumn>, var columnClickListerner: ExtraColumnClickListerner) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn>, var columnClickListerner: ExtraColumnClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var mHolder = holder as MHoler
         var extraColumn = mList[position]
         mHolder.tv_extra_title.text = extraColumn.key
         mHolder.tv_extra_value.text = extraColumn.value
-        mHolder.tv_extra_title.setOnClickListener({
+        mHolder.tv_extra_title.setOnClickListener{
             columnClickListerner.onItemClick(extraColumn)
-        })
-        mHolder.tv_extra_value.setOnClickListener({ columnClickListerner.onItemClick(extraColumn) })
-        mHolder.btn_delete.setOnClickListener({ columnClickListerner.onItemDeleteClick(extraColumn) })
+        }
+        mHolder.tv_extra_value.setOnClickListener{ columnClickListerner.onItemClick(extraColumn) }
+        mHolder.btn_delete.setOnClickListener{ columnClickListerner.onItemDeleteClick(extraColumn) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -35,20 +35,14 @@ class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<DMExtraColu
         return mList.size
     }
 
-    interface ExtraColumnClickListerner {
-        fun onItemClick(extraColumn: DMExtraColumn)
-        fun onItemDeleteClick(extraColumn: DMExtraColumn)
+    interface ExtraColumnClickListener {
+        fun onItemClick(extraColumn: ExtraColumn)
+        fun onItemDeleteClick(extraColumn: ExtraColumn)
     }
 
     class MHoler(val view: View) : RecyclerView.ViewHolder(view) {
-        var btn_delete: ImageView
-        var tv_extra_title: TextView
-        var tv_extra_value: TextView
-
-        init {
-            btn_delete = view.findViewById<ImageView>(R.id.btn_delete)
-            tv_extra_title = view.findViewById<TextView>(R.id.tv_extra_title)
-            tv_extra_value = view.findViewById<TextView>(R.id.tv_extra_value)
-        }
+        var btn_delete: ImageView = view.findViewById(R.id.btn_delete)
+        var tv_extra_title: TextView = view.findViewById(R.id.tv_extra_title)
+        var tv_extra_value: TextView = view.findViewById(R.id.tv_extra_value)
     }
 }

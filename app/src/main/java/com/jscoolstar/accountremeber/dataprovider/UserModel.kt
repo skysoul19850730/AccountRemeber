@@ -4,7 +4,9 @@ import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 
 interface UserModel {
 
-    fun getUserList():List<User>
+    fun getUserById(userId: Int):User?
+
+    fun getUserList():ArrayList<User>
 
     fun addUser(user:User,password:String):Boolean
 
@@ -17,5 +19,5 @@ interface UserModel {
 
     fun isUserNameExsits(userName:String):Boolean
 
-    fun getUserReTryTimes(userName: String):Int
+    fun getUserReTryTimesAndLastWrongTime(userName: String):Pair<Int,String>
 }

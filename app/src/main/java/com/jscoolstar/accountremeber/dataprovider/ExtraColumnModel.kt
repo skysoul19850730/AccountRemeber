@@ -9,7 +9,7 @@ interface ExtraColumnModel {
     /**
      * 根据账号id，获取所有该账号的额外属性
      */
-    fun getColumnsWithAccountID(accountId: Int): List<ExtraColumn>
+    fun getColumnsWithAccountID(accountId: Int): ArrayList<ExtraColumn>
     /**
      * 删除某一个属性
      */

@@ -15,10 +15,12 @@ import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.JSToolbar
 import com.jscoolstar.accountremeber.activities.adapters.CateAdapter
 import com.jscoolstar.accountremeber.activities.adapters.ExtraColumnAdapter
+import com.jscoolstar.accountremeber.dataprovider.CateModelImpl
+import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
+import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
+import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
 import com.jscoolstar.accountremeber.db.entity.DMAccount
 import com.jscoolstar.accountremeber.db.entity.DMCate
-import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
-import com.jscoolstar.accountremeber.dbcontroller.account.CateModelImpl
 import com.jscoolstar.accountremeber.utils.AESUtil
 import com.jscoolstar.accountremeber.utils.Util
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogClickListerner
@@ -30,7 +32,7 @@ import kotlin.collections.ArrayList
 /**
  * Created by Administrator on 2018/4/16.
  */
-class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraColumnAdapter.ExtraColumnClickListerner, Edit_Extra_Dialog.OnEditDialogClickListerner, AdapterView.OnItemSelectedListener {
+class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraColumnAdapter.ExtraColumnClickListener, Edit_Extra_Dialog.OnEditDialogClickListerner, AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 
@@ -38,7 +40,7 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
         cate = cates.get(p2)
     }
 
-    override fun onClickOk(extra: DMExtraColumn) {
+    override fun onClickOk(extra: ExtraColumn) {
         extraDialog.dismiss()
         extralColumns.add(extra)
         mAdapter.notifyDataSetChanged()
@@ -48,24 +50,24 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
         extraDialog.dismiss()
     }
 
-    override fun onItemDeleteClick(extraColumn: DMExtraColumn) {
+    override fun onItemDeleteClick(extraColumn: ExtraColumn) {
         extralColumns.remove(extraColumn)
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun onItemClick(extraColumn: DMExtraColumn) {
+    override fun onItemClick(extraColumn: ExtraColumn) {
         extraDialog.showWithExtraColumn(extraColumn)
     }
 
-    var account: DMAccount? = null
-    lateinit var extralColumns: ArrayList<DMExtraColumn>
+    var account: Account? = null
+    lateinit var extralColumns: ArrayList<ExtraColumn>
     lateinit var mAdapter: ExtraColumnAdapter
     lateinit var extraDialog: Edit_Extra_Dialog
 
     val mAppPassword = "850730"
 
-    lateinit var cates: ArrayList<DMCate>
-    var cate: DMCate? = null
+    lateinit var cates: ArrayList<Cate>
+    var cate: Cate? = null
     lateinit var cateAdapter: CateAdapter
 
     lateinit var editText: EditText
@@ -125,7 +127,7 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
             et_phone.setText(account!!.bindphone)
             cate = account!!.cate
         } else {
-            account = DMAccount()
+            account = Account()
         }
 
         mAdapter = ExtraColumnAdapter(this, extralColumns, this)
@@ -136,7 +138,7 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
         extraDialog = Edit_Extra_Dialog(this, this)
 
 
-        cates = CateModelImpl().getAllCates() as ArrayList<DMCate>
+        cates = CateModelImpl().getAllCaesByUserid(0) as ArrayList<Cate>
         cateAdapter = CateAdapter(this, cates)
         setSpinnerSelection()
         spinner_cate.onItemSelectedListener = this
@@ -174,9 +176,9 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
 
     fun addCateWithName(name: String): Boolean {
         if (name.length == 0) return false
-        var cate: DMCate = DMCate()
+        var cate = Cate()
         cate.cateName = name
-        if (CateModelImpl().addOneCate(cate)) {
+        if (CateModelImpl().addCate(cate)) {
             this.cate = cate
             cates.add(cate)
             cateAdapter.notifyDataSetChanged()

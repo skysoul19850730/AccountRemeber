@@ -8,7 +8,7 @@ import com.jscoolstar.accountremeber.db.SQL
 import com.jscoolstar.accountremeber.db.entity.DMAccount
 import com.jscoolstar.accountremeber.utils.get
 
-class DMAccountModelImpl():DMAccountModel {
+class DMAccountModelImpl() : DMAccountModel {
 
     var dbHelper: DBHelper = DBHelper.getInstance(MApplication.getInstance().getContext());
     val TName = SQL.ACCOUNT.TABLENAME
@@ -40,19 +40,22 @@ class DMAccountModelImpl():DMAccountModel {
         contentValues.put(db1.C_bindmail, account.bindmail)
         contentValues.put(db1.C_create_time, account.create_time)
         contentValues.put(db1.C_ACCOUNT, account.accountName)
-        contentValues.put(db1.C_UserID,account.userId)
-        contentValues.put(db1.C_CATEID,account.cateId)
+        contentValues.put(db1.C_UserID, account.userId)
+        contentValues.put(db1.C_CATEID, account.cateId)
         return contentValues
     }
 
-    override fun getAccountListAll(userId: Int): List<DMAccount> {
+    override fun getAccountListAll(userId: Int, cateId: Int): List<DMAccount> {
         var accounts = ArrayList<DMAccount>()
-        if(userId<=0){
+        if (userId <= 0) {
             return accounts
         }
         var cursor: Cursor? = null
         try {
-            cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, "${db1.C_UserID} = ?", arrayOf(userId.toString()), null, null, null)
+            if (cateId <= 0)
+                cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, "${db1.C_UserID} = ?", arrayOf(userId.toString()), null, null, null)
+            else
+                cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, "${db1.C_UserID} = ? AND ${db1.C_CATEID} = ?", arrayOf(userId.toString(),cateId.toString()), null, null, null)
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     var account: DMAccount = toAccount(cursor)
@@ -110,7 +113,7 @@ class DMAccountModelImpl():DMAccountModel {
         var accounts = ArrayList<DMAccount>()
         var cursor: Cursor? = null
         try {
-            cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, "${db1.C_PLATFORM} like ? AND ${db1.C_UserID}=?", arrayOf("% ${key} %",userId.toString()), null, null, null)
+            cursor = dbHelper.readableDatabase.query(SQL.ACCOUNT.TABLENAME, null, "${db1.C_PLATFORM} like ? AND ${db1.C_UserID}=?", arrayOf("% ${key} %", userId.toString()), null, null, null)
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     var account: DMAccount = toAccount(cursor)

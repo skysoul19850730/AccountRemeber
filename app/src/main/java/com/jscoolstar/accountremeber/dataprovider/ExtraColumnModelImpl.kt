@@ -14,7 +14,7 @@ class ExtraColumnModelImpl :ExtraColumnModel {
     }
 
 
-    override fun getColumnsWithAccountID(accountId: Int): List<ExtraColumn> {
+    override fun getColumnsWithAccountID(accountId: Int): ArrayList<ExtraColumn> {
         var dmList = dmColumnModelImpl.getColumnsWithAccountID(accountId)
         var result = arrayListOf<ExtraColumn>()
         for (dm in dmList){

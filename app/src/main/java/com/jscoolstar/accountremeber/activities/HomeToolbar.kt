@@ -36,16 +36,16 @@ class HomeToolbar @JvmOverloads constructor( context: Context, attrs: AttributeS
         setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_search ->
-                    listerner?.toSearch()
+                    listerner?.onSearchClick()
 
-                R.id.menu_add -> listerner?.toAdd()
+                R.id.menu_add -> listerner?.onAddClick()
 
-                R.id.menu_edit -> listerner?.toEdit()
+                R.id.menu_edit -> listerner?.onEditClick()
             }
             return@setOnMenuItemClickListener true
         }
         setNavigationOnClickListener{
-            listerner?.toSetting()
+            listerner?.onSettingClick()
         }
     }
 
@@ -53,9 +53,9 @@ class HomeToolbar @JvmOverloads constructor( context: Context, attrs: AttributeS
 
 
     interface HomeBarClickListerner {
-        fun toAdd()
-        fun toSearch()
-        fun toSetting()
-        fun toEdit()
+        fun onAddClick()
+        fun onSearchClick()
+        fun onSettingClick()
+        fun onEditClick()
     }
 }

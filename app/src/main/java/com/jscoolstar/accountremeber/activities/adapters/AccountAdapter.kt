@@ -9,30 +9,29 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.TextView
 import com.jscoolstar.accountremeber.R
+import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.db.entity.DMAccount
 
 /**
  * Created by Administrator on 2018/4/16.
  */
-class AccountAdapter(val mContext: Context, var mList: List<DMAccount>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AccountAdapter(val mContext: Context, var mList: List<Account>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface AccountListClickListerner {
-        fun onItemClick(account: DMAccount)
-        fun onItemLongClick(account: DMAccount)
+        fun onItemClick(position: Int)
+        fun onItemLongClick(position: Int)
     }
 
     lateinit var listerner: AccountListClickListerner
 
-    var selectAccounts: ArrayList<DMAccount> = ArrayList()
 
     var mInEdit = false
         set(value) {
             field = value
-            selectAccounts.clear()
             notifyDataSetChanged()
         }
 
-    fun setList(list: List<DMAccount>) {
+    fun setList(list: List<Account>) {
         mList = list
         notifyDataSetChanged()
     }
@@ -43,36 +42,19 @@ class AccountAdapter(val mContext: Context, var mList: List<DMAccount>) : Recycl
         var account = mList[position]
         mHolder.tv_title.setText(account.platform)
         mHolder.tv_title.setOnClickListener {
-            if (mInEdit) {
-                if (selectAccounts.contains(account)) {
-                    mHolder.cb_select.isChecked = false
-                } else {
-                    mHolder.cb_select.isChecked = true
-                }
-            } else
-                listerner?.onItemClick(account)
+                listerner?.onItemClick(position)
         }
-        mHolder.tv_title.setOnLongClickListener({
-            listerner?.onItemLongClick(account)
+        mHolder.tv_title.setOnLongClickListener{
+            listerner?.onItemLongClick(position)
             return@setOnLongClickListener true
-        })
+        }
 
         mHolder.cb_select.visibility = (if (mInEdit) View.VISIBLE else View.GONE)
 
         if (mInEdit) {
-            var checked = false;
-            mHolder.cb_select.isChecked = selectAccounts.contains(account)
+            mHolder.cb_select.isChecked = account.isChecked
         }
-
-        mHolder.cb_select.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                if (isChecked) {
-                    selectAccounts.add(account)
-                } else selectAccounts.remove(account)
-            }
-
-        })
-
+        mHolder.cb_select.isEnabled = false
     }
 
     override fun getItemCount(): Int {

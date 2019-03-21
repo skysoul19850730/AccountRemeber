@@ -4,8 +4,9 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.jscoolstar.accountremeber.dataprovider.CateModelImpl
 import com.jscoolstar.accountremeber.db.entity.DMCate
-import com.jscoolstar.accountremeber.dbcontroller.account.CateModelImpl
+import com.jscoolstar.accountremeber.db.models.DMCateModelImpl
 
 /**
  * Created by Administrator on 2018/3/30.
@@ -75,7 +76,7 @@ class DBHelper : SQLiteOpenHelper {
     private fun addDefaultCate(){
         var cate = DMCate();
         cate.cateName="default"
-        CateModelImpl().addOneCate(cate)
+        DMCateModelImpl().addCate(cate)
     }
 
     override fun getWritableDatabase(): SQLiteDatabase {

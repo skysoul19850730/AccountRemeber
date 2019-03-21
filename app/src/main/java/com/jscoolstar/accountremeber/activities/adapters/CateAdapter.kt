@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.jscoolstar.accountremeber.R
+import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
 import com.jscoolstar.accountremeber.db.entity.DMCate
 
-class CateAdapter(var context:Context, var cates:List<DMCate>) : BaseAdapter() {
+class CateAdapter(var context:Context, var cates:List<Cate>) : BaseAdapter() {
 
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {

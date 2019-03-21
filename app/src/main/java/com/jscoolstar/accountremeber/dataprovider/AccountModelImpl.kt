@@ -11,8 +11,8 @@ class AccountModelImpl : AccountModel {
         dmAccountModelImpl = DMAccountModelImpl()
     }
 
-    override fun getAccountListAll(userId: Int): List<Account> {
-        var dmList = dmAccountModelImpl.getAccountListAll(userId)
+    override fun getAccountListAll(userId: Int,cateId:Int): List<Account> {
+        var dmList = dmAccountModelImpl.getAccountListAll(userId,cateId)
         var results = dmAccountList2AccountList(dmList)
         return results
     }

@@ -8,6 +8,7 @@ import com.jscoolstar.accountremeber.db.entity.DMUser
  */
 interface DMUserModel {
 
+    fun getUserById(userId:Int):DMUser?
     fun getUserList():ArrayList<DMUser>
     fun addUser(dmUser: DMUser):Boolean
     /** 更新用户信息，不含密码  */
@@ -19,5 +20,5 @@ interface DMUserModel {
 
     fun isUserNameExsits(userName:String):Boolean
 
-    fun getUserReTryTimes(userName: String):Int
+    fun getUserReTryTimesAndLastWrongTime(userName: String):Pair<Int,String>
 }

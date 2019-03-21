@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="app_name">AccountRemeber</string>
+    <string name="password_wrong_moretimes">your password input wrong for more times</string>
+</resources>

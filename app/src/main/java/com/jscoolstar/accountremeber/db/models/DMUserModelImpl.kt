@@ -23,6 +23,7 @@ class DMUserModelImpl() : DMUserModel {
         user.userName = cursor.get(db1.C_UserName)
         user.leftTryTimes = cursor.get(db1.C_leftTryTimes)
         user.passwordTip = cursor.get(db1.C_passwordTip)
+        user.lastWrongTime = cursor.get(db1.C_LastWrongTime)
         return user
     }
 
@@ -34,6 +35,22 @@ class DMUserModelImpl() : DMUserModel {
         return contentValues
     }
 
+    override fun getUserById(userId: Int): DMUser? {
+        var cursor: Cursor? = null
+        try {
+            cursor = dbHelper.readableDatabase.query(TName, null, "id = ?", arrayOf(userId.toString()), null, null, null)
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    return toDMUser(cursor)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            cursor?.close()
+        }
+        return null
+    }
 
     override fun getUserList(): ArrayList<DMUser> {
         var userList = ArrayList<DMUser>()
@@ -114,7 +131,7 @@ class DMUserModelImpl() : DMUserModel {
         return true //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getUserReTryTimes(userName: String): Int {
+    override fun getUserReTryTimesAndLastWrongTime(userName: String):Pair<Int,String> {
         var cursor = dbHelper.readableDatabase.query(TName, arrayOf(db1.C_leftTryTimes, db1.C_LastWrongTime), "${db1.C_UserName} =  ?", arrayOf(userName), null, null, null)
         var leftTime = 0
         var lastWrongTime = ""
@@ -129,18 +146,18 @@ class DMUserModelImpl() : DMUserModel {
             var date = Date().time
             if (date - lastwrong > StaticConfig.WRONGTIME_KEEP) {//如果已经过了一天
                 setReTryTimes(StaticConfig.MAX_RETRY_TIMES, userName, "")
-                return StaticConfig.MAX_RETRY_TIMES
+                return Pair(StaticConfig.MAX_RETRY_TIMES,"")
             } else {
-                return 0
+                return Pair(0,lastWrongTime)
             }
         }
-        return leftTime
+        return Pair(leftTime,"")
     }
 
     override fun checkPassword(userName: String, password: String): Int {
         var cursor: Cursor? = null
         try {
-            var retryTimes = getUserReTryTimes(userName)
+            var (retryTimes,lastwrong) = getUserReTryTimesAndLastWrongTime(userName)
             if (retryTimes == 0) return 0
 
             cursor = dbHelper.readableDatabase.query(TName, arrayOf(db1.C_Password), "${db1.C_UserName} =  ?", arrayOf(userName), null, null, null)

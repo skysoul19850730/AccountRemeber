@@ -6,6 +6,16 @@ import android.os.Parcelable
  * Created by Administrator on 2018/4/2.
  */
 class Account() : Parcelable {
+
+    override fun equals(other: Any?): Boolean {
+        if(other is Account){
+            return id == other.id
+        }
+        return super.equals(other)
+    }
+
+    var isChecked = false
+
     var id: Int = 0
     var platform: String? = null
     var password: String? = null
@@ -17,7 +27,7 @@ class Account() : Parcelable {
     var userId:Int =0
 
     var cate: Cate? = null
-    var extraColumnList: List<ExtraColumn>? = null
+    var extraColumnList: ArrayList<ExtraColumn>? = null
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
