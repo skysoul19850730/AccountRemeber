@@ -35,7 +35,7 @@ class UserModelImpl :UserModel {
         return usermodel.updateUserPassword(userId,password,passwordTip)
     }
 
-    override fun checkPassword(userName: String, password: String): Int {
+    override fun checkPassword(userName: String, password: String): Pair<Int,Int>  {
         return usermodel.checkPassword(userName,password)
     }
 

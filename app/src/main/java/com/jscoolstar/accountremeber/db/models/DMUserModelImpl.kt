@@ -154,17 +154,19 @@ class DMUserModelImpl() : DMUserModel {
         return Pair(leftTime,"")
     }
 
-    override fun checkPassword(userName: String, password: String): Int {
+    override fun checkPassword(userName: String, password: String): Pair<Int,Int> {
         var cursor: Cursor? = null
         try {
             var (retryTimes,lastwrong) = getUserReTryTimesAndLastWrongTime(userName)
-            if (retryTimes == 0) return 0
+            if (retryTimes == 0) return Pair(0,0)
 
-            cursor = dbHelper.readableDatabase.query(TName, arrayOf(db1.C_Password), "${db1.C_UserName} =  ?", arrayOf(userName), null, null, null)
+            cursor = dbHelper.readableDatabase.query(TName, arrayOf(db1.C_Password,"id"), "${db1.C_UserName} =  ?", arrayOf(userName), null, null, null)
             var passwordDM = ""
+            var userid =0
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     passwordDM = cursor.get(db1.C_Password)
+                    userid = cursor.get("id")
                 }
             }
 
@@ -172,18 +174,18 @@ class DMUserModelImpl() : DMUserModel {
             var passCheck = MD5.getMD5(password)
             if (passCheck.equals(passwordDM)) {//如果密码对了
                 setReTryTimes(StaticConfig.MAX_RETRY_TIMES,userName,"")
-                return -1
+                return Pair(userid,0)
             }
             retryTimes--
             setReTryTimes(retryTimes,userName,Date().time.toString())
-            return retryTimes
+            return Pair(0,retryTimes)
 
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
             cursor?.close()
         }
-        return -1
+        return Pair(0,1000)
     }
 
     override fun isUserNameExsits(userName: String): Boolean {

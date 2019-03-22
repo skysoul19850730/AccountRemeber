@@ -11,7 +11,7 @@ class LoginModelImpl:LoginModel {
         return SharedPreferencesManager.getString(SharedPreferencesManager.lastUserName)
     }
 
-    override fun checkPassword(userName: String, password: String): Int {
+    override fun checkPassword(userName: String, password: String): Pair<Int,Int>  {
         return userModel.checkPassword(userName,password)
     }
 

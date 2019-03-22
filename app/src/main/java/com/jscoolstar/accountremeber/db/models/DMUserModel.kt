@@ -15,8 +15,8 @@ interface DMUserModel {
     fun updateUserBaseInfo(dmUser: DMUser):Boolean
     /** 更新密码和密码提示  */
     fun updateUserPassword(userId:Int,password:String,passwordTip:String?):Boolean
-    /** -1代表密码正确,其他值代表，还可以尝试的次数  */
-    fun checkPassword(userName: String,password: String):Int
+    /** 0位置如果大于0，代表用户正确，返回userid。否则代表不正确。 1位置代表，还可以尝试的次数  */
+    fun checkPassword(userName: String,password: String):Pair<Int,Int>
 
     fun isUserNameExsits(userName:String):Boolean
 

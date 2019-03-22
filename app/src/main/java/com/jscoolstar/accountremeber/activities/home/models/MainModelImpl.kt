@@ -30,7 +30,7 @@ class MainModelImpl : MainModel {
     }
 
     override fun getCurrectUser(): User? {
-        var userId = SharedPreferencesManager.getInstance().getInt(SharedPreferencesManager.userid)
+        var userId = SharedPreferencesManager.getInt(SharedPreferencesManager.userid)
         if(userId==0)return null
         return userModel.getUserById(userId)
     }
