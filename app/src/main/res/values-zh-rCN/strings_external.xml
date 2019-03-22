@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<resources>
-    <string name="app_name">账密易</string>
-    <string name="password_wrong_moretimes">您输入密码错误的次数过多</string>
-</resources>

@@ -44,4 +44,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">16dp</item>
     </style>
+
+    <style name="password_error">
+        <item name="android:textColor">#ff0000</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
