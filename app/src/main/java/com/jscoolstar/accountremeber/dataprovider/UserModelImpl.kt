@@ -24,7 +24,9 @@ class UserModelImpl :UserModel {
 
     override fun addUser(user: User, password: String): Boolean {
         var dm = user.toDMUser(password)
-        return usermodel.addUser(dm)
+        var result = usermodel.addUser(dm)
+        user.userId = dm.userId
+        return result
     }
 
     override fun updateUserBaseInfo(user: User): Boolean {

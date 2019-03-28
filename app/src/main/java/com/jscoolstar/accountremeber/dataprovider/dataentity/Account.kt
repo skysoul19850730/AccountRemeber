@@ -17,13 +17,13 @@ class Account() : Parcelable {
     var isChecked = false
 
     var id: Int = 0
-    var platform: String? = null
-    var password: String? = null
-    var tip: String? = null
-    var bindphone: String? = null
-    var bindmail: String? = null
-    var create_time: String? = null
-    var accountName: String? = null
+    var platform: String = ""
+    var password: String= ""
+    var tip: String= ""
+    var bindphone: String= ""
+    var bindmail: String= ""
+    var create_time: String= ""
+    var accountName: String= ""
     var userId:Int =0
 
     var cate: Cate? = null

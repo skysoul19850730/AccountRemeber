@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jscoolstar.accountremeber"
-    >
+    package="com.jscoolstar.accountremeber">
 
     <application
         android:name=".apps.MApplication"
@@ -11,17 +10,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.login.activities.LoginActivity">
+        <activity
+            android:name=".activities.login.activities.LoginActivity"
+            android:screenOrientation="portrait">
 
-            <intent-filter >
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
 
         </activity>
-        <activity android:name=".activities.edit.EditActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged"/>
+        <activity
+            android:name=".activities.home.activities.MainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.register.activities.RegisterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.edit.EditActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
     </application>
 
 </manifest>

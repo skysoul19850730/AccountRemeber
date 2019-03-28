@@ -9,7 +9,5 @@ interface ILoginPresenter:BasePresenter {
 
     fun onRegisterClick()
 
-    fun getString(id:Int):String{
-        return MApplication.getInstance().getString(id)
-    }
+
 }

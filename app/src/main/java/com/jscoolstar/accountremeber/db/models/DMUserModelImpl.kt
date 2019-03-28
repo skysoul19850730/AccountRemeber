@@ -80,6 +80,7 @@ class DMUserModelImpl() : DMUserModel {
             var contentValues = getCountentValues(dmUser)
             contentValues.put(db1.C_leftTryTimes, StaticConfig.MAX_RETRY_TIMES)
             contentValues.put(db1.C_Password, MD5.getMD5(dmUser.password!!))
+            contentValues.put(db1.C_LastWrongTime,"")
 
             var id = dbHelper.writableDatabase.insert(TName, null, contentValues)
             if (id < 0) {

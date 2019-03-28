@@ -3,7 +3,7 @@ package com.jscoolstar.accountremeber.activities.login.models
 import com.jscoolstar.accountremeber.dataprovider.UserModelImpl
 import com.jscoolstar.accountremeber.utils.SharedPreferencesManager
 
-class LoginModelImpl:LoginModel {
+open class LoginModelImpl:LoginModel {
 
     var userModel = UserModelImpl()
 

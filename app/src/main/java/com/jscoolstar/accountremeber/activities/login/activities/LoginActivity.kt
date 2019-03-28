@@ -15,6 +15,8 @@ import com.jscoolstar.accountremeber.activities.login.models.LoginModelImpl
 import com.jscoolstar.accountremeber.activities.login.presenter.ILoginPresenter
 import com.jscoolstar.accountremeber.activities.login.presenter.LoginPresenterImpl
 import com.jscoolstar.accountremeber.activities.login.views.LoginViewModel
+import com.jscoolstar.accountremeber.activities.register.activities.RegisterActivity
+import com.jscoolstar.accountremeber.activities.utils.MTextWatch
 import kotlinx.android.synthetic.main.loginact.*
 
 class LoginActivity:AppCompatActivity(),LoginViewModel {
@@ -32,25 +34,14 @@ class LoginActivity:AppCompatActivity(),LoginViewModel {
         et_password.addTextChangedListener(MTextWatch(layout_password))
     }
 
-    private class MTextWatch : TextWatcher{
-        var mEt: TextInputLayout
-        constructor(et:TextInputLayout){
-            mEt = et
-        }
 
-        override fun afterTextChanged(s: Editable?) {
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            mEt.isErrorEnabled = false
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.destory()
     }
 
     override fun uiShowRegister() {
-        showToast("去注册")
+        startActivity(Intent(this,RegisterActivity::class.java))
     }
 
     override fun uiShowHome() {

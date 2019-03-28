@@ -8,8 +8,8 @@ import android.os.Parcelable
 class ExtraColumn() : Parcelable {
     var id: Int = 0
     var aId: Int = 0
-    var key: String? = null
-    var value: String? = null
+    var key: String= ""
+    var value: String= ""
 
 
     constructor(parcel: Parcel) : this() {

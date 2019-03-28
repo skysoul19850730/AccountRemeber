@@ -26,10 +26,9 @@ inline fun <reified T> Cursor.get(key: String): T {
         Integer::class.java -> getInt(index)
         Boolean::class.java -> getInt(index)>0
         java.lang.Boolean::class.java->getInt(index)>0
-        else -> null
-    }
-    if (result == null) {
-        throw Exception("not support class T")
+        else ->  {
+            throw Exception("not support class T")
+        }
     }
     return result as T
 }

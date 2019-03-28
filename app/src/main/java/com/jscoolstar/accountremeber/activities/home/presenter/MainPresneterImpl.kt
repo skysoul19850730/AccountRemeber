@@ -9,7 +9,7 @@ import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 import com.jscoolstar.accountremeber.db.SQL
 
-class MainPresneterImpl(private var mainModel: MainModel, private var mainView: MainView) : IMainPresenter {
+class MainPresneterImpl(private var mainModel: MainModel, private var mainView: MainView?) : IMainPresenter {
     companion object {
         val REQUESTCODE_CHECKPASSWORD = 1000
         val REQUESTCODE_DETAILEDIT = 1001
@@ -17,7 +17,11 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
     }
 
     init {
-        mainView.presenter = this
+        mainView?.presenter = this
+    }
+
+    override fun destory() {
+        mainView = null
     }
 
     var mEditState = false
@@ -28,7 +32,7 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
     override fun onEditClick() {
         mEditState = !mEditState
         list.forEach { it.isChecked = false }
-        mainView.showEditState(mEditState)
+        mainView?.showEditState(mEditState)
     }
 
     override fun onItemLongClick(position: Int) {
@@ -39,27 +43,27 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
         var user = mainModel.getCurrectUser()
         var (retry, last) = mainModel.getUserReTryTimesAndLastWrongTime(user!!.userName!!)
         if (retry == 0) {
-            mainView.showToast(R.string.password_wrong_moretimes)
+            mainView?.showToast(R.string.password_wrong_moretimes)
             return
         }
         mCurAccountClicked = account
-        mainView.showUIPasswordCheck()
+        mainView?.showUIPasswordCheck()
     }
 
     override fun onItemClick(position: Int) {
         if (!mEditState)
-            mainView.showItemTipDialog(list.get(position))
+            mainView?.showItemTipDialog(list.get(position))
         else {
             var account = list.get(position)
             account.isChecked = !account.isChecked
-            mainView.notifyData()
+            mainView?.notifyData()
         }
     }
 
     override fun start() {
         list.clear()
         list.addAll(mainModel.getAllAccounts(mainModel.getCurrectUser()!!.userId))
-        mainView.showMainList(list)
+        mainView?.showMainList(list)
     }
 
     override fun deleteChoosedAccounts() {
@@ -75,23 +79,23 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
 
         mainModel.deleteAccounts(list4checked)
         list.removeAll(list4checked)
-        mainView.notifyData()
+        mainView?.notifyData()
     }
 
     override fun uiEditAccountTask(account: Account) {
-        mainView.showUIAccountEdit(account)
+        mainView?.showUIAccountEdit(account)
     }
 
     override fun uiSearchTask() {
-        mainView.showUISearchUI()
+        mainView?.showUISearchUI()
     }
 
     override fun uiSettingTask() {
-        mainView.showUISettingUI()
+        mainView?.showUISettingUI()
     }
 
     override fun uiAddAccountTask() {
-        mainView.showUIAddNewAccount()
+        mainView?.showUIAddNewAccount()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -99,7 +103,7 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
             REQUESTCODE_CHECKPASSWORD -> {
                 if (resultCode == Activity.RESULT_OK) {
                     if (mCurAccountClicked != null)
-                        mainView.showUIAccountEdit(mCurAccountClicked!!)
+                        mainView?.showUIAccountEdit(mCurAccountClicked!!)
                 }
             }
         }
