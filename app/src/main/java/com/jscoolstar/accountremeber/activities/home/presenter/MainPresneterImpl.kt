@@ -2,6 +2,7 @@ package com.jscoolstar.accountremeber.activities.home.presenter
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Handler
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.home.models.MainModel
 import com.jscoolstar.accountremeber.activities.home.views.MainView
@@ -20,14 +21,27 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
         mainView?.presenter = this
     }
 
-    override fun destory() {
-        mainView = null
-    }
 
     var mEditState = false
     var list = arrayListOf<Account>()
 
     var mCurAccountClicked: Account? = null
+
+
+    var finishFlag = false
+
+    override fun dealFinish() {
+        if (finishFlag) {
+            mainView?.finalFinish()
+            return
+        }
+        finishFlag = true
+        Handler().postDelayed({ finishFlag = false }, 500)
+    }
+
+    override fun destory() {
+        mainView = null
+    }
 
     override fun onEditClick() {
         mEditState = !mEditState

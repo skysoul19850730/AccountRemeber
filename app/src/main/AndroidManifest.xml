@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.login.activities.LoginActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
 
             <intent-filter>
@@ -23,6 +24,7 @@
         </activity>
         <activity
             android:name=".activities.home.activities.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.register.activities.RegisterActivity"

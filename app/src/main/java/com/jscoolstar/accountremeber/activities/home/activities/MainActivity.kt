@@ -54,6 +54,13 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
         presenter.start()
     }
 
+    override fun finalFinish() {
+        super.finish()
+    }
+
+    override fun finish() {
+        presenter.dealFinish()
+    }
 
     override fun onAddClick() {
         presenter.uiAddAccountTask()

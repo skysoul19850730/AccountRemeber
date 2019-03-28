@@ -19,4 +19,6 @@ interface IMainPresenter :BasePresenter{
     fun uiAddAccountTask()
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+
+    fun dealFinish()
 }
