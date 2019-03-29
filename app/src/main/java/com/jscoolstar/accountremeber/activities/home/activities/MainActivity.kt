@@ -4,9 +4,13 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.HomeToolbar
@@ -17,12 +21,16 @@ import com.jscoolstar.accountremeber.activities.home.models.MainModelImpl
 import com.jscoolstar.accountremeber.activities.home.presenter.IMainPresenter
 import com.jscoolstar.accountremeber.activities.home.presenter.MainPresneterImpl
 import com.jscoolstar.accountremeber.activities.home.views.MainView
+import com.jscoolstar.accountremeber.activities.login.activities.LoginActivity
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
+import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 import com.jscoolstar.accountremeber.db.entity.DMAccount
 import com.jscoolstar.accountremeber.utils.AESUtil
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogClickListerner
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.main_drawer_header.*
+import kotlinx.android.synthetic.main.main_drawer_header.view.*
 
 
 class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, HomeToolbar4Edit.HomeBar4EditClickListerner, MainView {
@@ -51,6 +59,19 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
         }
         recyclerView.adapter = mAdapter
 
+        nav_view.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.drawer_menu_setting -> presenter.uiSettingTask()
+                R.id.drawer_menu_backup -> presenter.uiBackupTask()
+                R.id.drawer_menu_rate -> presenter.uiRatingTask()
+                R.id.drawer_menu_share -> presenter.uiShareTask()
+            }
+            drawer_layout.closeDrawer(GravityCompat.START)
+            return@setNavigationItemSelectedListener true
+        }
+
+        nav_view.getHeaderView(0).img_user.setOnClickListener { presenter.uiUserTask() }
+        nav_view.getHeaderView(0).btn_logout.setOnClickListener { presenter.login_out() }
         presenter.start()
     }
 
@@ -62,16 +83,20 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
         presenter.dealFinish()
     }
 
-    override fun onAddClick() {
+    fun onAddClick() {
         presenter.uiAddAccountTask()
+    }
+
+    override fun showUserInfo(user: User) {
+        nav_view.getHeaderView(0).tv_username.text = user.userName
     }
 
     override fun onSearchClick() {
         presenter.uiSearchTask()
     }
 
-    override fun onSettingClick() {
-        presenter.uiSettingTask()
+    override fun onNavigationClick() {
+        drawer_layout.openDrawer(GravityCompat.START)
     }
 
     override fun onEditClick() {
@@ -136,7 +161,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
     }
 
     override fun showUILogin() {
-        showToast("去登录")
+        startActivity(Intent(this,LoginActivity::class.java))
     }
 
     override fun showToast(text: String) {

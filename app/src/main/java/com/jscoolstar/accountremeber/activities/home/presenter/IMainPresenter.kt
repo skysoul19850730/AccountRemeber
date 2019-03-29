@@ -16,7 +16,13 @@ interface IMainPresenter :BasePresenter{
     fun uiEditAccountTask(account: Account)
     fun uiSearchTask()
     fun uiSettingTask()
+    fun uiBackupTask()
+    fun uiRatingTask()
+    fun uiShareTask()
     fun uiAddAccountTask()
+    fun uiUserTask()
+
+    fun login_out()
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
 

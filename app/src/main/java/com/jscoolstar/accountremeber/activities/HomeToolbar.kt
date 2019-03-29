@@ -29,7 +29,7 @@ class HomeToolbar @JvmOverloads constructor( context: Context, attrs: AttributeS
             setBackgroundResource(R.mipmap.navigation_bar)
         }
         inflateMenu(R.menu.menu_home)
-        menu_add = menu.findItem(R.id.menu_add)
+//        menu_add = menu.findItem(R.id.menu_add)
         menu_search = menu.findItem(R.id.menu_search)
         menu_edit = menu.findItem(R.id.menu_edit)
 
@@ -38,14 +38,14 @@ class HomeToolbar @JvmOverloads constructor( context: Context, attrs: AttributeS
                 R.id.menu_search ->
                     listerner?.onSearchClick()
 
-                R.id.menu_add -> listerner?.onAddClick()
+//                R.id.menu_add -> listerner?.onAddClick()
 
                 R.id.menu_edit -> listerner?.onEditClick()
             }
             return@setOnMenuItemClickListener true
         }
         setNavigationOnClickListener{
-            listerner?.onSettingClick()
+            listerner?.onNavigationClick()
         }
     }
 
@@ -53,9 +53,8 @@ class HomeToolbar @JvmOverloads constructor( context: Context, attrs: AttributeS
 
 
     interface HomeBarClickListerner {
-        fun onAddClick()
         fun onSearchClick()
-        fun onSettingClick()
+        fun onNavigationClick()
         fun onEditClick()
     }
 }

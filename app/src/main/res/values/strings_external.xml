@@ -18,5 +18,9 @@
     <string name="register_user_exists">用户名已存在</string>
     <string name="register_password_different">两次输入的密码不一致</string>
     <string name="register_passwordtip">设置密码提示</string>
+    <string name="drawer_menu_setting">设置</string>
+    <string name="drawer_menu_copy">备份</string>
+    <string name="drawer_menu_share">分享给朋友</string>
+    <string name="drawer_menu_rate">给我评分</string>
 
 </resources>

@@ -6,6 +6,7 @@ import android.os.Handler
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.home.models.MainModel
 import com.jscoolstar.accountremeber.activities.home.views.MainView
+import com.jscoolstar.accountremeber.apps.MApplication
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 import com.jscoolstar.accountremeber.db.SQL
@@ -78,6 +79,13 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
         list.clear()
         list.addAll(mainModel.getAllAccounts(mainModel.getCurrectUser()!!.userId))
         mainView?.showMainList(list)
+
+        var user = MApplication.getInstance().user
+        if(user==null){
+            mainView?.showUILogin()
+        }else{
+            mainView?.showUserInfo(user)
+        }
     }
 
     override fun deleteChoosedAccounts() {
@@ -110,6 +118,26 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
 
     override fun uiAddAccountTask() {
         mainView?.showUIAddNewAccount()
+    }
+
+    override fun uiBackupTask() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun uiRatingTask() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun uiShareTask() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun uiUserTask() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun login_out() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

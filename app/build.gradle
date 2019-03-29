@@ -6,6 +6,7 @@ def bakPath = file("${buildDir}/bakApk/")
 def releaseTime() {
     return new Date().format("MMdd-HH-mm-ss")
 }
+
 def AndroidSupportVersion = '27.1.1'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion1
@@ -101,11 +102,31 @@ android {
 
 }
 
+repositories {
+    flatDir {
+        dirs "libs"
+    }
+}
+
+fileTree(dir: 'libs', include: '**/*.aar')
+        .each {
+    File file ->
+        dependencies.add("implementation", [name: file.name.lastIndexOf('.').with {
+            it != -1 ? file.name[0..<it] : file.name
+        }, ext                                  : 'aar'])
+}
+
+
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    implementation fileTree(include: ['*.jar', '*.aar'], exclude: 'test_aar*', dir: 'libs')
+//    debugImplementation files('libs/test_aar-debug.aar')
+//    releaseImplementation files('libs/test_aar-release.aar')
+
+
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$AndroidSupportVersion"
-    implementation  'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "com.android.support:recyclerview-v7:$AndroidSupportVersion"
     implementation "com.android.support:design:$AndroidSupportVersion"
     implementation project(':jscoolstarlibrary')
