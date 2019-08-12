@@ -7,7 +7,7 @@ def releaseTime() {
     return new Date().format("MMdd-HH-mm-ss")
 }
 
-def AndroidSupportVersion = '27.1.1'
+def AndroidSupportVersion = '1.0.0-beta01'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion1
     defaultConfig {
@@ -59,45 +59,6 @@ android {
         }
     }
 
-//    List<String> flavors = new ArrayList<>();
-//    project.android.productFlavors.each { flavor ->
-//        flavors.add(flavor.name)
-//    }
-//    boolean hasFlavors = flavors.size() > 0
-//    applicationVariants.all { variant ->
-//
-//        def newFileNamePrefixAPK = "AccountRember_${variant.flavorName}" + defaultConfig.versionName + ".apk"
-//
-//        variant.outputs.all {
-//
-//            outputFileName = newFileNamePrefixAPK
-//        }
-//
-//        def taskName = variant.name
-//        tasks.all {
-//            if ("assemble${taskName.capitalize()}".equalsIgnoreCase(it.name)) {
-//                it.doLast {
-//                    println("sqc start")
-//                    println(variant.name)
-//                    println(variant.flavorName)
-//                    println(it.name)
-//                    println(variant.buildType.name)
-//                    println("sqc end")
-//
-//                    copy {
-//                        def destName = "AccountRebmer-${variant.flavorName}-${variant.buildType.name}_${defaultConfig.versionName}.apk"
-//                        from "${buildDir}/outputs/apk/${variant.flavorName}/${variant.buildType.name}/${newFileNamePrefixAPK}"
-//                        into file("${bakPath}/${"AccountRember-"}-${releaseTime()}/${variant.flavorName}")
-//                        rename {String fileName ->
-//
-//                            fileName.replace("${newFileNamePrefixAPK}","${destName}")
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
 
 
 }
@@ -108,26 +69,21 @@ repositories {
     }
 }
 
-fileTree(dir: 'libs', include: '**/*.aar')
-        .each {
-    File file ->
-        dependencies.add("implementation", [name: file.name.lastIndexOf('.').with {
-            it != -1 ? file.name[0..<it] : file.name
-        }, ext                                  : 'aar'])
-}
+//fileTree(dir: 'libs', include: '**/*.aar')
+//        .each {
+//    File file ->
+//        dependencies.add("implementation", [name: file.name.lastIndexOf('.').with {
+//            it != -1 ? file.name[0..<it] : file.name
+//        }, ext                                  : 'aar'])
+//}
 
 
 dependencies {
-//    implementation fileTree(include: ['*.jar', '*.aar'], exclude: 'test_aar*', dir: 'libs')
-//    debugImplementation files('libs/test_aar-debug.aar')
-//    releaseImplementation files('libs/test_aar-release.aar')
-
-
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$AndroidSupportVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation "com.android.support:recyclerview-v7:$AndroidSupportVersion"
-    implementation "com.android.support:design:$AndroidSupportVersion"
+    implementation "androidx.appcompat:appcompat:$AndroidSupportVersion"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.recyclerview:recyclerview:$AndroidSupportVersion"
+    implementation "com.google.android.material:material:$AndroidSupportVersion"
     implementation project(':jscoolstarlibrary')
 }

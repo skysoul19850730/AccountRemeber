@@ -2,7 +2,7 @@ package com.jscoolstar.accountremeber.activities.register.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.home.activities.MainActivity

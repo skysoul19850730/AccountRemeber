@@ -1,7 +1,7 @@
 package com.jscoolstar.accountremeber.activities.adapters
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +13,8 @@ import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
 /**
  * Created by Administrator on 2018/4/17.
  */
-class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn>, var columnClickListerner: ExtraColumnClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn>, var columnClickListerner: ExtraColumnClickListener) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         var mHolder = holder as MHoler
         var extraColumn = mList[position]
         mHolder.tv_extra_title.text = extraColumn.key
@@ -26,7 +26,7 @@ class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn
         mHolder.btn_delete.setOnClickListener{ columnClickListerner.onItemDeleteClick(extraColumn) }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         var view = LayoutInflater.from(mContext).inflate(R.layout.li_extra, parent, false)
         return MHoler(view)
     }
@@ -40,7 +40,7 @@ class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn
         fun onItemDeleteClick(extraColumn: ExtraColumn)
     }
 
-    class MHoler(val view: View) : RecyclerView.ViewHolder(view) {
+    class MHoler(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         var btn_delete: ImageView = view.findViewById(R.id.btn_delete)
         var tv_extra_title: TextView = view.findViewById(R.id.tv_extra_title)
         var tv_extra_value: TextView = view.findViewById(R.id.tv_extra_value)

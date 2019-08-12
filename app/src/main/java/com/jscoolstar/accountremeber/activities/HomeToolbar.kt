@@ -2,7 +2,7 @@ package com.jscoolstar.accountremeber.activities
 
 import android.content.Context
 import android.os.Build
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.util.AttributeSet
 import android.view.MenuItem
 import com.jscoolstar.accountremeber.R
@@ -10,7 +10,7 @@ import com.jscoolstar.accountremeber.R
 /**
  * Created by Administrator on 2018/4/11.
  */
-class HomeToolbar @JvmOverloads constructor( context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0 ) : Toolbar(context, attrs, defStyleAttr){
+class HomeToolbar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : Toolbar(context, attrs, defStyleAttr) {
 
 
     lateinit var menu_search: MenuItem
@@ -44,7 +44,7 @@ class HomeToolbar @JvmOverloads constructor( context: Context, attrs: AttributeS
             }
             return@setOnMenuItemClickListener true
         }
-        setNavigationOnClickListener{
+        setNavigationOnClickListener {
             listerner?.onNavigationClick()
         }
     }

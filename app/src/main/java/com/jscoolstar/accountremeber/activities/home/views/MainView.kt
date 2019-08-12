@@ -23,5 +23,7 @@ interface MainView :BaseView<IMainPresenter>{
 
     fun finalFinish()
 
+    fun notifyItemChanged(position:Int)
+    fun notifyItemInserted(position:Int)
 
 }

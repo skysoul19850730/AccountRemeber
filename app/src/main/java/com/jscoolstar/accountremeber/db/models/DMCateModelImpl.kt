@@ -48,6 +48,7 @@ class DMCateModelImpl() : DMCateModel {
         return cates
     }
 
+
     override fun addCate(cate: DMCate): Boolean {
         if (cate.userId == 0 || TextUtils.isEmpty(cate.cateName)) {
             return false
@@ -95,7 +96,27 @@ class DMCateModelImpl() : DMCateModel {
 
         return true
     }
+    override fun getCateByName(userId: Int, name: String): DMCate? {
+        if (userId == 0 || TextUtils.isEmpty(name)) {
+            return null
+        }
+        var cate: DMCate? = null
+        var cursor: Cursor? = null
+        try {
+            var cursor = dbHelper.writableDatabase.query(TName, null, " ${db1.C_cateName}=? AND ${db1.C_userId}=?", arrayOf(name, userId.toString()), null, null, null)
+            if (cursor != null) {
 
+                while (cursor.moveToNext()) {
+                    cate = toCate(cursor)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            cursor?.close()
+        }
+        return cate
+    }
     override fun getCateById(id: Int): DMCate? {
         if (id <= 0) return null
         var cate: DMCate? = null

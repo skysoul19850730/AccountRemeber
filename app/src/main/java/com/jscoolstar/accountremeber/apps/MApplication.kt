@@ -3,7 +3,7 @@ package com.jscoolstar.accountremeber.apps
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.jscoolstar.accountremeber.dataprovider.UserModelImpl
 import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 import com.jscoolstar.accountremeber.utils.SharedPreferencesManager

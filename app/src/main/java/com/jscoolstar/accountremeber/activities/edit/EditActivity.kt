@@ -4,23 +4,25 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.JSToolbar
 import com.jscoolstar.accountremeber.activities.adapters.CateAdapter
 import com.jscoolstar.accountremeber.activities.adapters.ExtraColumnAdapter
+import com.jscoolstar.accountremeber.apps.MApplication
+import com.jscoolstar.accountremeber.dataprovider.AccountModelImpl
 import com.jscoolstar.accountremeber.dataprovider.CateModelImpl
+import com.jscoolstar.accountremeber.dataprovider.UserModelImpl
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
 import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
-import com.jscoolstar.accountremeber.db.entity.DMAccount
-import com.jscoolstar.accountremeber.db.entity.DMCate
 import com.jscoolstar.accountremeber.utils.AESUtil
 import com.jscoolstar.accountremeber.utils.Util
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogClickListerner
@@ -64,13 +66,15 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
     lateinit var mAdapter: ExtraColumnAdapter
     lateinit var extraDialog: Edit_Extra_Dialog
 
-    val mAppPassword = "850730"
+
 
     lateinit var cates: ArrayList<Cate>
     var cate: Cate? = null
     lateinit var cateAdapter: CateAdapter
 
     lateinit var editText: EditText
+
+    var isEdit = true
 
     override fun menuClicked(menuId: Int) {
         if (rlt_permission.visibility != View.VISIBLE)
@@ -96,8 +100,11 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
         account!!.tip = et_tip.text.toString()
         account!!.extraColumnList = extralColumns
         account!!.cate = cate
+
+        AccountModelImpl().addAccount(MApplication.getInstance().user!!.userId,account!!)
         var tempIntent = Intent()
         tempIntent.putExtra("account", account)
+        tempIntent.putExtra("isEditState",isEdit)
         setResult(Activity.RESULT_OK, tempIntent)
         finish()
     }
@@ -128,12 +135,13 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
             cate = account!!.cate
         } else {
             account = Account()
+            isEdit = false
         }
 
         mAdapter = ExtraColumnAdapter(this, extralColumns, this)
         var lManager = LinearLayoutManager(this)
-        lManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        lManager.orientation = RecyclerView.VERTICAL
+        recyclerView.layoutManager = lManager
         recyclerView.adapter = mAdapter
         extraDialog = Edit_Extra_Dialog(this, this)
 
@@ -178,6 +186,7 @@ class EditActivity : AppCompatActivity(), JSToolbar.JSBarClickListerner, ExtraCo
         if (name.length == 0) return false
         var cate = Cate()
         cate.cateName = name
+        cate.userId = MApplication.getInstance().user!!.userId
         if (CateModelImpl().addCate(cate)) {
             this.cate = cate
             cates.add(cate)

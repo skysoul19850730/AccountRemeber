@@ -37,4 +37,8 @@ class CateModelImpl : CateModel {
     override fun getCateById(id: Int): Cate? {
         return dmCateModelImpl.getCateById(id)?.toCate()
     }
+
+    override fun getCateByName(userId: Int, name: String): Cate? {
+        return dmCateModelImpl.getCateByName(userId,name)?.toCate()
+    }
 }

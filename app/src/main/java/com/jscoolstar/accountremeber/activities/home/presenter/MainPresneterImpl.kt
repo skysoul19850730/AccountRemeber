@@ -148,6 +148,34 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
                         mainView?.showUIAccountEdit(mCurAccountClicked!!)
                 }
             }
+            REQUESTCODE_ADDACCOUNT->{
+                dealActResult4AddAccount(resultCode,data)
+            }
+        }
+    }
+
+    private fun dealActResult4AddAccount(resultCode: Int, data: Intent?){
+        if(resultCode == Activity.RESULT_CANCELED){
+            mainView?.showToast(R.string.home_cancel_edit)
+        }
+        if(resultCode == Activity.RESULT_OK){
+
+            var account = data!!.getParcelableExtra<Account>("account")
+            var isEdit = data!!.getBooleanExtra("isEditState",true)
+            var position = 0
+            if(isEdit){
+                for((index,ac) in list.withIndex()){
+                    if(ac.id == account.id){
+                        position = index
+                    }
+                }
+                mainView?.notifyItemChanged(position)
+            }else{
+                list.add(0,account)
+                mainView?.notifyItemInserted(0)
+            }
+
+
         }
     }
 }

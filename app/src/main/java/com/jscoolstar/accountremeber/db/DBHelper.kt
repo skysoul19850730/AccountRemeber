@@ -50,8 +50,6 @@ class DBHelper : SQLiteOpenHelper {
         db?.execSQL(SQL.EXTRA.DB1.SQL_CREATE_TABLE)
         db?.execSQL(SQL.User.DB1.SQL_CREATE_TABLE)
         db?.execSQL(SQL.CATE.DB1.SQL_CREATE_TABLE)
-
-        addDefaultCate()
         onUpgrade(db, firstVersion, dataversion)
     }
 
@@ -71,12 +69,6 @@ class DBHelper : SQLiteOpenHelper {
 //        //set all cateid in table account to defaultID
 //        db?.execSQL("update ${SQL.ACCOUNT.TABLENAME} set ${SQL.ACCOUNT.DB2.C_CATEID} = $defaultID")
 
-    }
-
-    private fun addDefaultCate(){
-        var cate = DMCate();
-        cate.cateName="default"
-        DMCateModelImpl().addCate(cate)
     }
 
     override fun getWritableDatabase(): SQLiteDatabase {

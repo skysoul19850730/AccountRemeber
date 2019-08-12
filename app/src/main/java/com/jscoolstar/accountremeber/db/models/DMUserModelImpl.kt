@@ -7,6 +7,7 @@ import com.jscoolstar.accountremeber.apps.MApplication
 import com.jscoolstar.accountremeber.config.StaticConfig
 import com.jscoolstar.accountremeber.db.DBHelper
 import com.jscoolstar.accountremeber.db.SQL
+import com.jscoolstar.accountremeber.db.entity.DMCate
 import com.jscoolstar.accountremeber.db.entity.DMUser
 import com.jscoolstar.accountremeber.utils.MD5
 import com.jscoolstar.accountremeber.utils.get
@@ -87,6 +88,11 @@ class DMUserModelImpl() : DMUserModel {
                 throw Exception()
             }
             dmUser.userId = id.toInt()
+            var cateModel = DMCateModelImpl()//注册用户后自动为用户添加一个默认分类
+            var cate = DMCate()
+            cate.cateName="default"
+            cate.userId = dmUser.userId
+            cateModel.addCate(cate)
         } catch (e: Exception) {
             e.printStackTrace()
             return false

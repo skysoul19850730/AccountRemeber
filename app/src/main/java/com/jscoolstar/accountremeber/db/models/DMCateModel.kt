@@ -8,4 +8,5 @@ interface DMCateModel {
     fun addCate(cate: DMCate): Boolean
     fun updateCate(cate: DMCate): Boolean
     fun getCateById(id: Int): DMCate?
+    fun getCateByName(userId: Int,name:String):DMCate?
 }

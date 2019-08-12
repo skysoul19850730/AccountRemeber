@@ -9,4 +9,5 @@ interface CateModel {
     fun addCate(cate: Cate): Boolean
     fun updateCate(cate: Cate): Boolean
     fun getCateById(id: Int): Cate?
+    fun getCateByName(userId: Int,name:String):Cate?
 }

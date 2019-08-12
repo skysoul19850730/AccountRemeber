@@ -1,7 +1,7 @@
 package com.jscoolstar.accountremeber.activities.adapters
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import com.jscoolstar.accountremeber.db.entity.DMAccount
 /**
  * Created by Administrator on 2018/4/16.
  */
-class AccountAdapter(val mContext: Context, var mList: List<Account>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AccountAdapter(val mContext: Context, var mList: List<Account>) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
     interface AccountListClickListerner {
         fun onItemClick(position: Int)
@@ -37,7 +37,7 @@ class AccountAdapter(val mContext: Context, var mList: List<Account>) : Recycler
     }
 
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         var mHolder: MViewHolder = holder as MViewHolder
         var account = mList[position]
         mHolder.tv_title.setText(account.platform)
@@ -61,12 +61,12 @@ class AccountAdapter(val mContext: Context, var mList: List<Account>) : Recycler
         return mList.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         var view = LayoutInflater.from(mContext).inflate(R.layout.li_accout, parent, false)
         return MViewHolder(view)
     }
 
-    class MViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class MViewHolder(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
 
         var tv_title: TextView
         var cb_select: CheckBox

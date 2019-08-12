@@ -4,14 +4,14 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.HomeToolbar
 import com.jscoolstar.accountremeber.activities.HomeToolbar4Edit
@@ -45,9 +45,10 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
         toolbar.listerner = this
         toolbar4edit.listerner = this
         var lManager = LinearLayoutManager(this)
-        lManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        mAdapter = AccountAdapter(this, arrayListOf())
+        lManager.orientation = RecyclerView.VERTICAL
+        recyclerView.layoutManager = lManager
+        var list:ArrayList<Account> = arrayListOf()
+        mAdapter = AccountAdapter(this, list)
         mAdapter.listerner = object : AccountAdapter.AccountListClickListerner {
             override fun onItemClick(position: Int) {
                 presenter.onItemClick(position)
@@ -72,6 +73,8 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
 
         nav_view.getHeaderView(0).img_user.setOnClickListener { presenter.uiUserTask() }
         nav_view.getHeaderView(0).btn_logout.setOnClickListener { presenter.login_out() }
+
+        fb_add.setOnClickListener { presenter.uiAddAccountTask() }
         presenter.start()
     }
 
@@ -117,6 +120,16 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
 
     override fun notifyData() {
         mAdapter.notifyDataSetChanged()
+
+
+    }
+
+    override fun notifyItemChanged(position: Int) {
+        mAdapter.notifyItemChanged(position)
+    }
+
+    override fun notifyItemInserted(position: Int) {
+        mAdapter.notifyItemInserted(position)
     }
 
     override fun showItemTipDialog(account: Account) {
@@ -165,7 +178,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
     }
 
     override fun showToast(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG)
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 
     override fun showToast(textId: Int) {

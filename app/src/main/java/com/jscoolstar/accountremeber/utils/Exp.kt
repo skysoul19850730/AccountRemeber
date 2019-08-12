@@ -1,8 +1,19 @@
 package com.jscoolstar.accountremeber.utils
 
 import android.database.Cursor
+import android.util.Log
+import com.jscoolstar.accountremeber.apps.MApplication
 import java.lang.Exception
 import java.lang.reflect.ParameterizedType
+
+fun Any.log(text:String?){
+    var tag = javaClass.simpleName
+    Log.d(tag,text)
+}
+fun Any.log(id:Int){
+    var tag = javaClass.simpleName
+    Log.d(tag,MApplication.getInstance().getContext().getString(id))
+}
 
 inline fun <reified T> Cursor.get(key: String): T {
 

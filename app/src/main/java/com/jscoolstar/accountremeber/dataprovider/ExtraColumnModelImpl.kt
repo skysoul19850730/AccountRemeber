@@ -23,23 +23,24 @@ class ExtraColumnModelImpl :ExtraColumnModel {
         return result
     }
 
-    override fun deleteColumnWithId(columnId: Int): Boolean {
-       return dmColumnModelImpl.deleteColumnWithId(columnId)
-    }
+//    override fun deleteColumnWithId(columnId: Int): Boolean {
+//       return dmColumnModelImpl.deleteColumnWithId(columnId)
+//    }
 
-    override fun deleteColumns4AccoutnId(accountId: Int): Boolean {
-        return dmColumnModelImpl.deleteColumns4AccoutnId(accountId)
-    }
+//    override fun deleteColumns4AccoutnId(accountId: Int): Boolean {
+//        return dmColumnModelImpl.deleteColumns4AccoutnId(accountId)
+//    }
 
-    override fun addColumn4AccountId(accountId: Int, column: ExtraColumn): Boolean {
-        return dmColumnModelImpl.addColumn4AccountId(accountId,column.toDMExtraColumn())
-    }
+//    override fun addColumn4AccountId(accountId: Int, column: ExtraColumn): Boolean {
+//        return dmColumnModelImpl.addColumn4AccountId(accountId,column.toDMExtraColumn())
+//    }
 
     override fun addColumns4AccountId(accountId: Int, columns: List<ExtraColumn>): Boolean {
         var list = arrayListOf<DMExtraColumn>()
         for(ex in columns){
             list.add(ex.toDMExtraColumn())
         }
+        dmColumnModelImpl.deleteColumns4AccoutnId(accountId)
         return dmColumnModelImpl.addColumns4AccountId(accountId,list)
     }
 }

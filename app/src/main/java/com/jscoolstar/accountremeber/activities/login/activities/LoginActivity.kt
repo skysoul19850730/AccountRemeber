@@ -2,8 +2,8 @@ package com.jscoolstar.accountremeber.activities.login.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TextInputLayout
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputLayout
+import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.WindowManager
@@ -24,8 +24,10 @@ class LoginActivity:AppCompatActivity(),LoginViewModel {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.loginact)
+        et_username.requestFocus()
+
         presenter = LoginPresenterImpl(this,LoginModelImpl())
         presenter.start()
         btn_login.setOnClickListener { presenter.onLoginClick(et_username.text.toString(),et_password.text.toString()) }
@@ -55,6 +57,7 @@ class LoginActivity:AppCompatActivity(),LoginViewModel {
     override fun showUIWithUser(userName: String?) {
         if(userName!=null && !userName.isEmpty()){
             et_username.setText(userName)
+            et_password.requestFocus()
         }
     }
 
