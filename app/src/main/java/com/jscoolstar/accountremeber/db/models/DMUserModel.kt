@@ -10,15 +10,25 @@ interface DMUserModel {
 
     fun getUserById(userId:Int):DMUser?
     fun getUserList():ArrayList<DMUser>
-    fun addUser(dmUser: DMUser):Boolean
+    /**
+     * @date   2019/10/29 18:35
+     * @Description 注册用户，成功后返回用户id，否则返回-1
+     */
+    fun addUser(userName: String,password: String,passwordTip: String?):Long
     /** 更新用户信息，不含密码  */
     fun updateUserBaseInfo(dmUser: DMUser):Boolean
-    /** 更新密码和密码提示  */
-    fun updateUserPassword(userId:Int,password:String,passwordTip:String?):Boolean
+    /** 更新登录密码和密码提示  */
+    fun updateUserPassword4Login(userId:Int, password:String, passwordTip:String?):Boolean
     /** 0位置如果大于0，代表用户正确，返回userid。否则代表不正确。 1位置代表，还可以尝试的次数  */
     fun checkPassword(userName: String,password: String):Pair<Int,Int>
 
     fun isUserNameExsits(userName:String):Boolean
+    fun isNickNameExsits(nickName:String):Boolean
 
     fun getUserReTryTimesAndLastWrongTime(userName: String):Pair<Int,String>
+
+    fun isAccountViewPasswordCorrect(userId: Int,password: String):Boolean
+    fun isAccountViewPasswordUseLoginPassword(userId: Int):Boolean
+    /** 更新查看账户详情密码  */
+    fun updateUserPassword4ViewAccount(userId:Int, password:String?,isUseLoginPassword:Boolean):Boolean
 }

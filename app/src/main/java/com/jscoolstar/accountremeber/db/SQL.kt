@@ -71,18 +71,24 @@ object SQL {
         val TABLENAME = "user"
         object DB1{
             val C_UserName = "username"
+            val C_NickName = "nickname"
             val C_Password="password"
             val C_passwordTip="passwordtip"
             val C_leftTryTimes="lefttrytimes"
             val C_LastWrongTime="lastwrondtime"
+            val C_AccountViewPassword="AccountViewPasswordModel"
+            val C_IsAccountViewPassworUseLoginPassword ="IsAccountViewPassworUseLoginPassword"
 
             val SQL_CREATE_TABLE =
                     "CREATE TABLE IF NOT EXISTS " + TABLENAME + "(" +
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             "$C_Password TEXT,"+
+                            "$C_NickName TEXT,"+
                             "$C_passwordTip TEXT,"+
+                            "$C_AccountViewPassword TEXT,"+
                             "$C_LastWrongTime TEXT,"+
                             "$C_leftTryTimes INTEGER,"+
+                            "$C_IsAccountViewPassworUseLoginPassword INTEGER,"+
                             "$C_UserName TEXT)";
         }
     }

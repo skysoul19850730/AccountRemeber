@@ -1,14 +1,32 @@
 package com.jscoolstar.accountremeber.dataprovider.dataentity
+
 import android.os.Parcel
 import android.os.Parcelable
 
 /**
  * Created by Administrator on 2018/4/2.
  */
-class Account() : Parcelable {
+class Account() : Parcelable, Cloneable {
+
+    public override fun clone(): Account {
+        var account = Account()
+        account.id = id
+        account.platform = platform
+        account.password = password
+        account.tip = tip
+        account.bindphone = bindphone
+        account.bindmail = bindmail
+        account.create_time = create_time
+        account.accountName = accountName
+        account.userId = userId
+
+        account.cate = cate
+        account.extraColumnList = extraColumnList
+        return account
+    }
 
     override fun equals(other: Any?): Boolean {
-        if(other is Account){
+        if (other is Account) {
             return id == other.id
         }
         return super.equals(other)
@@ -18,13 +36,13 @@ class Account() : Parcelable {
 
     var id: Int = 0
     var platform: String = ""
-    var password: String= ""
-    var tip: String= ""
-    var bindphone: String= ""
-    var bindmail: String= ""
-    var create_time: String= ""
-    var accountName: String= ""
-    var userId:Int =0
+    var password: String = ""
+    var tip: String = ""
+    var bindphone: String = ""
+    var bindmail: String = ""
+    var create_time: String = ""
+    var accountName: String = ""
+    var userId: Int = 0
 
     var cate: Cate? = null
     var extraColumnList: ArrayList<ExtraColumn>? = null

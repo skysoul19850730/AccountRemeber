@@ -7,6 +7,7 @@ import com.jscoolstar.accountremeber.activities.register.presenters.RegisterPres
 interface RegisterView : BaseView<IRegisterPresenter>{
 
     fun uiShowHome()//去首页
+    fun uiShowRegister2Step()
     fun showPasswordWrong(msg:String)
     fun showPasswordWrong2(msg:String)
     fun showUserNameWrong(msg:String)

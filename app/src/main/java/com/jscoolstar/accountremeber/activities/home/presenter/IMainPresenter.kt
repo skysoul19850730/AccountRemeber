@@ -11,9 +11,7 @@ interface IMainPresenter :BasePresenter{
     fun onItemLongClick(position:Int)
     fun onItemClick(position: Int)
 
-    fun uiPreIntoDetail(account: Account)
 
-    fun uiEditAccountTask(account: Account)
     fun uiSearchTask()
     fun uiSettingTask()
     fun uiBackupTask()

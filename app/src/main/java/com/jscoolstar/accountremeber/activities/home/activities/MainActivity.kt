@@ -16,12 +16,13 @@ import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.HomeToolbar
 import com.jscoolstar.accountremeber.activities.HomeToolbar4Edit
 import com.jscoolstar.accountremeber.activities.adapters.AccountAdapter
-import com.jscoolstar.accountremeber.activities.edit.EditActivity
+import com.jscoolstar.accountremeber.activities.edit.activities.EditActivity
 import com.jscoolstar.accountremeber.activities.home.models.MainModelImpl
 import com.jscoolstar.accountremeber.activities.home.presenter.IMainPresenter
 import com.jscoolstar.accountremeber.activities.home.presenter.MainPresneterImpl
 import com.jscoolstar.accountremeber.activities.home.views.MainView
 import com.jscoolstar.accountremeber.activities.login.activities.LoginActivity
+import com.jscoolstar.accountremeber.apps.ActivityManager
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 import com.jscoolstar.accountremeber.db.entity.DMAccount
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
     }
 
     override fun showUserInfo(user: User) {
-        nav_view.getHeaderView(0).tv_username.text = user.userName
+        nav_view.getHeaderView(0).tv_username.text = user.nickName
     }
 
     override fun onSearchClick() {
@@ -139,7 +140,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
             }
 
             override fun onConfirmClick(dialogInterface: DialogInterface, which: Int) {
-                presenter.uiPreIntoDetail(account)
+                showUIAccountEdit(account)
             }
         })
     }
@@ -169,12 +170,8 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
         showToast("去设置")
     }
 
-    override fun showUIPasswordCheck() {
-        showToast("检查密码")
-    }
-
     override fun showUILogin() {
-        startActivity(Intent(this,LoginActivity::class.java))
+        ActivityManager.goLogin(this)
     }
 
     override fun showToast(text: String) {

@@ -36,6 +36,12 @@ class LoginActivity:AppCompatActivity(),LoginViewModel {
         et_password.addTextChangedListener(MTextWatch(layout_password))
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        et_username.setText("")
+        et_password.setText("")
+        presenter.start()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

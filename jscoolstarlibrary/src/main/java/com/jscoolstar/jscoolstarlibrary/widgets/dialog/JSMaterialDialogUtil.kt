@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import android.view.View
 import com.jscoolstar.jscoolstarlibrary.R
+import java.lang.Appendable
 
 /**
  * Created by Administrator on 2018/4/24.
@@ -54,16 +55,31 @@ class JSMaterialDialogUtil {
         return true
     }
 
-    fun showDialog(title: String,v:View?, message: String, cancelText: String, confirmText: String, dialogClickListerner: JSMaterialDialogClickListerner?): AlertDialog? {
+//    fun showDialog(title: String, v: View?, message: String, cancelText: String, confirmText: String, dialogClickListerner: JSMaterialDialogClickListerner?): AlertDialog? {
+//        if (!preCheck()) return null
+//        var builder = BuildDialog()
+//        builder.setTitle(title)
+//        if (v != null) {
+//            builder.setView(v)
+//        }
+//        return builder.setMessage(message)
+//                .setNegativeButton(cancelText, DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onCancelClick(dialog, which) }).setPositiveButton(confirmText, DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onConfirmClick(dialog, which) })
+//                .show()
+//    }
+
+    fun  showDialog(title: Any, v: View?, message: Any, cancelText: Any, confirmText: Any, dialogClickListerner: JSMaterialDialogClickListerner?): AlertDialog? {
         if (!preCheck()) return null
         var builder = BuildDialog()
-        builder.setTitle(title)
-        if(v!=null){
+
+
+        builder.setTitle(title.getString(mContext!!))
+        if (v != null) {
             builder.setView(v)
         }
-        return builder.setMessage(message)
-                .setNegativeButton(cancelText, DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onCancelClick(dialog, which) }).setPositiveButton(confirmText, DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onConfirmClick(dialog, which) })
+        return builder.setMessage(message.getString(mContext!!))
+                .setNegativeButton(cancelText.getString(mContext!!), DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onCancelClick(dialog, which) }).setPositiveButton(confirmText.getString(mContext!!), DialogInterface.OnClickListener { dialog, which -> dialogClickListerner?.onConfirmClick(dialog, which) })
                 .show()
     }
+
 
 }

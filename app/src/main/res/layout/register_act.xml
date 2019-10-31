@@ -35,7 +35,6 @@
             android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:textColor="@color/colorAccent"
             android:textSize="22sp"
             tools:text="测试用户名" />

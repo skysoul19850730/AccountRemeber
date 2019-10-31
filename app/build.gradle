@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion1
     defaultConfig {
         applicationId "com.jscoolstar.accountremeber"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion1
         versionCode 1
         versionName "1.0"

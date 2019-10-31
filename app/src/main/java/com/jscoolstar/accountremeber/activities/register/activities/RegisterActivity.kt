@@ -11,22 +11,25 @@ import com.jscoolstar.accountremeber.activities.register.presenters.IRegisterPre
 import com.jscoolstar.accountremeber.activities.register.presenters.RegisterPresenterImpl
 import com.jscoolstar.accountremeber.activities.register.views.RegisterView
 import com.jscoolstar.accountremeber.activities.utils.MTextWatch
+import com.jscoolstar.accountremeber.apps.BaseActivity
 import kotlinx.android.synthetic.main.register_act.*
 
-class RegisterActivity :AppCompatActivity(),RegisterView{
+class RegisterActivity : BaseActivity<IRegisterPresenter>(), RegisterView {
+    override fun getLayoutId(): Int {
+        return R.layout.register_act
+    }
 
     override lateinit var presenter: IRegisterPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_act)
         presenter = RegisterPresenterImpl(this, RegisterModelImpl())
         presenter.start()
 
         et_username.addTextChangedListener(MTextWatch(layout_username))
         et_password.addTextChangedListener(MTextWatch(layout_password))
         et_password2.addTextChangedListener(MTextWatch(layout_password2))
-        btn_register.setOnClickListener { presenter.onRegisterClick(et_username.text.toString(),et_password.text.toString(),et_password2.text.toString(),et_passwordtip.text.toString()) }
+        btn_register.setOnClickListener { presenter.onRegisterClick(et_username.text.toString(), et_password.text.toString(), et_password2.text.toString(), et_passwordtip.text.toString()) }
 
         toolbar.setNavigationOnClickListener { finish() }
     }
@@ -56,13 +59,9 @@ class RegisterActivity :AppCompatActivity(),RegisterView{
         layout_username.error = msg
     }
 
-
-
-    override fun showToast(text: String) {
-        Toast.makeText(this,text, Toast.LENGTH_LONG).show()
-}
-
-    override fun showToast(textId: Int) {
-        Toast.makeText(this,textId,Toast.LENGTH_LONG).show()
+    override fun uiShowRegister2Step() {
+        startActivity(Intent(this, Register2Activity::class.java))
+        finish()
     }
+
 }

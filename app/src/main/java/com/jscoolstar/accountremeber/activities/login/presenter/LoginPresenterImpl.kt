@@ -4,6 +4,7 @@ import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.login.models.LoginModel
 import com.jscoolstar.accountremeber.activities.login.views.LoginViewModel
 import com.jscoolstar.accountremeber.apps.MApplication
+import com.jscoolstar.accountremeber.apps.UserInfoManager
 import com.jscoolstar.accountremeber.utils.SharedPreferencesManager
 import com.jscoolstar.accountremeber.utils.Util
 
@@ -40,13 +41,12 @@ class LoginPresenterImpl(var viewModel: LoginViewModel?, var dataModel: LoginMod
         }
         when(result.second){
             0 -> checkWrongTimes(userName)
-            else ->viewModel?.showToast(String.format(getString(R.string.login_password_wrong),result))
+            else ->viewModel?.showToast(String.format(getString(R.string.login_password_wrong),result.second))
         }
     }
 
     private fun loginSuc2Home(userName: String,userId:Int){
-        SharedPreferencesManager.setString(SharedPreferencesManager.lastUserName,userName)
-        SharedPreferencesManager.setInt(SharedPreferencesManager.userid,userId)
+        UserInfoManager.getInstance().save4LastUser(userName,userId)
         viewModel?.uiShowHome()
     }
 
@@ -67,7 +67,7 @@ class LoginPresenterImpl(var viewModel: LoginViewModel?, var dataModel: LoginMod
 
     override fun start() {
 
-        if(MApplication.getInstance().user!=null){
+        if(UserInfoManager.getInstance().getLastUser()!=null){
             viewModel?.uiShowHome()//如果有上次登录用户未登出，则直接进入首页
             return
         }

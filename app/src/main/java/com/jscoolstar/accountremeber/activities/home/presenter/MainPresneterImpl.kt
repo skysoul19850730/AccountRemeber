@@ -6,7 +6,9 @@ import android.os.Handler
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.home.models.MainModel
 import com.jscoolstar.accountremeber.activities.home.views.MainView
+import com.jscoolstar.accountremeber.apps.ActivityManager
 import com.jscoolstar.accountremeber.apps.MApplication
+import com.jscoolstar.accountremeber.apps.UserInfoManager
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 import com.jscoolstar.accountremeber.db.SQL
@@ -51,19 +53,9 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
     }
 
     override fun onItemLongClick(position: Int) {
-        uiPreIntoDetail(list.get(position))
+        mainView?.showUIAccountEdit(list.get(position))
     }
 
-    override fun uiPreIntoDetail(account: Account) {
-        var user = mainModel.getCurrectUser()
-        var (retry, last) = mainModel.getUserReTryTimesAndLastWrongTime(user!!.userName!!)
-        if (retry == 0) {
-            mainView?.showToast(R.string.password_wrong_moretimes)
-            return
-        }
-        mCurAccountClicked = account
-        mainView?.showUIPasswordCheck()
-    }
 
     override fun onItemClick(position: Int) {
         if (!mEditState)
@@ -80,12 +72,8 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
         list.addAll(mainModel.getAllAccounts(mainModel.getCurrectUser()!!.userId))
         mainView?.showMainList(list)
 
-        var user = MApplication.getInstance().user
-        if(user==null){
-            mainView?.showUILogin()
-        }else{
-            mainView?.showUserInfo(user)
-        }
+        var user = UserInfoManager.getInstance().getUser()
+        mainView?.showUserInfo(user)
     }
 
     override fun deleteChoosedAccounts() {
@@ -104,9 +92,6 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
         mainView?.notifyData()
     }
 
-    override fun uiEditAccountTask(account: Account) {
-        mainView?.showUIAccountEdit(account)
-    }
 
     override fun uiSearchTask() {
         mainView?.showUISearchUI()
@@ -137,7 +122,8 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
     }
 
     override fun login_out() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        UserInfoManager.getInstance().logout()
+        mainView?.showUILogin()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -148,30 +134,30 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
                         mainView?.showUIAccountEdit(mCurAccountClicked!!)
                 }
             }
-            REQUESTCODE_ADDACCOUNT->{
-                dealActResult4AddAccount(resultCode,data)
+            REQUESTCODE_ADDACCOUNT -> {
+                dealActResult4AddAccount(resultCode, data)
             }
         }
     }
 
-    private fun dealActResult4AddAccount(resultCode: Int, data: Intent?){
-        if(resultCode == Activity.RESULT_CANCELED){
+    private fun dealActResult4AddAccount(resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_CANCELED) {
             mainView?.showToast(R.string.home_cancel_edit)
         }
-        if(resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
 
             var account = data!!.getParcelableExtra<Account>("account")
-            var isEdit = data!!.getBooleanExtra("isEditState",true)
+            var isEdit = data!!.getBooleanExtra("isEditState", true)
             var position = 0
-            if(isEdit){
-                for((index,ac) in list.withIndex()){
-                    if(ac.id == account.id){
+            if (isEdit) {
+                for ((index, ac) in list.withIndex()) {
+                    if (ac.id == account.id) {
                         position = index
                     }
                 }
                 mainView?.notifyItemChanged(position)
-            }else{
-                list.add(0,account)
+            } else {
+                list.add(0, account)
                 mainView?.notifyItemInserted(0)
             }
 

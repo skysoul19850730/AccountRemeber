@@ -29,8 +29,10 @@
         <activity
             android:name=".activities.register.activities.RegisterActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".activities.register.activities.Register2Activity"
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activities.edit.EditActivity"
+            android:name=".activities.edit.activities.EditActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
     </application>

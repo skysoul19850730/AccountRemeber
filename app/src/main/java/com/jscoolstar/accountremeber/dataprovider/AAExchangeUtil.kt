@@ -72,21 +72,19 @@ fun Account.toDMAccount(): DMAccount {
     return account
 }
 
-fun User.toDMUser(password: String?): DMUser {
+fun User.toDMUser(): DMUser {
     var user = DMUser()
     user.userId = userId
-    user.userName = userName
+    user.nickName = nickName
     user.passwordTip = passwordTip
-    if (password != null) {
-        user.password = password
-    }
     return user
 }
 
 fun DMUser.toUser(): User {
     var user = User()
     user.userId = userId
-    user.userName = userName
+    user.nickName = nickName
     user.passwordTip = passwordTip
+    user.isAccountViewPasswordSetted = isAccountViewPasswordSetted
     return user
 }

@@ -15,6 +15,7 @@ fun Any.log(id:Int){
     Log.d(tag,MApplication.getInstance().getContext().getString(id))
 }
 
+
 inline fun <reified T> Cursor.get(key: String): T {
 
 
@@ -25,8 +26,8 @@ inline fun <reified T> Cursor.get(key: String): T {
     var result: Any?=null
 
     result = when (entityClass) {
-        String::class.java -> getString(index)
-        java.lang.String::class.java -> getString(index)
+        String::class.java -> getStringNotNull(index)
+        java.lang.String::class.java -> getStringNotNull(index)
         Long::class.java -> getLong(index)
         java.lang.Long::class.java -> getLong(index)
         Double::class.java -> getDouble(index)
@@ -42,4 +43,9 @@ inline fun <reified T> Cursor.get(key: String): T {
         }
     }
     return result as T
+}
+fun Cursor.getStringNotNull(columnIndex:Int):String{
+    var result = getString(columnIndex)
+    if(result==null)return ""
+    return result
 }

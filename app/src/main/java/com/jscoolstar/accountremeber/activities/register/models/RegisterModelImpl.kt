@@ -13,7 +13,7 @@ class RegisterModelImpl : RegisterModel {
         return userModel.isUserNameExsits(userName)
     }
 
-    override fun addUser(user: User, password: String): Boolean {
-        return userModel.addUser(user,password)
+    override fun addUser(userName: String,password: String,passwordTip: String?): Long {
+        return userModel.addUser(userName,password,passwordTip)
     }
 }

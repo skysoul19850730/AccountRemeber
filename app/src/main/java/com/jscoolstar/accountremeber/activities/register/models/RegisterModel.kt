@@ -6,6 +6,6 @@ interface RegisterModel {
 
     fun isUserNameExsits(userName:String):Boolean
 
-    fun addUser(user: User, password:String):Boolean
+    fun addUser(userName: String,password: String,passwordTip: String?): Long
 
 }

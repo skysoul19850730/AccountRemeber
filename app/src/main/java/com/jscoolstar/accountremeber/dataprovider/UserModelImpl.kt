@@ -22,19 +22,17 @@ class UserModelImpl :UserModel {
         return results
     }
 
-    override fun addUser(user: User, password: String): Boolean {
-        var dm = user.toDMUser(password)
-        var result = usermodel.addUser(dm)
-        user.userId = dm.userId
+    override fun addUser(userName: String,password: String,passwordTip: String?): Long {
+        var result = usermodel.addUser(userName,password,passwordTip)
         return result
     }
 
     override fun updateUserBaseInfo(user: User): Boolean {
-        return usermodel.updateUserBaseInfo(user.toDMUser(null))
+        return usermodel.updateUserBaseInfo(user.toDMUser())
     }
 
-    override fun updateUserPassword(userId: Int, password: String, passwordTip: String?): Boolean {
-        return usermodel.updateUserPassword(userId,password,passwordTip)
+    override fun updateUserPassword4Login(userId: Int, password: String, passwordTip: String?): Boolean {
+        return usermodel.updateUserPassword4Login(userId,password,passwordTip)
     }
 
     override fun checkPassword(userName: String, password: String): Pair<Int,Int>  {
@@ -48,5 +46,21 @@ class UserModelImpl :UserModel {
     override fun getUserReTryTimesAndLastWrongTime(userName: String):Pair<Int,String> {
 
         return usermodel.getUserReTryTimesAndLastWrongTime(userName)
+    }
+
+    override fun isNickNameExsits(nickName: String): Boolean {
+        return usermodel.isNickNameExsits(nickName)
+    }
+
+    override fun isAccountViewPasswordCorrect(userId: Int, password: String): Boolean {
+        return usermodel.isAccountViewPasswordCorrect(userId,password)
+    }
+
+    override fun isAccountViewPasswordUseLoginPassword(userId: Int): Boolean {
+        return usermodel.isAccountViewPasswordUseLoginPassword(userId)
+    }
+
+    override fun updateUserPassword4ViewAccount(userId: Int, password: String?, isUseLoginPassword: Boolean): Boolean {
+        return usermodel.updateUserPassword4ViewAccount(userId,password,isUseLoginPassword)
     }
 }

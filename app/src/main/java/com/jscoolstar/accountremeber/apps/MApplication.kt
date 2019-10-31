@@ -41,13 +41,4 @@ class MApplication : Application() {
         return context
     }
 
-    var user: User? = null
-        get() {
-            if (field != null) return field
-            else {
-                var lastId = SharedPreferencesManager.getInt(SharedPreferencesManager.userid)
-                if(lastId==0)return null
-                else return UserModelImpl().getUserById(lastId)
-            }
-        }
 }

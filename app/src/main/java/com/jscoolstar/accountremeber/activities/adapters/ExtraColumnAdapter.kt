@@ -20,10 +20,10 @@ class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn
         mHolder.tv_extra_title.text = extraColumn.key
         mHolder.tv_extra_value.text = extraColumn.value
         mHolder.tv_extra_title.setOnClickListener{
-            columnClickListerner.onItemClick(extraColumn)
+            columnClickListerner.onItemClick(extraColumn,position)
         }
-        mHolder.tv_extra_value.setOnClickListener{ columnClickListerner.onItemClick(extraColumn) }
-        mHolder.btn_delete.setOnClickListener{ columnClickListerner.onItemDeleteClick(extraColumn) }
+        mHolder.tv_extra_value.setOnClickListener{ columnClickListerner.onItemClick(extraColumn,position) }
+        mHolder.btn_delete.setOnClickListener{ columnClickListerner.onItemDeleteClick(extraColumn,position) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
@@ -36,8 +36,8 @@ class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn
     }
 
     interface ExtraColumnClickListener {
-        fun onItemClick(extraColumn: ExtraColumn)
-        fun onItemDeleteClick(extraColumn: ExtraColumn)
+        fun onItemClick(extraColumn: ExtraColumn,position: Int)
+        fun onItemDeleteClick(extraColumn: ExtraColumn,position: Int)
     }
 
     class MHoler(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {

@@ -18,7 +18,6 @@ interface MainView :BaseView<IMainPresenter>{
     fun showUIAddNewAccount()
     fun showUISearchUI()
     fun showUISettingUI()
-    fun showUIPasswordCheck()
     fun showUILogin()
 
     fun finalFinish()
