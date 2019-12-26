@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -22,6 +23,7 @@ import com.jscoolstar.accountremeber.activities.home.presenter.IMainPresenter
 import com.jscoolstar.accountremeber.activities.home.presenter.MainPresneterImpl
 import com.jscoolstar.accountremeber.activities.home.views.MainView
 import com.jscoolstar.accountremeber.activities.login.activities.LoginActivity
+import com.jscoolstar.accountremeber.activities.settings.activities.MineAct
 import com.jscoolstar.accountremeber.apps.ActivityManager
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.dataprovider.dataentity.User
@@ -147,6 +149,8 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
 
     override fun showEditState(showEdit: Boolean) {
         mAdapter.mInEdit = showEdit
+        toolbar.visibility =if(showEdit) GONE else VISIBLE
+        toolbar4edit.visibility = if(showEdit)VISIBLE else GONE
     }
 
     override fun showUIAccountEdit(account: Account) {
@@ -168,6 +172,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
 
     override fun showUISettingUI() {
         showToast("去设置")
+        startActivity(Intent(this,MineAct::class.java))
     }
 
     override fun showUILogin() {

@@ -14,7 +14,7 @@ class CateModelImpl : CateModel {
     }
 
 
-    override fun getAllCaesByUserid(userId: Int): List<Cate> {
+    override fun getAllCaesByUserid(userId: Int): ArrayList<Cate> {
 
         var result = arrayListOf<Cate>()
 

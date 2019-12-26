@@ -21,7 +21,8 @@
         <item name="android:colorControlNormal">@color/colorPrimary</item>
         <item name="android:textAllCaps">false</item>
     </style>
-
+    <style name="ActivityThemeBase" parent="AppTheme">
+    </style>
 
 
     <style name="MyToolBarTextAppearance">

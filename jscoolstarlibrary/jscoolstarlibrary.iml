@@ -26,7 +26,7 @@
       </configuration>
     </facet>
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="JVM 1.6" useProjectSettings="false">
+      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false" pureKotlinSourceFolders="E:\AccountRemeber\jscoolstarlibrary\src\debug\kotlin;E:\AccountRemeber\jscoolstarlibrary\src\debug\java;E:\AccountRemeber\jscoolstarlibrary\src\release\kotlin;E:\AccountRemeber\jscoolstarlibrary\src\release\java;E:\AccountRemeber\jscoolstarlibrary\src\debugAndroidTest\kotlin;E:\AccountRemeber\jscoolstarlibrary\src\debugUnitTest\kotlin;E:\AccountRemeber\jscoolstarlibrary\src\releaseUnitTest\kotlin">
         <compilerSettings>
           <option name="additionalArguments" value="-Xallow-no-source-files" />
         </compilerSettings>

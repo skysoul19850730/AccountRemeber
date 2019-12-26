@@ -1,22 +1,25 @@
 package com.jscoolstar.accountremeber.activities.edit.models
 
+import com.jscoolstar.accountremeber.dataprovider.AccountModelImpl
+import com.jscoolstar.accountremeber.dataprovider.CateModelImpl
+import com.jscoolstar.accountremeber.dataprovider.UserModelImpl
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
 
 class EditModelImpl:EditModel {
     override fun getCatesOfCurrectUser(): ArrayList<Cate> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return CateModelImpl().getAllCaesByUserid(getCurrectUser().userId)
     }
 
     override fun addCate(cate: Cate): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return CateModelImpl().addCate(cate)
     }
 
     override fun addOrUpdateAccount(account: Account): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return AccountModelImpl().addAccount(getCurrectUser().userId,account)
     }
 
     override fun judgePermissonIfRigth(password: String): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return UserModelImpl().isAccountViewPasswordCorrect(getCurrectUser().userId,password)
     }
 }

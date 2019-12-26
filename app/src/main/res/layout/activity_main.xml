@@ -12,29 +12,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.jscoolstar.accountremeber.activities.HomeToolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
+            android:id="@+id/rlt_bar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:visibility="visible"
-            app:buttonGravity="top|bottom"
-            app:navigationIcon="@drawable/ic_menu"
-            app:title="@string/app_name"
-            app:titleTextColor="#ffffff"></com.jscoolstar.accountremeber.activities.HomeToolbar>
+            android:layout_height="wrap_content">
 
-        <com.jscoolstar.accountremeber.activities.HomeToolbar4Edit
-            android:id="@+id/toolbar4edit"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:visibility="invisible"
-            app:buttonGravity="top|bottom"
-            app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
-            app:title="Edit"
-            app:titleTextColor="#ffffff"></com.jscoolstar.accountremeber.activities.HomeToolbar4Edit>
+            <com.jscoolstar.accountremeber.activities.HomeToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:visibility="visible"
+                app:buttonGravity="top|bottom"
+                app:navigationIcon="@drawable/ic_menu"
+                app:title="@string/app_name"
+                app:titleTextColor="#ffffff"></com.jscoolstar.accountremeber.activities.HomeToolbar>
+
+            <com.jscoolstar.accountremeber.activities.HomeToolbar4Edit
+                android:id="@+id/toolbar4edit"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:visibility="invisible"
+                app:buttonGravity="top|bottom"
+                app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
+                app:title="Edit"
+                app:titleTextColor="#ffffff"></com.jscoolstar.accountremeber.activities.HomeToolbar4Edit>
+        </RelativeLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/rlt_bar">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -60,8 +67,8 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         android:layout_gravity="start"
+        android:fitsSystemWindows="true"
         app:headerLayout="@layout/main_drawer_header"
         app:menu="@menu/menu_draw"></com.google.android.material.navigation.NavigationView>
 

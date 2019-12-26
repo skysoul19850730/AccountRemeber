@@ -20,5 +20,5 @@ interface IEditPresenter : BasePresenter {
 
     fun addCateWithName(name: String, addResult: (suc: Boolean) -> Unit)
     fun initDatas(intent: Intent)
-
+    fun selectCateAt(position: Int)
 }

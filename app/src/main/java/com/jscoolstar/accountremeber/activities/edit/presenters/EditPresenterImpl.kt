@@ -15,7 +15,7 @@ import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
 import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
 import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 
-class EditPresenterImpl(val viewModel: EditViewModel, val editModel: EditModel) : IEditPresenter {
+class EditPresenterImpl(var viewModel: EditViewModel?, val editModel: EditModel) : IEditPresenter {
     var account: Account? = null
     var extralColumns: ArrayList<ExtraColumn> = arrayListOf()
     var cates: ArrayList<Cate> = arrayListOf()
@@ -25,15 +25,15 @@ class EditPresenterImpl(val viewModel: EditViewModel, val editModel: EditModel) 
     override fun initDatas(intent: Intent) {
         account = intent.getParcelableExtra("account")
         if (account != null) {
-            viewModel.fillUIWithAccount(account!!)
+            viewModel?.fillUIWithAccount(account!!)
         } else {
             account = Account()
             isEditState = false
         }
         extralColumns = account?.extraColumnList ?: ArrayList()
-        viewModel.initExtraColumnUI(extralColumns)
+        viewModel?.initExtraColumnUI(extralColumns)
         cates = editModel.getCatesOfCurrectUser()
-        viewModel.initCatesAdapter(cates)
+        viewModel?.initCatesAdapter(cates)
         var cate = account!!.cate
         if (cate == null) {
             cate = cates.get(0)
@@ -44,7 +44,7 @@ class EditPresenterImpl(val viewModel: EditViewModel, val editModel: EditModel) 
     private fun dealCurrectCate(cate: Cate) {
         for ((index, c) in cates.withIndex()) {
             if (c.id == cate.id) {
-                viewModel.selectSpinnerIndex(index)
+                viewModel?.selectSpinnerIndex(index)
                 cateSelectIndex = index
                 return
             }
@@ -52,22 +52,22 @@ class EditPresenterImpl(val viewModel: EditViewModel, val editModel: EditModel) 
     }
 
     override fun judgePermissonIfShow() {
-        viewModel.showPermissonUI(editModel.getCurrectUser().isAccountViewPasswordSetted)
+        viewModel?.showPermissonUI(editModel.getCurrectUser().isAccountViewPasswordSetted)
     }
 
     override fun judgePermissonIfRigth(password: String) {
         if (editModel.judgePermissonIfRigth(password)) {
-            viewModel.showPermissonUI(false)
+            viewModel?.showPermissonUI(false)
         } else {
-            viewModel.showToast(R.string.edit_password_wrong)
-            viewModel.showPermissonUI(true)
+            viewModel?.showToast(R.string.edit_password_wrong)
+            viewModel?.showPermissonUI(true)
         }
     }
 
 
     override fun addCateWithName(name: String, addResult: (suc: Boolean) -> Unit) {
         if (name.length == 0) {
-            viewModel.showToast(R.string.edit_catename_not_null)
+            viewModel?.showToast(R.string.edit_catename_not_null)
             return
         }
         var cate: Cate = Cate()
@@ -79,7 +79,7 @@ class EditPresenterImpl(val viewModel: EditViewModel, val editModel: EditModel) 
             dealCurrectCate(cate)
             return
         } else {
-            viewModel.showToast(R.string.edit_catename_exist)
+            viewModel?.showToast(R.string.edit_catename_exist)
             addResult(false)
         }
     }
@@ -95,11 +95,10 @@ class EditPresenterImpl(val viewModel: EditViewModel, val editModel: EditModel) 
     }
 
     override fun start() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun destory() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        viewModel = null
     }
 
     override fun getUser(): User {
@@ -120,10 +119,13 @@ class EditPresenterImpl(val viewModel: EditViewModel, val editModel: EditModel) 
             var intent = Intent()
             intent.putExtra("account",acc2)
             intent.putExtra("isEditState",isEditState)
-            viewModel.uiOnAddOrUpdateFinished(intent)
+            viewModel?.uiOnAddOrUpdateFinished(intent)
         }else{
-            viewModel.showToast(R.string.edit_account_added_fail)
+            viewModel?.showToast(R.string.edit_account_added_fail)
         }
     }
 
+    override fun selectCateAt(position: Int) {
+        cateSelectIndex = position
+    }
 }

@@ -29,6 +29,7 @@ import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
 import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
 import com.jscoolstar.accountremeber.utils.AESUtil
 import com.jscoolstar.accountremeber.utils.Util
+import com.jscoolstar.accountremeber.utils.log
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogClickListerner
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogUtil
 import kotlinx.android.synthetic.main.act_editaccount.*
@@ -192,6 +193,7 @@ class EditActivity : BaseActivity<IEditPresenter>(), EditViewModel, JSToolbar.JS
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        log("onItemSelected：$position");
 
     }
 

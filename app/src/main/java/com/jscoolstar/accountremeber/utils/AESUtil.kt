@@ -2,6 +2,7 @@ package com.jscoolstar.accountremeber.utils
 
 import android.os.Build
 import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import java.security.Provider
 import java.security.SecureRandom
 import javax.crypto.Cipher
@@ -43,32 +44,45 @@ internal object AESUtil {
     }
 
     fun decrypt(seed: String, content: String): String {
-        var rawKey = getRawKey(seed.toByteArray())
+        var specKey:SecretKeySpec?=null
+        if(Build.VERSION.SDK_INT>=28){
+            specKey = SecretKeySpec(InsecureSHA1PRNGKeyDerivator.deriveInsecureKey(seed.toByteArray(StandardCharsets.US_ASCII),32),"AES")
+        }else{
+            var rawKey = getRawKey(seed.toByteArray())
+            specKey = SecretKeySpec(rawKey,"AES")
+        }
+
         var content2 = toByte(content)
-        var result = decrypt(content2, rawKey)
+        var result = decrypt(content2, specKey)
         return result.toString(Charset.forName("utf-8"))
     }
 
     private fun encrypt2Byte(seed: String, content: String): ByteArray {
-        var rawKey = getRawKey(seed.toByteArray())
-        return encrypt(content.toByteArray(Charset.forName("utf-8")), rawKey)
+        var specKey:SecretKeySpec?=null
+        if(Build.VERSION.SDK_INT>=28){
+            specKey = SecretKeySpec(InsecureSHA1PRNGKeyDerivator.deriveInsecureKey(seed.toByteArray(StandardCharsets.US_ASCII),32),"AES")
+        }else{
+            var rawKey = getRawKey(seed.toByteArray())
+            specKey = SecretKeySpec(rawKey,"AES")
+        }
+
+        return encrypt(content.toByteArray(Charset.forName("utf-8")), specKey)
     }
 
     @Throws(Exception::class)
-    private fun decrypt(byteData: ByteArray, byteKey: ByteArray): ByteArray {
-        return Aes(byteData, byteKey, Cipher.DECRYPT_MODE)
+    private fun decrypt(byteData: ByteArray, keySpec:SecretKeySpec): ByteArray {
+        return Aes(byteData, keySpec, Cipher.DECRYPT_MODE)
     }
 
     @Throws(Exception::class)
-    private fun encrypt(byteData: ByteArray, byteKey: ByteArray): ByteArray {
-        return Aes(byteData, byteKey, Cipher.ENCRYPT_MODE)
+    private fun encrypt(byteData: ByteArray, keySpec:SecretKeySpec): ByteArray {
+        return Aes(byteData, keySpec, Cipher.ENCRYPT_MODE)
     }
 
     @Throws(Exception::class)
-    private fun Aes(byteData: ByteArray, byteKey: ByteArray, opmode: Int): ByteArray {
+    private fun Aes(byteData: ByteArray,keySpec:SecretKeySpec, opmode: Int): ByteArray {
         val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
-        var skeySpec = SecretKeySpec(byteKey, "AES")
-        cipher.init(opmode, skeySpec)
+        cipher.init(opmode, keySpec)
         return cipher.doFinal(byteData)
     }
 

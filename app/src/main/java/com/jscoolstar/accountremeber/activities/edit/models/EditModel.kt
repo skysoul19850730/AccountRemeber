@@ -9,7 +9,6 @@ interface EditModel :BaseModel{
     fun getCatesOfCurrectUser():ArrayList<Cate>
     fun addCate(cate:Cate):Boolean
     fun addOrUpdateAccount(account: Account):Boolean
-
     fun judgePermissonIfRigth(password: String):Boolean
 
 }
