@@ -20,7 +20,7 @@ interface MainView :BaseView<IMainPresenter>{
     fun showUISettingUI()
     fun showUILogin()
 
-    fun finalFinish()
+    fun canFinish():Boolean
 
     fun notifyItemChanged(position:Int)
     fun notifyItemInserted(position:Int)

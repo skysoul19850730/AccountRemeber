@@ -7,15 +7,13 @@ import com.jscoolstar.accountremeber.activities.BasePresenter
 import com.jscoolstar.accountremeber.activities.BaseView
 import com.jscoolstar.accountremeber.utils.log
 
-abstract class BaseActivity<T> : AppCompatActivity(), BaseView<T> {
-
+abstract class BaseActivity<T> : AppActivity(), BaseView<T> {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
-        log("onCreate")
-    }
 
+    }
 
     override fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show()

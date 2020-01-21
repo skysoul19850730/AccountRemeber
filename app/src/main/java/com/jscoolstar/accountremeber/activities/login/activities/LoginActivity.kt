@@ -17,17 +17,20 @@ import com.jscoolstar.accountremeber.activities.login.presenter.LoginPresenterIm
 import com.jscoolstar.accountremeber.activities.login.views.LoginViewModel
 import com.jscoolstar.accountremeber.activities.register.activities.RegisterActivity
 import com.jscoolstar.accountremeber.activities.utils.MTextWatch
+import com.jscoolstar.accountremeber.apps.BaseActivity
 import kotlinx.android.synthetic.main.loginact.*
 
-class LoginActivity:AppCompatActivity(),LoginViewModel {
+class LoginActivity:BaseActivity<ILoginPresenter>(),LoginViewModel {
     override lateinit var presenter: ILoginPresenter
+
+    override fun getLayoutId(): Int {
+        return R.layout.loginact
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        setContentView(R.layout.loginact)
         et_username.requestFocus()
-
         presenter = LoginPresenterImpl(this,LoginModelImpl())
         presenter.start()
         btn_login.setOnClickListener { presenter.onLoginClick(et_username.text.toString(),et_password.text.toString()) }

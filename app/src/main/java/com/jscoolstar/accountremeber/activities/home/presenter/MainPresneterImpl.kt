@@ -35,11 +35,17 @@ class MainPresneterImpl(private var mainModel: MainModel, private var mainView: 
 
     override fun dealFinish() {
         if (finishFlag) {
-            mainView?.finalFinish()
+            MApplication.getInstance().exitProgram()
+            return
+        }
+        if(mainView==null)return
+        if(mEditState){
+            onEditClick()
             return
         }
         finishFlag = true
-        Handler().postDelayed({ finishFlag = false }, 500)
+        Handler().postDelayed({ finishFlag = false }, 3000)
+        mainView?.showToast(getString(R.string.pressAgainToExit))
     }
 
     override fun destory() {

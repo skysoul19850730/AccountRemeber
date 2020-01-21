@@ -14,6 +14,14 @@ fun Any.log(id:Int){
     var tag = javaClass.simpleName
     Log.d(tag,MApplication.getInstance().getContext().getString(id))
 }
+fun Any.logE(text:String?){
+    var tag = javaClass.simpleName
+    Log.e(tag,text)
+}
+fun Any.logE(id:Int){
+    var tag = javaClass.simpleName
+    Log.e(tag,MApplication.getInstance().getContext().getString(id))
+}
 
 
 inline fun <reified T> Cursor.get(key: String): T {

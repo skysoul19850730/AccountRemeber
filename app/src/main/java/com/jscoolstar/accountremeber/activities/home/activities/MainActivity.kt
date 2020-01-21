@@ -25,6 +25,7 @@ import com.jscoolstar.accountremeber.activities.home.views.MainView
 import com.jscoolstar.accountremeber.activities.login.activities.LoginActivity
 import com.jscoolstar.accountremeber.activities.settings.activities.MineAct
 import com.jscoolstar.accountremeber.apps.ActivityManager
+import com.jscoolstar.accountremeber.apps.BaseActivity
 import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 import com.jscoolstar.accountremeber.db.entity.DMAccount
@@ -36,21 +37,24 @@ import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_drawer_header.view.*
 
 
-class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, HomeToolbar4Edit.HomeBar4EditClickListerner, MainView {
+class MainActivity : BaseActivity<IMainPresenter>(), HomeToolbar.HomeBarClickListerner, HomeToolbar4Edit.HomeBar4EditClickListerner, MainView {
     override lateinit var presenter: IMainPresenter
 
     lateinit var mAdapter: AccountAdapter
 
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         presenter = MainPresneterImpl(MainModelImpl(), this)
         toolbar.listerner = this
         toolbar4edit.listerner = this
         var lManager = LinearLayoutManager(this)
         lManager.orientation = RecyclerView.VERTICAL
         recyclerView.layoutManager = lManager
-        var list:ArrayList<Account> = arrayListOf()
+        var list: ArrayList<Account> = arrayListOf()
         mAdapter = AccountAdapter(this, list)
         mAdapter.listerner = object : AccountAdapter.AccountListClickListerner {
             override fun onItemClick(position: Int) {
@@ -81,12 +85,13 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
         presenter.start()
     }
 
-    override fun finalFinish() {
-        super.finish()
+
+    override fun onBackPressed() {
+        presenter.dealFinish()
     }
 
-    override fun finish() {
-        presenter.dealFinish()
+    override fun canFinish(): Boolean {
+        return true
     }
 
     fun onAddClick() {
@@ -149,8 +154,8 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
 
     override fun showEditState(showEdit: Boolean) {
         mAdapter.mInEdit = showEdit
-        toolbar.visibility =if(showEdit) GONE else VISIBLE
-        toolbar4edit.visibility = if(showEdit)VISIBLE else GONE
+        toolbar.visibility = if (showEdit) GONE else VISIBLE
+        toolbar4edit.visibility = if (showEdit) VISIBLE else GONE
     }
 
     override fun showUIAccountEdit(account: Account) {
@@ -172,7 +177,7 @@ class MainActivity : AppCompatActivity(), HomeToolbar.HomeBarClickListerner, Hom
 
     override fun showUISettingUI() {
         showToast("去设置")
-        startActivity(Intent(this,MineAct::class.java))
+        startActivity(Intent(this, MineAct::class.java))
     }
 
     override fun showUILogin() {

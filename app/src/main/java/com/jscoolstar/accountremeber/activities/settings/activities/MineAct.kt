@@ -9,9 +9,11 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.jscoolstar.accountremeber.R
+import com.jscoolstar.accountremeber.apps.AppActivity
+import com.jscoolstar.accountremeber.apps.BaseActivity
 import kotlinx.android.synthetic.main.act_mine.*
 
-class MineAct : AppCompatActivity() {
+class MineAct : AppActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = window
