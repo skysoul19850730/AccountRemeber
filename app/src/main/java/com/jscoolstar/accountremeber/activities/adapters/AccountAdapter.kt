@@ -1,16 +1,13 @@
 package com.jscoolstar.accountremeber.activities.adapters
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.TextView
 import com.jscoolstar.accountremeber.R
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
-import com.jscoolstar.accountremeber.db.entity.DMAccount
+import com.jscoolstar.accountremeber.model.beans.Account
 
 /**
  * Created by Administrator on 2018/4/16.

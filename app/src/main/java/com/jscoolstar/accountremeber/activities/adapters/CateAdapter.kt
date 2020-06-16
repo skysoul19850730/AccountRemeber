@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.jscoolstar.accountremeber.R
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
-import com.jscoolstar.accountremeber.db.entity.DMCate
+import com.jscoolstar.accountremeber.model.beans.Cate
 
 class CateAdapter(var context:Context, var cates:List<Cate>) : BaseAdapter() {
 

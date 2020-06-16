@@ -1,6 +1,6 @@
 package com.jscoolstar.accountremeber.dataprovider
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
+import com.jscoolstar.accountremeber.model.beans.Account
 import com.jscoolstar.accountremeber.db.entity.DMAccount
 import com.jscoolstar.accountremeber.db.models.DMAccountModelImpl
 

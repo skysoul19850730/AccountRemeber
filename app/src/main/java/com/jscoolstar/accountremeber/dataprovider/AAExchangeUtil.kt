@@ -1,9 +1,9 @@
 package com.jscoolstar.accountremeber.dataprovider
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
-import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
+import com.jscoolstar.accountremeber.model.beans.Account
+import com.jscoolstar.accountremeber.model.beans.Cate
+import com.jscoolstar.accountremeber.model.beans.ExtraColumn
+import com.jscoolstar.accountremeber.model.beans.User
 import com.jscoolstar.accountremeber.db.entity.DMAccount
 import com.jscoolstar.accountremeber.db.entity.DMCate
 import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
@@ -85,6 +85,5 @@ fun DMUser.toUser(): User {
     user.userId = userId
     user.nickName = nickName
     user.passwordTip = passwordTip
-    user.isAccountViewPasswordSetted = isAccountViewPasswordSetted
     return user
 }

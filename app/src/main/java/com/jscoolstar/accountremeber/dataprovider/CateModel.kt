@@ -1,6 +1,6 @@
 package com.jscoolstar.accountremeber.dataprovider
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
+import com.jscoolstar.accountremeber.model.beans.Cate
 
 
 interface CateModel {
@@ -9,5 +9,5 @@ interface CateModel {
     fun addCate(cate: Cate): Boolean
     fun updateCate(cate: Cate): Boolean
     fun getCateById(id: Int): Cate?
-    fun getCateByName(userId: Int,name:String):Cate?
+    fun getCateByName(userId: Int,name:String): Cate?
 }

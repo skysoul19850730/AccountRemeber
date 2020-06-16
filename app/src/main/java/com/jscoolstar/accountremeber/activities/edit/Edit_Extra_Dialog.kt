@@ -8,8 +8,7 @@ import android.view.Gravity
 import android.view.WindowManager
 import android.widget.Toast
 import com.jscoolstar.accountremeber.R
-import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
-import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
+import com.jscoolstar.accountremeber.model.beans.ExtraColumn
 import kotlinx.android.synthetic.main.dialog_extra.*
 
 /**

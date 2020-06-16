@@ -2,7 +2,6 @@ package com.jscoolstar.accountremeber.activities.home.presenter
 
 import android.content.Intent
 import com.jscoolstar.accountremeber.activities.BasePresenter
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
 
 interface IMainPresenter :BasePresenter{
 

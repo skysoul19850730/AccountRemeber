@@ -1,10 +1,10 @@
 package com.jscoolstar.accountremeber.dataprovider
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
+import com.jscoolstar.accountremeber.model.beans.User
 
 interface UserModel {
 
-    fun getUserById(userId: Int):User?
+    fun getUserById(userId: Int): User?
 
     fun getUserList():ArrayList<User>
 

@@ -1,13 +1,9 @@
 package com.jscoolstar.accountremeber.activities.home.models
 
-import com.jscoolstar.accountremeber.dataprovider.AccountModel
 import com.jscoolstar.accountremeber.dataprovider.AccountModelImpl
-import com.jscoolstar.accountremeber.dataprovider.UserModel
 import com.jscoolstar.accountremeber.dataprovider.UserModelImpl
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
-import com.jscoolstar.accountremeber.db.SQL
-import com.jscoolstar.accountremeber.db.models.DMUserModelImpl
+import com.jscoolstar.accountremeber.model.beans.Account
+import com.jscoolstar.accountremeber.model.beans.User
 import com.jscoolstar.accountremeber.utils.SharedPreferencesManager
 
 class MainModelImpl : MainModel {

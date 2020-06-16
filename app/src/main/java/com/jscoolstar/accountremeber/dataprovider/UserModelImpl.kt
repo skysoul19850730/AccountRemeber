@@ -1,6 +1,6 @@
 package com.jscoolstar.accountremeber.dataprovider
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
+import com.jscoolstar.accountremeber.model.beans.User
 import com.jscoolstar.accountremeber.db.models.DMUserModelImpl
 
 class UserModelImpl :UserModel {

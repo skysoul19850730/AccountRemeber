@@ -3,8 +3,8 @@ package com.jscoolstar.accountremeber.activities.edit.models
 import com.jscoolstar.accountremeber.dataprovider.AccountModelImpl
 import com.jscoolstar.accountremeber.dataprovider.CateModelImpl
 import com.jscoolstar.accountremeber.dataprovider.UserModelImpl
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
+import com.jscoolstar.accountremeber.model.beans.Account
+import com.jscoolstar.accountremeber.model.beans.Cate
 
 class EditModelImpl:EditModel {
     override fun getCatesOfCurrectUser(): ArrayList<Cate> {

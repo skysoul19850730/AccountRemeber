@@ -6,6 +6,8 @@ import android.content.Context
 import com.jscoolstar.accountremeber.utils.log
 import com.jscoolstar.accountremeber.utils.logE
 import com.skysoul.utils.logs.Print
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import java.lang.Exception
 
 /**
@@ -44,6 +46,12 @@ class MApplication : Application() {
         mApplication = this
         context = this
         Print.Init(true,null)
+
+        startKoin {
+            androidContext(this@MApplication)
+            modules(appModule)
+        }
+        registerActivityLifecycleCallbacks(KtxLifeCycleCallBack())
     }
 
 

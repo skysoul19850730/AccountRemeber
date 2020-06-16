@@ -28,14 +28,14 @@ class RegisterPresenter2Impl(var viewModel: Register2View?, val dataModel: Regis
             return
         }
         dataModel.setNickName(nickName)
-        dataModel.updateUserPassword4ViewAccount(UserInfoManager.getInstance().getUser()!!.userId,password,isUseLoginPasswor)
+//        dataModel.updateUserPassword4ViewAccount(UserInfoManager.getInstance().getUser()!!.userId,password,isUseLoginPasswor)
         viewModel?.uiShowHome()
     }
 
     private fun onDialogConfirmClickOk(nickName: String) {
-        dataModel.setNickName(nickName)
-        dataModel.updateUserPassword4ViewAccount(UserInfoManager.getInstance().getUser()!!.userId,"",false)
-        viewModel?.uiShowHome()
+//        dataModel.setNickName(nickName)
+//        dataModel.updateUserPassword4ViewAccount(UserInfoManager.getInstance().getUser()!!.userId,"",false)
+//        viewModel?.uiShowHome()
     }
 
 

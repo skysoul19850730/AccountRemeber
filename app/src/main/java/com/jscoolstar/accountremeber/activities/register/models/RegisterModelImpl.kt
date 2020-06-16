@@ -1,8 +1,6 @@
 package com.jscoolstar.accountremeber.activities.register.models
 
-import com.jscoolstar.accountremeber.activities.login.models.LoginModelImpl
 import com.jscoolstar.accountremeber.dataprovider.UserModelImpl
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
 
 class RegisterModelImpl : RegisterModel {
 

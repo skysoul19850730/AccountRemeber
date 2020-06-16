@@ -6,12 +6,9 @@ import android.os.Handler
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.home.models.MainModel
 import com.jscoolstar.accountremeber.activities.home.views.MainView
-import com.jscoolstar.accountremeber.apps.ActivityManager
 import com.jscoolstar.accountremeber.apps.MApplication
 import com.jscoolstar.accountremeber.apps.UserInfoManager
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
-import com.jscoolstar.accountremeber.db.SQL
+import com.jscoolstar.accountremeber.model.beans.Account
 
 class MainPresneterImpl(private var mainModel: MainModel, private var mainView: MainView?) : IMainPresenter {
     companion object {

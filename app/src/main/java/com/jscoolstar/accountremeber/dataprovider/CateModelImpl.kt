@@ -1,7 +1,6 @@
 package com.jscoolstar.accountremeber.dataprovider
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
-import com.jscoolstar.accountremeber.db.entity.DMCate
+import com.jscoolstar.accountremeber.model.beans.Cate
 import com.jscoolstar.accountremeber.db.models.DMCateModel
 import com.jscoolstar.accountremeber.db.models.DMCateModelImpl
 

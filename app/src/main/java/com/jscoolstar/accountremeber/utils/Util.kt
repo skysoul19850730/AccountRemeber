@@ -49,4 +49,8 @@ class Util {
             file1.createNewFile()
         }
     }
+    
+    fun testBlock(block:(result:Boolean)->Unit){
+        block(true);
+    }
 }

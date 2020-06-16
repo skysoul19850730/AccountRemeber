@@ -1,6 +1,6 @@
 package com.jscoolstar.accountremeber.dataprovider
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
+import com.jscoolstar.accountremeber.model.beans.ExtraColumn
 import com.jscoolstar.accountremeber.db.entity.DMExtraColumn
 import com.jscoolstar.accountremeber.db.models.DMExtraColumnModel
 import com.jscoolstar.accountremeber.db.models.DMExtraCoumnModelImpl

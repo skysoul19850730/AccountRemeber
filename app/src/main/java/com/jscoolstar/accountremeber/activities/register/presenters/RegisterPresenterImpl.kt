@@ -4,8 +4,6 @@ import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.register.models.RegisterModelImpl
 import com.jscoolstar.accountremeber.activities.register.views.RegisterView
 import com.jscoolstar.accountremeber.apps.UserInfoManager
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
-import com.jscoolstar.accountremeber.utils.SharedPreferencesManager
 
 class RegisterPresenterImpl(var viewModel:RegisterView?,val dataModel:RegisterModelImpl):IRegisterPresenter {
 
@@ -39,7 +37,7 @@ class RegisterPresenterImpl(var viewModel:RegisterView?,val dataModel:RegisterMo
 
         var result = dataModel.addUser(userName,password,passwordTip)
         if(result>0){
-            UserInfoManager.getInstance().save4LastUser(userName,result.toInt())
+//            UserInfoManager.getInstance().save4LastUser(userName,result.toInt())
             viewModel?.uiShowRegister2Step()
         }else{
             viewModel?.showToast("添加用户失败，请更换用户名或者密码再次尝试")

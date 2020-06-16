@@ -1,6 +1,6 @@
 package com.jscoolstar.accountremeber.dataprovider
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
+import com.jscoolstar.accountremeber.model.beans.ExtraColumn
 
 
 interface ExtraColumnModel {

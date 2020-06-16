@@ -1,7 +1,7 @@
 package com.jscoolstar.accountremeber.activities.home.models
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
+import com.jscoolstar.accountremeber.model.beans.Account
+import com.jscoolstar.accountremeber.model.beans.User
 
 interface MainModel {
 
@@ -10,7 +10,7 @@ interface MainModel {
     fun deleteAccounts(accounts:List<Account>):Boolean
 
 
-    fun getCurrectUser():User?
+    fun getCurrectUser(): User?
 
     fun getUserReTryTimesAndLastWrongTime(userName: String):Pair<Int,String>
 

@@ -3,7 +3,7 @@ package com.jscoolstar.accountremeber.apps
 import android.content.Context
 import android.content.Intent
 import com.jscoolstar.accountremeber.activities.home.activities.MainActivity
-import com.jscoolstar.accountremeber.activities.login.activities.LoginActivity
+import com.jscoolstar.accountremeber.activities.login.LoginActivity
 
 object ActivityManager {
 
@@ -12,7 +12,7 @@ object ActivityManager {
         context.startActivity(Intent(context,MainActivity::class.java))
     }
     fun goLogin(context: Context){
-        context.startActivity(Intent(context,LoginActivity::class.java))
+        context.startActivity(Intent(context, LoginActivity::class.java))
     }
 
 }

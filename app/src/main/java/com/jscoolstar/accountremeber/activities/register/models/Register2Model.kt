@@ -1,7 +1,5 @@
 package com.jscoolstar.accountremeber.activities.register.models
 
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
-
 interface Register2Model {
 
     fun isNickNameExsits(nickName:String):Boolean

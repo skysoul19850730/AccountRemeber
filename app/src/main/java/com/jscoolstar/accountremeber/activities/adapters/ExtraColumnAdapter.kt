@@ -1,14 +1,13 @@
 package com.jscoolstar.accountremeber.activities.adapters
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.jscoolstar.accountremeber.R
-import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
+import com.jscoolstar.accountremeber.model.beans.ExtraColumn
 
 /**
  * Created by Administrator on 2018/4/17.
@@ -36,8 +35,8 @@ class ExtraColumnAdapter(val mContext: Context, var mList: ArrayList<ExtraColumn
     }
 
     interface ExtraColumnClickListener {
-        fun onItemClick(extraColumn: ExtraColumn,position: Int)
-        fun onItemDeleteClick(extraColumn: ExtraColumn,position: Int)
+        fun onItemClick(extraColumn: ExtraColumn, position: Int)
+        fun onItemDeleteClick(extraColumn: ExtraColumn, position: Int)
     }
 
     class MHoler(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {

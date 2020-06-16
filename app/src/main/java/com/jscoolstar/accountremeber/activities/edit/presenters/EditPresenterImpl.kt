@@ -1,19 +1,18 @@
 package com.jscoolstar.accountremeber.activities.edit.presenters
 
 import android.content.Intent
-import android.text.TextUtils
 import com.jscoolstar.accountremeber.R
 import com.jscoolstar.accountremeber.activities.edit.models.EditModel
 import com.jscoolstar.accountremeber.activities.edit.views.EditViewModel
-import com.jscoolstar.accountremeber.apps.MApplication
 import com.jscoolstar.accountremeber.apps.UserInfoManager
 import com.jscoolstar.accountremeber.dataprovider.AccountModelImpl
-import com.jscoolstar.accountremeber.dataprovider.CateModel
 import com.jscoolstar.accountremeber.dataprovider.CateModelImpl
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
-import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
+import com.jscoolstar.accountremeber.model.beans.Account
+import com.jscoolstar.accountremeber.model.beans.Cate
+import com.jscoolstar.accountremeber.model.beans.ExtraColumn
+import com.jscoolstar.accountremeber.model.beans.User
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class EditPresenterImpl(var viewModel: EditViewModel?, val editModel: EditModel) : IEditPresenter {
     var account: Account? = null
@@ -52,7 +51,7 @@ class EditPresenterImpl(var viewModel: EditViewModel?, val editModel: EditModel)
     }
 
     override fun judgePermissonIfShow() {
-        viewModel?.showPermissonUI(editModel.getCurrectUser().isAccountViewPasswordSetted)
+//        viewModel?.showPermissonUI(editModel.getCurrectUser().isAccountViewPasswordSetted)
     }
 
     override fun judgePermissonIfRigth(password: String) {
@@ -102,7 +101,7 @@ class EditPresenterImpl(var viewModel: EditViewModel?, val editModel: EditModel)
     }
 
     override fun getUser(): User {
-        return UserInfoManager.getInstance().getUser()
+        return User()
     }
 
     override fun getDefaultCate(): Cate {
@@ -110,18 +109,19 @@ class EditPresenterImpl(var viewModel: EditViewModel?, val editModel: EditModel)
     }
 
     override fun saveAccount(backme: (acc: Account) -> Account) {
-        var acc2 = backme(account!!.clone())
-        acc2.extraColumnList = extralColumns
-        acc2.cate = cates.get(cateSelectIndex)
-        var result = AccountModelImpl().addAccount(UserInfoManager.getInstance().getUser().userId, acc2)
-        if (result)
-        {
-            var intent = Intent()
-            intent.putExtra("account",acc2)
-            intent.putExtra("isEditState",isEditState)
-            viewModel?.uiOnAddOrUpdateFinished(intent)
-        }else{
-            viewModel?.showToast(R.string.edit_account_added_fail)
+        GlobalScope.launch {
+            var acc2 = backme(account!!.clone())
+            acc2.extraColumnList = extralColumns
+            acc2.cate = cates.get(cateSelectIndex)
+            var result = AccountModelImpl().addAccount(UserInfoManager.getInstance().getUserAndReturnLoginIfNull().userId, acc2)
+            if (result) {
+                var intent = Intent()
+                intent.putExtra("account", acc2)
+                intent.putExtra("isEditState", isEditState)
+                viewModel?.uiOnAddOrUpdateFinished(intent)
+            } else {
+                viewModel?.showToast(R.string.edit_account_added_fail)
+            }
         }
     }
 

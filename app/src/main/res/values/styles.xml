@@ -14,7 +14,7 @@
         <!-- 使用 API Level 22 編譯的話，要拿掉前綴字 -->
         <item name="windowNoTitle">true</item>
         <!--Window color-->
-        <item name="android:screenOrientation">portrait</item>
+<!--        <item name="android:screenOrientation">sensor</item>-->
         <!--   theme UI controls like checkboxes and text fields -->
 
         <item name="android:colorControlActivated">@color/colorAccent</item>

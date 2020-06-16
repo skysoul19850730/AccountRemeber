@@ -1,14 +1,11 @@
 package com.jscoolstar.accountremeber.activities.home.activities
 
-import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.view.GravityCompat
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -22,18 +19,15 @@ import com.jscoolstar.accountremeber.activities.home.models.MainModelImpl
 import com.jscoolstar.accountremeber.activities.home.presenter.IMainPresenter
 import com.jscoolstar.accountremeber.activities.home.presenter.MainPresneterImpl
 import com.jscoolstar.accountremeber.activities.home.views.MainView
-import com.jscoolstar.accountremeber.activities.login.activities.LoginActivity
 import com.jscoolstar.accountremeber.activities.settings.activities.MineAct
 import com.jscoolstar.accountremeber.apps.ActivityManager
 import com.jscoolstar.accountremeber.apps.BaseActivity
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
-import com.jscoolstar.accountremeber.db.entity.DMAccount
+import com.jscoolstar.accountremeber.model.beans.Account
+import com.jscoolstar.accountremeber.model.beans.User
 import com.jscoolstar.accountremeber.utils.AESUtil
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogClickListerner
 import com.jscoolstar.jscoolstarlibrary.widgets.dialog.JSMaterialDialogUtil
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.main_drawer_header.view.*
 
 

@@ -1,6 +1,7 @@
 package com.jscoolstar.accountremeber.dataprovider.dataentity
 import android.os.Parcel
 import android.os.Parcelable
+import com.jscoolstar.accountremeber.model.beans.Cate
 
 class Cate() : Parcelable {
     var id = 0

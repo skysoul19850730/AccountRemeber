@@ -2,10 +2,10 @@ package com.jscoolstar.accountremeber.activities.edit.presenters
 
 import android.content.Intent
 import com.jscoolstar.accountremeber.activities.BasePresenter
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Account
-import com.jscoolstar.accountremeber.dataprovider.dataentity.Cate
-import com.jscoolstar.accountremeber.dataprovider.dataentity.ExtraColumn
-import com.jscoolstar.accountremeber.dataprovider.dataentity.User
+import com.jscoolstar.accountremeber.model.beans.Account
+import com.jscoolstar.accountremeber.model.beans.Cate
+import com.jscoolstar.accountremeber.model.beans.ExtraColumn
+import com.jscoolstar.accountremeber.model.beans.User
 
 interface IEditPresenter : BasePresenter {
     fun getUser(): User
