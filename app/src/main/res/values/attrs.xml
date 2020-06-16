@@ -1,6 +1,0 @@
-<resources>
-    <declare-styleable name="JSToolbar">
-        <attr name="menu_id" format="reference"/>
-
-    </declare-styleable>
-</resources>
