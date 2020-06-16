@@ -1,0 +1,132 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def bakPath = file("${buildDir}/bakApk/")
+
+def releaseTime() {
+    return new Date().format("MMdd-HH-mm-ss")
+}
+
+def AndroidSupportVersion = '1.2.0-alpha01'
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion1
+    defaultConfig {
+        applicationId "com.jscoolstar.accountremeber"
+        minSdkVersion 21
+        targetSdkVersion rootProject.ext.targetSdkVersion1
+        versionCode 1
+        versionName "1.0"
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_1_8
+        }
+
+        buildConfigField "boolean", "TESTDATA", "false"
+        signingConfigs {
+            debug {
+//                storeFile file("E:\\AccountRemeber\\jscoolstar.jks")
+//                storePassword "850730shen"
+//                keyAlias "key0"
+//                keyPassword "850730shen"
+            }
+            release {
+                storeFile file("..\\..\\jscoolstar.jks")
+                storePassword "850730shen"
+                keyAlias "key0"
+                keyPassword "850730shen"
+            }
+        }
+    }
+
+//    flavorDimensions("family")
+//    productFlavors {
+//
+//        js_debug {
+//            dimension "family"
+//            buildConfigField "boolean", "TESTDATA", "true"
+//        }
+//        js_release {
+//            dimension "family"
+//        }
+//    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+//            signingConfig signingConfigs.debug
+        }
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+
+}
+
+repositories {
+    flatDir {
+        dirs "libs"
+    }
+}
+
+//fileTree(dir: 'libs', include: '**/*.aar')
+//        .each {
+//    File file ->
+//        dependencies.add("implementation", [name: file.name.lastIndexOf('.').with {
+//            it != -1 ? file.name[0..<it] : file.name
+//        }, ext                                  : 'aar'])
+//}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.71'
+    implementation "com.google.android.material:material:1.1.0"
+    implementation project(':jscoolstarlibrary')
+    implementation 'androidx.room:room-runtime:2.2.5'
+    implementation 'androidx.room:room-ktx:2.2.5'
+    kapt 'androidx.room:room-compiler:2.2.5'
+//    kapt "androidx.room:room-compiler:$room_version"
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    //协程
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2"
+
+    //lifecycle
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    // Koin for Android
+    implementation 'org.koin:koin-android:2.0.1'
+    // or Koin for Lifecycle scoping
+    implementation 'org.koin:koin-androidx-scope:2.0.1'
+    // or Koin for Android Architecture ViewModel
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
+
+
+    // Navigation
+    api 'androidx.navigation:navigation-fragment-ktx:2.2.1'
+    api 'androidx.navigation:navigation-ui-ktx:2.2.1'
+}
