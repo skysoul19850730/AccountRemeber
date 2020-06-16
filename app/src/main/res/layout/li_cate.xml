@@ -1,0 +1,7 @@
+<TextView
+    android:id="@+id/tv_catename"
+    android:layout_width="200dp"
+    android:layout_height="50dp"
+    android:textSize="18sp"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"></TextView>

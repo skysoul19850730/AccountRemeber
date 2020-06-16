@@ -1,0 +1,2 @@
+include ':app', ':jscoolstarlibrary'
+//include ':ssappcorelibrary'

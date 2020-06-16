@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@mipmap/back"
+        android:background="@color/colorAccent"
+        app:title="@string/register_title"
+        app:titleTextColor="#ffffff"
+        ></androidx.appcompat.widget.Toolbar>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:hint="@string/register_username_text"
+        app:errorTextAppearance="@style/password_error"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:textSize="22sp"
+            tools:text="测试用户名" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/register_password_text"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_username"
+        app:errorTextAppearance="@style/password_error"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:inputType="textPassword"
+            android:textColor="@color/colorAccent"
+            android:textSize="22sp"
+            tools:text="测试密码" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_password2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="@string/register_password_text2"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_password"
+        android:layout_marginTop="20dp"
+        app:errorTextAppearance="@style/password_error"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:inputType="textPassword"
+            android:textColor="@color/colorAccent"
+            android:textSize="22sp"
+            tools:text="测试密码" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_passwordtip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="@string/register_passwordtip"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_password2"
+        android:layout_marginTop="20dp"
+        app:errorTextAppearance="@style/password_error"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_passwordtip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/colorAccent"
+            android:textSize="22sp"
+            tools:text="测试密码" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@color/colorAccent"
+        android:text="@string/register_title"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@id/layout_passwordtip"
+        app:layout_constraintRight_toRightOf="@id/layout_passwordtip"
+        app:layout_constraintTop_toBottomOf="@id/layout_passwordtip" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

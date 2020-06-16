@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="app_name">账密易</string>
+    <string name="password_wrong_moretimes">密码输入错误次数过多，请于%s之后尝试</string>
+    <string name="login_password_wrong">密码错误，您还有%d次机会进行尝试</string>
+    <string name="login_user_not_exists">用户名不存在</string>
+    <string name="login_username_cannot_be_null">用户名不能为空</string>
+    <string name="login_password_cannot_null">密码不能为空</string>
+    <string name="register_title">注册</string>
+
+    <string name="account_text">账号：</string>
+    <string name="password_text">密码：</string>
+    <string name="btn_login">登录</string>
+    <string name="tv_register4login">注&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;册</string>
+    <string name="btn_register">注册并登录</string>
+    <string name="register_username_text">请输入用户名</string>
+    <string name="register_password_text">请输入密码</string>
+    <string name="register_password_text2">请再次输入密码</string>
+    <string name="register_user_exists">用户名已存在</string>
+    <string name="register_password_different">两次输入的密码不一致</string>
+    <string name="register_passwordtip">设置密码提示</string>
+    <string name="drawer_menu_setting">设置</string>
+    <string name="drawer_menu_copy">备份</string>
+    <string name="drawer_menu_share">分享给朋友</string>
+    <string name="drawer_menu_rate">给我评分</string>
+    <string name="home_cancel_edit">已取消</string>
+
+    <string name="register2_title">完善信息</string>
+    <string name="register2_nickname_text">请输入用户昵称</string>
+    <string name="register2_password_text">输入账户查看密码</string>
+    <string name="register2_nickname_cannot_be_null">昵称不能为空</string>
+    <string name="register2_nickname_already_exist">昵称已存在</string>
+    <string name="register2_dialog_nopassword_title">未设置密码</string>
+    <string name="register2_dialog_nopassword_content">您未设置账户查看密码，查询账户详情时不会进行密码验证，是否确定不设置？</string>
+
+    <string name="edit_catename_not_null">添加的分类名称不能为空</string>
+    <string name="edit_catename_exist">添加的分类名称已存在</string>
+    <string name="edit_password_wrong">您输入的验证密码错误,请重新输入</string>
+    <string name="edit_account_added_fail">账户添加失败,请检查错误，并重新提交</string>
+
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_cancel">返回</string>
+    <string name="ok">完成</string>
+
+    <string name="pressAgainToExit">再按一次退出程序...</string>
+</resources>
